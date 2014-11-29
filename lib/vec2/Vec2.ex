@@ -42,4 +42,12 @@ defmodule Graphmath.Vec2 do
         [ x*scale, y*scale ]
     end
 
+    @doc """
+        `dot_vec2` is used to find the inner product (dot product) of one vec2 and another.
+
+        Passing it two vec2s will cause it to return the inner product of those two vec2s.
+    """
+    def dot_vec2( [x1,y1 |_ ], [x2,y2|_]) do
+        (x1*x2)+(y1*y2)
+    end
 end
