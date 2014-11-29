@@ -27,4 +27,19 @@ defmodule Graphmath.Vec2 do
         [ x+u, y+v ]
     end
 
+    @doc """
+        `scale_vec2` is used to perform a scaling on a vec2.
+
+        Passing it a single number will cause all elements of the vec2 to be multipled by that number.
+        Passing it a vec2 will cause each element of to be multiplied by the corresponding element of the scale vec2.
+    """
+    def scale_vec2( vec, [s1, s2 | _ ] ) do
+        [ x,y | _ ] = vec
+        [ x*s1, y * s2]
+    end
+    def scale_vec2( vec, scale ) do
+        [ x,y | _ ] = vec
+        [ x*scale, y*scale ]
+    end
+
 end
