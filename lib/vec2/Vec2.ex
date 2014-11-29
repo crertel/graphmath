@@ -50,4 +50,14 @@ defmodule Graphmath.Vec2 do
     def dot_vec2( [x1,y1 |_ ], [x2,y2|_]) do
         (x1*x2)+(y1*y2)
     end
+
+    @doc """
+        `perp_prod_vec2` is used to find the perpindicular product of two vec2s.
+
+        The perpindicular product is the magnitude of the cross-product between the two vectors.
+    """
+    def perp_prod_vec2( [x1, y1 | _ ], [ x2,y2 | _ ] ) do
+        (x1*y2) -( x2*y1)
+    end
+
 end
