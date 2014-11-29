@@ -17,4 +17,14 @@ defmodule Graphmath.Vec2 do
         [x,y]
     end
 
+    @doc """
+        `add_vec2` is used to add a vec2 to another vec2.
+        It takes two vec2s and returns a vec2 which is the element-wise sum of those lists.
+    """
+    def add_vec2( a, b) do
+        [ x,y | _] = a
+        [ u,v | _] = b
+        [ x+u, y+v ]
+    end
+
 end
