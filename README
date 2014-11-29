@@ -1,7 +1,9 @@
 What is graphmath?
 ===================
 
-Graphmath is a library for handling common 2D and 3D operations, usually with an eye towards vector arithmetic for graphics. It's designed to be comfortable to use, reasonably fast, and something which will benefit game developers and graphics programmers.
+Graphmath is a library for handling common 2D and 3D operations, usually with an eye towards vector arithmetic for graphics and simulation.
+
+It's designed to be comfortable to use, reasonably fast, and something which will benefit game developers and graphics programmers, though it may also be useful for robotocists and anyone attempting large-scale simluations which exist in R2 or R3.
 
 Features
 ========
@@ -64,3 +66,13 @@ Wishlist
 * Proper support for point-line arithmetic
 
 * Proper support for point-point arithmetic
+
+License
+=======
+
+This project is put into the public domain under the unlicense.
+
+If you can't use that, consider it under the WTFPL.
+
+If you can't use *that*, fine--use the new BSD license.
+
