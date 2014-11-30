@@ -60,4 +60,32 @@ defmodule Graphmath.Vec2 do
         (x1*y2) -( x2*y1)
     end
 
+
+    @doc """
+        `length_vec2` is used to find the length (L2 norm) of a vector.
+
+        The length is the square root of the sum of the squares.
+    """
+    def length_vec2( [x1, y1 | _ ] ) do
+        :math.sqrt( (x1*x1) + (y1*y1) )
+    end
+
+    @doc """
+        `length_squared_vec2` is used to find the square of the length of a vector.
+
+        In many cases, this is sufficient for comparisions and avaoids a sqrt.
+    """
+    def length_squared_vec2( [ x1, y1 | _ ] ) do
+        (x1*x1) + (y1*y1)
+    end
+
+    @doc """
+        `length_manhatten_vec2` is used to find the Manhattan (L1 norm) length of a vector.
+
+        The Manhattan length is simply the sum of the components.
+    """
+    def length_manhattan_vec2( [x1, y1| _ ]) do
+        x1 + y1
+    end
+
 end

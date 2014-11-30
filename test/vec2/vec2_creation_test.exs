@@ -1,8 +1,6 @@
 defmodule GraphmathTest.Vec2.Create_Vec2 do
   use ExUnit.Case
 
-  import Graphmath.Vec2
-
   test "create_vec2 returns [0,0]" do
     assert [0,0] == Graphmath.Vec2.create_vec2()
   end
