@@ -99,7 +99,7 @@ defmodule Graphmath.Vec2 do
     end
     
     @doc """
-        `lerp_vec2` is sued to linearly interpolate between two given vectors.
+        `lerp_vec2` is used to linearly interpolate between two given vectors.
 
         The interpolant is on the domain [0,1]. Behavior outside of that is undefined.
     """
@@ -107,4 +107,12 @@ defmodule Graphmath.Vec2 do
         [ ( t * x2) + ( (1-t) *x1 ), (t * y2) + ( (1-t) *y1)]
     end
 
+    @doc """
+        `rotate_vec2` is used to rotate a vec CCW about the +Z axis a given number of radians.
+    """
+    def rotate_vec2( [ x1, y1 | _ ], theta) do
+        ct = :math.cos(theta)
+        st = :math.sin(theta)
+        [ x1*ct + y1*st, x1*st - y1*ct]
+    end
 end
