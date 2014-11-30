@@ -88,4 +88,15 @@ defmodule Graphmath.Vec2 do
         x1 + y1
     end
 
+    @doc """
+        `normalize_vec2` is used to find the unit vector with the same direction as the supplied vector.
+
+        This is done by dividing each component by the vector's magnitude.
+    """
+    def normalize_vec2( [x1, y1 | _ ] ) do
+        imag = 1 / :math.sqrt( (x1*x1) + (y1*y1) )
+        [x1 * imag, y1 * imag]
+    end
+
+
 end
