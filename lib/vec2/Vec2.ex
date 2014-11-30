@@ -115,4 +115,14 @@ defmodule Graphmath.Vec2 do
         st = :math.sin(theta)
         [ x1*ct + y1*st, x1*st - y1*ct]
     end
+
+    @doc """
+        `compare_vec2` is used to check whether or not two vectors are within a length of each other.
+    """
+    def compare_vec2( [x1,y1|_], [x2, y2 | _ ], l) do
+        dx = x2-x1
+        dy = y2-y1
+        l > :math.sqrt( dx*dx + dy*dy )
+    end
+    
 end
