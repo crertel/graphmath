@@ -97,6 +97,14 @@ defmodule Graphmath.Vec2 do
         imag = 1 / :math.sqrt( (x1*x1) + (y1*y1) )
         [x1 * imag, y1 * imag]
     end
+    
+    @doc """
+        `lerp_vec2` is sued to linearly interpolate between two given vectors.
 
+        The interpolant is on the domain [0,1]. Behavior outside of that is undefined.
+    """
+    def lerp_vec2( [x1, y1 | _ ], [x2,y2| _], t ) do
+        [ ( t * x2) + ( (1-t) *x1 ), (t * y2) + ( (1-t) *y1)]
+    end
 
 end
