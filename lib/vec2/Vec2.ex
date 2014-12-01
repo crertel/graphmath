@@ -9,9 +9,11 @@ defmodule Graphmath.Vec2 do
 
         It takes a list of numbers and converts it into an array of form [x,y].
     """
+    @spec create_vec2() :: [float]
     def create_vec2() do
         [0,0]
     end
+    @spec create_vec2([float]) :: [float]
     def create_vec2 ( vec ) do
         [x,y | _] = vec
         [x,y]
@@ -21,6 +23,7 @@ defmodule Graphmath.Vec2 do
         `add_vec2` is used to add a vec2 to another vec2.
         It takes two vec2s and returns a vec2 which is the element-wise sum of those lists.
     """
+    @spec add_vec2( [float], [float]) :: [float]
     def add_vec2( a, b) do
         [ x,y | _] = a
         [ u,v | _] = b
@@ -31,6 +34,7 @@ defmodule Graphmath.Vec2 do
         `subtract_vec2` is used to subtract a vec2 from another vec2.
         It takes two vec2s and returns the difference of the two.
     """
+    @spec subtract_vec2( [float], [float] ) :: [float]
     def subtract_vec2( [x1, y1 | _], [x2,y2| _]) do
         [x1-x2,y1-y2]
     end
@@ -41,10 +45,12 @@ defmodule Graphmath.Vec2 do
         Passing it a single number will cause all elements of the vec2 to be multipled by that number.
         Passing it a vec2 will cause each element of to be multiplied by the corresponding element of the scale vec2.
     """
+    @spec scale_vec2( [float], [float] ) :: [float]
     def scale_vec2( vec, [s1, s2 | _ ] ) do
         [ x,y | _ ] = vec
         [ x*s1, y * s2]
     end
+    @spec scale_vec2( [float], float ) :: [float]
     def scale_vec2( vec, scale ) do
         [ x,y | _ ] = vec
         [ x*scale, y*scale ]
@@ -55,6 +61,7 @@ defmodule Graphmath.Vec2 do
 
         Passing it two vec2s will cause it to return the inner product of those two vec2s.
     """
+    @spec dot_vec2( [float], [float] ) :: float
     def dot_vec2( [x1,y1 |_ ], [x2,y2|_]) do
         (x1*x2)+(y1*y2)
     end
@@ -64,6 +71,7 @@ defmodule Graphmath.Vec2 do
 
         The perpindicular product is the magnitude of the cross-product between the two vectors.
     """
+    @spec perp_prod_vec2( [float], [float] ) :: float
     def perp_prod_vec2( [x1, y1 | _ ], [ x2,y2 | _ ] ) do
         (x1*y2) -( x2*y1)
     end
@@ -74,6 +82,7 @@ defmodule Graphmath.Vec2 do
 
         The length is the square root of the sum of the squares.
     """
+    @spec length_vec2( [float] ) :: float
     def length_vec2( [x1, y1 | _ ] ) do
         :math.sqrt( (x1*x1) + (y1*y1) )
     end
@@ -83,6 +92,7 @@ defmodule Graphmath.Vec2 do
 
         In many cases, this is sufficient for comparisions and avaoids a sqrt.
     """
+    @spec length_squared_vec2( [float] ) :: float
     def length_squared_vec2( [ x1, y1 | _ ] ) do
         (x1*x1) + (y1*y1)
     end
@@ -92,6 +102,7 @@ defmodule Graphmath.Vec2 do
 
         The Manhattan length is simply the sum of the components.
     """
+    @spec length_manhattan_vec2( [float] ) :: float
     def length_manhattan_vec2( [x1, y1| _ ]) do
         x1 + y1
     end
@@ -101,6 +112,7 @@ defmodule Graphmath.Vec2 do
 
         This is done by dividing each component by the vector's magnitude.
     """
+    @spec normalize_vec2( [float] ) :: [float]
     def normalize_vec2( [x1, y1 | _ ] ) do
         imag = 1 / :math.sqrt( (x1*x1) + (y1*y1) )
         [x1 * imag, y1 * imag]
@@ -111,6 +123,7 @@ defmodule Graphmath.Vec2 do
 
         The interpolant is on the domain [0,1]. Behavior outside of that is undefined.
     """
+    @spec lerp_vec2( [float], [float], float) :: [float]
     def lerp_vec2( [x1, y1 | _ ], [x2,y2| _], t ) do
         [ ( t * x2) + ( (1-t) *x1 ), (t * y2) + ( (1-t) *y1)]
     end
@@ -118,6 +131,7 @@ defmodule Graphmath.Vec2 do
     @doc """
         `rotate_vec2` is used to rotate a vec CCW about the +Z axis a given number of radians.
     """
+    @spec rotate_vec2( [float], float) :: [float]
     def rotate_vec2( [ x1, y1 | _ ], theta) do
         ct = :math.cos(theta)
         st = :math.sin(theta)
@@ -127,6 +141,7 @@ defmodule Graphmath.Vec2 do
     @doc """
         `compare_vec2` is used to check whether or not two vectors are within a length of each other.
     """
+    @spec compare_vec2( [float], [float], float) :: boolean
     def compare_vec2( [x1,y1|_], [x2, y2 | _ ], l) do
         dx = x2-x1
         dy = y2-y1
@@ -136,6 +151,7 @@ defmodule Graphmath.Vec2 do
     @doc """
         `project_vec2` projects one vector onto another, and returns the resulting image.
     """
+    @spec project_vec2( [float], [float]) :: [float]
     def project_vec2( [x1,y1|_], [x2,y2|_] ) do
         coeff = ((x1*x2) +(y1*y2)) / (x2*x2 + y2*y2)
         [x2*coeff, y2*coeff]
