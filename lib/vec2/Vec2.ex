@@ -28,6 +28,14 @@ defmodule Graphmath.Vec2 do
     end
 
     @doc """
+        `subtract_vec2` is used to subtract a vec2 from another vec2.
+        It takes two vec2s and returns the difference of the two.
+    """
+    def subtract_vec2( [x1, y1 | _], [x2,y2| _]) do
+        [x1-x2,y1-y2]
+    end
+
+    @doc """
         `scale_vec2` is used to perform a scaling on a vec2.
 
         Passing it a single number will cause all elements of the vec2 to be multipled by that number.
