@@ -32,7 +32,7 @@ All operations are accompied by tests and documentation.
 Contributing
 ============
 
----For developers---
+###For developers###
 
 1. Fork this project on Github.
 
@@ -46,7 +46,7 @@ Contributing
 
 6. Bask in the glory of having helped create content on one of the best platforms ever devised.
 
----For non-developers---
+###For non-developers###
 
 1. Buy me a beer if you see me at ElixirConf.
 
@@ -59,13 +59,13 @@ Wishlist
 
 * Left-handed coordinate system support (don't care enough right now, but some interop would appreciate it).
 
-* Fucntions to convery to packed 32-bit and 64-bit float byte arrays.
+* Functions to convert to packed 32-bit and 64-bit float byte arrays.
 
-* Proper support for point-plane arithmetic
+* Proper support for point-plane arithmetic.
 
-* Proper support for point-line arithmetic
+* Proper support for point-line arithmetic.
 
-* Proper support for point-point arithmetic
+* Proper support for point-point arithmetic.
 
 License
 =======
