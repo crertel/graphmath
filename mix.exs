@@ -19,7 +19,10 @@ defmodule Graphmath.Mixfile do
   end
 
   defp deps do
-    []
+    [
+        {:earmark, "~> 0.1", only: :dev },
+        {:ex_doc, "~> 0.6", only: :dev}
+    ]
   end
 
   defp package do
@@ -31,3 +34,4 @@ defmodule Graphmath.Mixfile do
   end
 
 end
+
