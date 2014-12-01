@@ -124,5 +124,12 @@ defmodule Graphmath.Vec2 do
         dy = y2-y1
         l > :math.sqrt( dx*dx + dy*dy )
     end
-    
+
+    @doc """
+        `project_vec2` projects one vector onto another, and returns the resulting image.
+    """
+    def project_vec2( [x1,y1|_], [x2,y2|_] ) do
+        coeff = ((x1*x2) +(y1*y2)) / (x2*x2 + y2*y2)
+        [x2*coeff, y2*coeff]
+    end
 end
