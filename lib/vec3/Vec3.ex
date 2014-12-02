@@ -68,6 +68,16 @@ defmodule Graphmath.Vec3 do
         (x1*x2)+(y1*y2)+(z1*z2)
     end
 
+    @doc"""
+        `cross_vec3` is used to find the cross product of one vec3 and another.
+
+        Passing it two vec3s will cause it to return the cross product of the frist with the second.
+    """
+    @spec cross_vec3( [float], [float] ) :: [float]
+    def cross_vec3( [x1,y1,z1 | _], [x2,y2,z2 | _]) do
+        [ y1*z2 - z1*y2, z1*x2 - x1*z2, x1*y2 - y1*x2 ]
+    end
+
     @doc """
         `length_vec3` is used to find the length (L2 norm) of a vector.
 
