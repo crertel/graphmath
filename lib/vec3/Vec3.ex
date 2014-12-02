@@ -13,6 +13,10 @@ defmodule Graphmath.Vec3 do
     def create_vec3() do
         [0,0,0]
     end
+    @spec create_vec3(float,float,float) :: [float]
+    def create_vec3( x, y, z) do
+        [x,y,z]
+    end
     @spec create_vec3([float]) :: [float]
     def create_vec3 ( vec ) do
         [x,y,z | _] = vec

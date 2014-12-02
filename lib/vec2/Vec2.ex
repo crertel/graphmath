@@ -13,6 +13,10 @@ defmodule Graphmath.Vec2 do
     def create_vec2() do
         [0,0]
     end
+    @spec create_vec2(float,float) :: [float]
+    def create_vec2(x,y) do
+        [x,y]
+    end
     @spec create_vec2([float]) :: [float]
     def create_vec2 ( vec ) do
         [x,y | _] = vec
