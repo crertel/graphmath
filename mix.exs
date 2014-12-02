@@ -3,7 +3,7 @@ defmodule Graphmath.Mixfile do
 
   def project do
     [app: :graphmath,
-     version: "0.1.0",
+     version: "0.2.0",
      elixir: "~> 1.0",
      description: description,
      package: package,
