@@ -68,7 +68,7 @@ defmodule Graphmath.Vec2 do
     def multiply( a, b ) do
         [ x,y | _ ] = a
         [ u,v | _ ] = b
-        [ x*u, y * v]
+        [ x*u, y*v ]
     end
     
     @doc """

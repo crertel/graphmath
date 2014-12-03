@@ -5,7 +5,7 @@ defmodule Graphmath.Vec3 do
     """
 
     @doc"""
-    `create` is used to create a 3d vector.
+    `create()` is used to create a 3d vector.
 
     It takes a list of numbers and converts it into an array of form [x,y,z].
     """
@@ -13,10 +13,22 @@ defmodule Graphmath.Vec3 do
     def create() do
         [0,0,0]
     end
+    
+    @doc"""
+    `create(x,y,z)` creates a vec3 of value (x,y,z).
+
+    It will return a list of the form [x,y,z].
+    """
     @spec create(float,float,float) :: [float]
     def create( x, y, z) do
         [x,y,z]
     end
+        
+    @doc"""
+    `create(vec)` creates a vec3 of value (x,y,z) out of a list of 3 or more numbers.
+
+    It will return a list of the form [x,y,z].
+    """
     @spec create([float]) :: [float]
     def create( vec ) do
         [x,y,z | _] = vec
@@ -24,120 +36,155 @@ defmodule Graphmath.Vec3 do
     end
 
     @doc """
-        `add` is used to add a vec3 to another vec3.
-        It takes two vec3s and returns a vec3 which is the element-wise sum of those lists.
+    `add( a, b)` adds a vec3 (a) to a vec3 (b).
+
+    It returns a list of the form [ ax + bx, ay + by, az + bz ].
     """
     @spec add( [float], [float]) :: [float]
-    def add( [x1,y1,z1|_], [x2,y2,z2|_]) do
-        [ x1+x2, y1+y2, z1+z2 ]
+    def add( a, b ) do
+        [ x, y, z | _ ] = a
+        [ u, v, w | _ ] = b
+        [ x+u, y+v, z+w ]
     end
 
     @doc """
-        `subtract` is used to subtract a vec3 from another vec2.
-        It takes two vec3s and returns the difference of the two.
+    `subtract(a, b)` subtracts a vec3 (b) from a vec3 (a).
+
+    It returns a list of the form [ ax - bx, ay - by, az - bz ].
     """
     @spec subtract( [float], [float] ) :: [float]
-    def subtract( [x1, y1, z1 | _], [x2,y2,z2| _]) do
-        [x1-x2,y1-y2, z1-z2]
+    def subtract( a, b ) do
+        [ x, y, z | _ ] = a
+        [ u, v, w | _ ] = b
+        [ x-u, y-v, z-w ]
     end
 
     @doc """
-        `scale` is used to perform a scaling on a vec3.
+    `multiply( a, b)` mulitplies element-wise a vec3 (a) by a vec3 (b).
 
-        Passing it a single number will cause all elements of the vec2 to be multipled by that number.
-        Passing it a vec3 will cause each element of to be multiplied by the corresponding element of the scale vec3.
+    It returns a list of the form [ ax*bx, ay*by ].
     """
-    @spec scale( [float], [float] ) :: [float]
-    def scale( vec, [s1, s2, s3 | _ ] ) do
-        [ x,y,z | _ ] = vec
-        [ x*s1, y * s2, z* s3]
+    @spec multiply( [float], [float] ) :: [float]
+    def multiply( a, b ) do
+        [ x, y, z | _ ] = a
+        [ u, v, w | _ ] = b
+        [ x*u, y*v, z*w ]
     end
+
+    @doc """
+    `scale( a, scale)` uniformly scales a vec3 (a) by an amount (x).
+
+    It returns a list of the form [ ax*scale, ay*scale, az*scale ].
+    """
     @spec scale( [float], float ) :: [float]
-    def scale( vec, scale ) do
-        [ x,y,z | _ ] = vec
+    def scale( a, scale ) do
+        [ x,y,z | _ ] = a
         [ x*scale, y*scale, z*scale ]
     end
 
     @doc """
-        `dot` is used to find the inner product (dot product) of one vec3 and another.
+    `dot( a, b)` finds the dot (inner) product of a vec3 (a)  with another vec3 (b).
 
-        Passing it two vec3s will cause it to return the inner product of those two vec3s.
+    It returns a float of the value (ax*bx + ay*by + az*bz).
     """
     @spec dot( [float], [float] ) :: float
-    def dot( [x1,y1,z1 |_ ], [x2,y2,z2|_]) do
-        (x1*x2)+(y1*y2)+(z1*z2)
-    end
-
-    @doc"""
-        `cross` is used to find the cross product of one vec3 and another.
-
-        Passing it two vec3s will cause it to return the cross product of the frist with the second.
-    """
-    @spec cross( [float], [float] ) :: [float]
-    def cross( [x1,y1,z1 | _], [x2,y2,z2 | _]) do
-        [ y1*z2 - z1*y2, z1*x2 - x1*z2, x1*y2 - y1*x2 ]
+    def dot( a, b ) do
+        [ x, y, z | _ ] = a
+        [ u, v, w | _ ] = b
+        (x*u)+(y*v)+(z*w)
     end
 
     @doc """
-        `length` is used to find the length (L2 norm) of a vector.
+    `cross( a, b)` finds the cross productof a vec3 (a) with another vec3 (b).
 
-        The length is the square root of the sum of the squares.
+    The cross product of two vectors is a vector perpendicular to the two soure vectors.
+    Its magnitude will be the area of the parallelogram made by the two souce vectors.
+    
+    It returns a float of the value ( y1*z2 - z1*y2, z1*x2 - x1*z2, x1*y2 - y1*x2 ).
+    """
+    @spec cross( [float], [float] ) :: [float]
+    def cross( a, b ) do
+        [ x, y, z | _ ] = a
+        [ u, v, w | _ ] = b
+        [ y*w - z*v, z*u - x*w, x*v - y*u ]
+    end
+
+    
+    @doc """
+    `length(a)` finds the length (L2 norm) of a vec3 (a).
+
+    The length is the square root of the sum of the squares of the components.
+
+    It returns a float of the value ( sqrt(ax*ax + ay*ay + az*az).
     """
     @spec length( [float] ) :: float
-    def length( [x, y, z | _ ] ) do
+    def length( a ) do
+        [ x, y, z | _ ] = a
         :math.sqrt( (x*x) + (y*y) + (z*z) )
     end
 
     @doc """
-        `length_squared` is used to find the square of the length of a vector.
+    `length_squared(a)` finds the square of the length of a vec3 (a).
 
-        In many cases, this is sufficient for comparisions and avaoids a sqrt.
+    In many cases, this is sufficient for comparisions and avaoids a sqrt.
+
+    It returns a float of the value (ax*ax + ay*ay + az*az).
     """
     @spec length_squared( [float] ) :: float
-    def length_squared( [ x, y, z | _ ] ) do
+    def length_squared( a ) do
+        [ x, y, z | _ ] = a
         (x*x) + (y*y) + (z*z)
     end
 
     @doc """
-        `length_manhatten` is used to find the Manhattan (L1 norm) length of a vector.
+    `length_manhattan(a)` finds the Manhattan (L1 norm) length of a vec3 (a).
 
-        The Manhattan length is simply the sum of the components.
+    The Manhattan length is the sum of the components.
+    
+    It returns a float of the value (ax + ay + az).
     """
     @spec length_manhattan( [float] ) :: float
-    def length_manhattan( [x, y, z| _ ]) do
+    def length_manhattan( a ) do
+        [ x, y, z | _ ] = a
         x + y + z
     end
 
     @doc """
-        `normalize` is used to find the unit vector with the same direction as the supplied vector.
+    `normalize(a)` finds the unit vector with the same direction as a vec3 (a).
 
-        This is done by dividing each component by the vector's magnitude.
+    This is done by dividing each component by the vector's magnitude.
+
+    It returns a list of the form [ normx, normy, normz ].
     """
     @spec normalize( [float] ) :: [float]
-    def normalize( [x, y, z | _ ] ) do
+    def normalize( a ) do
+        [ x, y, z | _ ] = a
         imag = 1 / :math.sqrt( (x*x) + (y*y) + (z*z) )
         [x * imag, y * imag, z * imag]
     end
     
     @doc """
-        `lerp` is used to linearly interpolate between two given vectors.
+    `lerp(a,b,t)` linearly interpolates between one vec3 (a) and another vec3 (b) along an interpolant t.
 
-        The interpolant is on the domain [0,1]. Behavior outside of that is undefined.
+    The interpolant `t`  is on the domain [0,1]. Behavior outside of that is undefined.
     """
     @spec lerp( [float], [float], float) :: [float]
-    def lerp( [x1, y1, z1 | _ ], [x2, y2, z2| _], t ) do
-        [ ( t * x2) + ( (1-t) *x1 ), (t * y2) + ( (1-t) *y1), (t * z2) + ( (1-t) * z1)]
+    def lerp( a, b, t ) do
+        [ x, y, z | _ ] = a
+        [ u, v, w | _ ] = b
+        [ ( t * u) + ( (1-t) *x ), (t * v) + ( (1-t) *y), (t * w) + ( (1-t) * z)]
     end
 
     @doc """
-        `compare` is used to check whether or not two vectors are within a length of each other.
+    `near(a,b, distance)` checks whether two vectors are within a length of each other.
     """
-    @spec compare( [float], [float], float) :: boolean
-    def compare( [x1, y1, z1|_], [x2, y2, z2 | _ ], l) do
-        dx = x2 - x1
-        dy = y2 - y1
-        dz = z2 - z1
-        l > :math.sqrt( dx*dx + dy*dy + dz*dz)
+    @spec near( [float], [float], float) :: boolean
+    def near( a, b, distance) do
+        [ x, y, z | _ ] = a
+        [ u, v, w | _ ] = b
+        dx = u - x
+        dy = v - y
+        dz = w - z
+        distance > :math.sqrt( dx*dx + dy*dy + dz*dz)
     end
-
 end

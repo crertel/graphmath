@@ -8,8 +8,8 @@ defmodule GraphmathTest.Vec3.Scale_Vec3 do
   end
 
   @tag :vec3
-  @tag :scale
-  test "scale([3,4,5],[5,6,7]) return [15,24,35]" do
-    assert [15,24,35] == Graphmath.Vec3.scale([3,4,5],[5,6,7])
+  @tag :multiply
+  test "multiply([3,4,5],[5,6,7]) return [15,24,35]" do
+    assert [15,24,35] == Graphmath.Vec3.multiply([3,4,5],[5,6,7])
   end
 end
