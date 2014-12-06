@@ -19,6 +19,29 @@ Features
 * Rotation
 * Linear interpolation
 
+Installation
+============
+
+This package is available from the [hex](https://hex.pm) package manager.
+
+Just add it to your `mix.exs` file like so:
+
+```
+  def project do
+    [app: myapp,
+     version: "x.y.z",
+     elixir: "~> 1.0",
+     description: "description",
+     package: ...,
+     deps: [
+        ...,
+        {:grapmath, "~> 0.1.0" },
+        ...
+        ] ]
+  end
+```
+
+
 
 Conventions in library
 ======================
@@ -31,6 +54,10 @@ All operations are accompied by tests and documentation.
 
 Contributing
 ============
+
+###Issues###
+
+1. Open an issue on Github.
 
 ###For developers###
 
