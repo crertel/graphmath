@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.2.6 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Vec3.html">Vec3</a></div>
+      <div class="breadcrumbs">graphmath v0.2.8 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Vec3.html">Vec3</a></div>
 
       <h1>
         Graphmath.Vec3
@@ -52,96 +52,107 @@
         <h2 id="summary">Summary<div class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></div></h2>
         <table class="summary">
           <tr>
-  <td class="summary_signature"><a href="#add/2">add(list1, list2)</a></td>
+  <td class="summary_signature"><a href="#add/2">add(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">add</code> is used to add a vec3 to another vec3.</p>
-<pre><code>It takes two vec3s and returns a vec3 which is the element-wise sum of those lists</code></pre>
-</td>
-  
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#compare/3">compare(list1, list2, l)</a></td>
-  
-    <td class="summary_synopsis"><p><code class="inline">compare</code> is used to check whether or not two vectors are within a length of each other</p>
+    <td class="summary_synopsis"><p><code class="inline">add( a, b)</code> adds a vec3 (a) to a vec3 (b)</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#create/0">create()</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">create</code> is used to create a 3d vector</p>
+    <td class="summary_synopsis"><p><code class="inline">create()</code> is used to create a 3d vector</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#create/1">create(vec)</a></td>
   
+    <td class="summary_synopsis"><p><code class="inline">create(vec)</code> creates a vec3 of value (x,y,z) out of a list of 3 or more numbers</p>
+</td>
+  
 </tr>
 <tr>
   <td class="summary_signature"><a href="#create/3">create(x, y, z)</a></td>
   
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#cross/2">cross(list1, list2)</a></td>
-  
-    <td class="summary_synopsis"><p><code class="inline">cross</code> is used to find the cross product of one vec3 and another</p>
+    <td class="summary_synopsis"><p><code class="inline">create(x,y,z)</code> creates a vec3 of value (x,y,z)</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#dot/2">dot(list1, list2)</a></td>
+  <td class="summary_signature"><a href="#cross/2">cross(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">dot</code> is used to find the inner product (dot product) of one vec3 and another</p>
+    <td class="summary_synopsis"><p><code class="inline">cross( a, b)</code> finds the cross productof a vec3 (a) with another vec3 (b)</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#length/1">length(list1)</a></td>
+  <td class="summary_signature"><a href="#dot/2">dot(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">length</code> is used to find the length (L2 norm) of a vector</p>
+    <td class="summary_synopsis"><p><code class="inline">dot( a, b)</code> finds the dot (inner) product of a vec3 (a)  with another vec3 (b)</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#length_manhattan/1">length_manhattan(list1)</a></td>
+  <td class="summary_signature"><a href="#length/1">length(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">length_manhatten</code> is used to find the Manhattan (L1 norm) length of a vector</p>
+    <td class="summary_synopsis"><p><code class="inline">length(a)</code> finds the length (L2 norm) of a vec3 (a)</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#length_squared/1">length_squared(list1)</a></td>
+  <td class="summary_signature"><a href="#length_manhattan/1">length_manhattan(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">length_squared</code> is used to find the square of the length of a vector</p>
+    <td class="summary_synopsis"><p><code class="inline">length_manhattan(a)</code> finds the Manhattan (L1 norm) length of a vec3 (a)</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#lerp/3">lerp(list1, list2, t)</a></td>
+  <td class="summary_signature"><a href="#length_squared/1">length_squared(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">lerp</code> is used to linearly interpolate between two given vectors</p>
+    <td class="summary_synopsis"><p><code class="inline">length_squared(a)</code> finds the square of the length of a vec3 (a)</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#normalize/1">normalize(list1)</a></td>
+  <td class="summary_signature"><a href="#lerp/3">lerp(a, b, t)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">normalize</code> is used to find the unit vector with the same direction as the supplied vector</p>
+    <td class="summary_synopsis"><p><code class="inline">lerp(a,b,t)</code> linearly interpolates between one vec3 (a) and another vec3 (b) along an interpolant t</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#scale/2">scale(vec, scale)</a></td>
+  <td class="summary_signature"><a href="#multiply/2">multiply(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">scale</code> is used to perform a scaling on a vec3</p>
+    <td class="summary_synopsis"><p><code class="inline">multiply( a, b)</code> mulitplies element-wise a vec3 (a) by a vec3 (b)</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#subtract/2">subtract(list1, list2)</a></td>
+  <td class="summary_signature"><a href="#near/3">near(a, b, distance)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">subtract</code> is used to subtract a vec3 from another vec2.</p>
-<pre><code>It takes two vec3s and returns the difference of the two</code></pre>
+    <td class="summary_synopsis"><p><code class="inline">near(a,b, distance)</code> checks whether two vectors are within a length of each other</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#normalize/1">normalize(a)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a vec3 (a)</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#scale/2">scale(a, scale)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">scale( a, scale)</code> uniformly scales a vec3 (a) by an amount (x)</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#subtract/2">subtract(a, b)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">subtract(a, b)</code> subtracts a vec3 (b) from a vec3 (a)</p>
 </td>
   
 </tr>
@@ -156,7 +167,7 @@
           <h2>Functions</h2>
           <div class="detail">
   <div class="detail_header" id="add/2">
-    <span class="signature"><strong>add(list1, list2)</strong></span>
+    <span class="signature"><strong>add(a, b)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#add/2" class="detail_link" title="Link to this function">#</a>
@@ -171,29 +182,8 @@
       
     </ul>
   
-  <div class="docstring"><pre><code>`add` is used to add a vec3 to another vec3.
-It takes two vec3s and returns a vec3 which is the element-wise sum of those lists.</code></pre>
-</div>
-  
-</div>
-<div class="detail">
-  <div class="detail_header" id="compare/3">
-    <span class="signature"><strong>compare(list1, list2, l)</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#compare/3" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
-  </div>
-  
-    <p>Specs:</p>
-    <ul class="spec">
-      
-        <li>compare([float], [float], float) :: boolean</li>
-      
-    </ul>
-  
-  <div class="docstring"><pre><code>`compare` is used to check whether or not two vectors are within a length of each other.</code></pre>
+  <div class="docstring"><p><code class="inline">add( a, b)</code> adds a vec3 (a) to a vec3 (b).</p>
+<p>It returns a list of the form [ ax + bx, ay + by, az + bz ].</p>
 </div>
   
 </div>
@@ -214,7 +204,7 @@ It takes two vec3s and returns a vec3 which is the element-wise sum of those lis
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">create</code> is used to create a 3d vector.</p>
+  <div class="docstring"><p><code class="inline">create()</code> is used to create a 3d vector.</p>
 <p>It takes a list of numbers and converts it into an array of form [x,y,z].</p>
 </div>
   
@@ -236,7 +226,9 @@ It takes two vec3s and returns a vec3 which is the element-wise sum of those lis
       
     </ul>
   
-  <div class="docstring"></div>
+  <div class="docstring"><p><code class="inline">create(vec)</code> creates a vec3 of value (x,y,z) out of a list of 3 or more numbers.</p>
+<p>It will return a list of the form [x,y,z].</p>
+</div>
   
 </div>
 <div class="detail">
@@ -256,12 +248,14 @@ It takes two vec3s and returns a vec3 which is the element-wise sum of those lis
       
     </ul>
   
-  <div class="docstring"></div>
+  <div class="docstring"><p><code class="inline">create(x,y,z)</code> creates a vec3 of value (x,y,z).</p>
+<p>It will return a list of the form [x,y,z].</p>
+</div>
   
 </div>
 <div class="detail">
   <div class="detail_header" id="cross/2">
-    <span class="signature"><strong>cross(list1, list2)</strong></span>
+    <span class="signature"><strong>cross(a, b)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#cross/2" class="detail_link" title="Link to this function">#</a>
@@ -276,15 +270,16 @@ It takes two vec3s and returns a vec3 which is the element-wise sum of those lis
       
     </ul>
   
-  <div class="docstring"><pre><code>`cross` is used to find the cross product of one vec3 and another.
-
-Passing it two vec3s will cause it to return the cross product of the frist with the second.</code></pre>
+  <div class="docstring"><p><code class="inline">cross( a, b)</code> finds the cross productof a vec3 (a) with another vec3 (b).</p>
+<p>The cross product of two vectors is a vector perpendicular to the two soure vectors.
+Its magnitude will be the area of the parallelogram made by the two souce vectors.</p>
+<p>It returns a float of the value ( y1<em>z2 - z1</em>y2, z1<em>x2 - x1</em>z2, x1<em>y2 - y1</em>x2 ).</p>
 </div>
   
 </div>
 <div class="detail">
   <div class="detail_header" id="dot/2">
-    <span class="signature"><strong>dot(list1, list2)</strong></span>
+    <span class="signature"><strong>dot(a, b)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#dot/2" class="detail_link" title="Link to this function">#</a>
@@ -299,15 +294,14 @@ Passing it two vec3s will cause it to return the cross product of the frist with
       
     </ul>
   
-  <div class="docstring"><pre><code>`dot` is used to find the inner product (dot product) of one vec3 and another.
-
-Passing it two vec3s will cause it to return the inner product of those two vec3s.</code></pre>
+  <div class="docstring"><p><code class="inline">dot( a, b)</code> finds the dot (inner) product of a vec3 (a)  with another vec3 (b).</p>
+<p>It returns a float of the value (ax<em>bx + ay</em>by + az*bz).</p>
 </div>
   
 </div>
 <div class="detail">
   <div class="detail_header" id="length/1">
-    <span class="signature"><strong>length(list1)</strong></span>
+    <span class="signature"><strong>length(a)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#length/1" class="detail_link" title="Link to this function">#</a>
@@ -322,15 +316,15 @@ Passing it two vec3s will cause it to return the inner product of those two vec3
       
     </ul>
   
-  <div class="docstring"><pre><code>`length` is used to find the length (L2 norm) of a vector.
-
-The length is the square root of the sum of the squares.</code></pre>
+  <div class="docstring"><p><code class="inline">length(a)</code> finds the length (L2 norm) of a vec3 (a).</p>
+<p>The length is the square root of the sum of the squares of the components.</p>
+<p>It returns a float of the value ( sqrt(ax<em>ax + ay</em>ay + az*az).</p>
 </div>
   
 </div>
 <div class="detail">
   <div class="detail_header" id="length_manhattan/1">
-    <span class="signature"><strong>length_manhattan(list1)</strong></span>
+    <span class="signature"><strong>length_manhattan(a)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#length_manhattan/1" class="detail_link" title="Link to this function">#</a>
@@ -345,15 +339,15 @@ The length is the square root of the sum of the squares.</code></pre>
       
     </ul>
   
-  <div class="docstring"><pre><code>`length_manhatten` is used to find the Manhattan (L1 norm) length of a vector.
-
-The Manhattan length is simply the sum of the components.</code></pre>
+  <div class="docstring"><p><code class="inline">length_manhattan(a)</code> finds the Manhattan (L1 norm) length of a vec3 (a).</p>
+<p>The Manhattan length is the sum of the components.</p>
+<p>It returns a float of the value (ax + ay + az).</p>
 </div>
   
 </div>
 <div class="detail">
   <div class="detail_header" id="length_squared/1">
-    <span class="signature"><strong>length_squared(list1)</strong></span>
+    <span class="signature"><strong>length_squared(a)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#length_squared/1" class="detail_link" title="Link to this function">#</a>
@@ -368,15 +362,15 @@ The Manhattan length is simply the sum of the components.</code></pre>
       
     </ul>
   
-  <div class="docstring"><pre><code>`length_squared` is used to find the square of the length of a vector.
-
-In many cases, this is sufficient for comparisions and avaoids a sqrt.</code></pre>
+  <div class="docstring"><p><code class="inline">length_squared(a)</code> finds the square of the length of a vec3 (a).</p>
+<p>In many cases, this is sufficient for comparisions and avaoids a sqrt.</p>
+<p>It returns a float of the value (ax<em>ax + ay</em>ay + az*az).</p>
 </div>
   
 </div>
 <div class="detail">
   <div class="detail_header" id="lerp/3">
-    <span class="signature"><strong>lerp(list1, list2, t)</strong></span>
+    <span class="signature"><strong>lerp(a, b, t)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#lerp/3" class="detail_link" title="Link to this function">#</a>
@@ -391,15 +385,57 @@ In many cases, this is sufficient for comparisions and avaoids a sqrt.</code></p
       
     </ul>
   
-  <div class="docstring"><pre><code>`lerp` is used to linearly interpolate between two given vectors.
-
-The interpolant is on the domain [0,1]. Behavior outside of that is undefined.</code></pre>
+  <div class="docstring"><p><code class="inline">lerp(a,b,t)</code> linearly interpolates between one vec3 (a) and another vec3 (b) along an interpolant t.</p>
+<p>The interpolant <code class="inline">t</code>  is on the domain [0,1]. Behavior outside of that is undefined.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="multiply/2">
+    <span class="signature"><strong>multiply(a, b)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#multiply/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>multiply([float], [float]) :: [float]</li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">multiply( a, b)</code> mulitplies element-wise a vec3 (a) by a vec3 (b).</p>
+<p>It returns a list of the form [ ax*bx, ay*by ].</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="near/3">
+    <span class="signature"><strong>near(a, b, distance)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#near/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>near([float], [float], float) :: boolean</li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">near(a,b, distance)</code> checks whether two vectors are within a length of each other.</p>
 </div>
   
 </div>
 <div class="detail">
   <div class="detail_header" id="normalize/1">
-    <span class="signature"><strong>normalize(list1)</strong></span>
+    <span class="signature"><strong>normalize(a)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#normalize/1" class="detail_link" title="Link to this function">#</a>
@@ -414,15 +450,15 @@ The interpolant is on the domain [0,1]. Behavior outside of that is undefined.</
       
     </ul>
   
-  <div class="docstring"><pre><code>`normalize` is used to find the unit vector with the same direction as the supplied vector.
-
-This is done by dividing each component by the vector's magnitude.</code></pre>
+  <div class="docstring"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a vec3 (a).</p>
+<p>This is done by dividing each component by the vector’s magnitude.</p>
+<p>It returns a list of the form [ normx, normy, normz ].</p>
 </div>
   
 </div>
 <div class="detail">
   <div class="detail_header" id="scale/2">
-    <span class="signature"><strong>scale(vec, scale)</strong></span>
+    <span class="signature"><strong>scale(a, scale)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#scale/2" class="detail_link" title="Link to this function">#</a>
@@ -435,20 +471,16 @@ This is done by dividing each component by the vector's magnitude.</code></pre>
       
         <li>scale([float], float) :: [float]</li>
       
-        <li>scale([float], [float]) :: [float]</li>
-      
     </ul>
   
-  <div class="docstring"><pre><code>`scale` is used to perform a scaling on a vec3.
-
-Passing it a single number will cause all elements of the vec2 to be multipled by that number.
-Passing it a vec3 will cause each element of to be multiplied by the corresponding element of the scale vec3.</code></pre>
+  <div class="docstring"><p><code class="inline">scale( a, scale)</code> uniformly scales a vec3 (a) by an amount (x).</p>
+<p>It returns a list of the form [ ax*scale, ay*scale, az*scale ].</p>
 </div>
   
 </div>
 <div class="detail">
   <div class="detail_header" id="subtract/2">
-    <span class="signature"><strong>subtract(list1, list2)</strong></span>
+    <span class="signature"><strong>subtract(a, b)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#subtract/2" class="detail_link" title="Link to this function">#</a>
@@ -463,8 +495,8 @@ Passing it a vec3 will cause each element of to be multiplied by the correspondi
       
     </ul>
   
-  <div class="docstring"><pre><code>`subtract` is used to subtract a vec3 from another vec2.
-It takes two vec3s and returns the difference of the two.</code></pre>
+  <div class="docstring"><p><code class="inline">subtract(a, b)</code> subtracts a vec3 (b) from a vec3 (a).</p>
+<p>It returns a list of the form [ ax - bx, ay - by, az - bz ].</p>
 </div>
   
 </div>
