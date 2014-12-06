@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.2.8 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Vec3.html">Vec3</a></div>
+      <div class="breadcrumbs">graphmath v0.2.9 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Vec3.html">Vec3</a></div>
 
       <h1>
         Graphmath.Vec3
@@ -139,6 +139,13 @@
   <td class="summary_signature"><a href="#normalize/1">normalize(a)</a></td>
   
     <td class="summary_synopsis"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a vec3 (a)</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#rotate/3">rotate(v, k, theta)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">rotate( v, k, theta)</code> rotates a vector (v) about a unit vector (k) by theta radians</p>
 </td>
   
 </tr>
@@ -453,6 +460,22 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
   <div class="docstring"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a vec3 (a).</p>
 <p>This is done by dividing each component by the vector’s magnitude.</p>
 <p>It returns a list of the form [ normx, normy, normz ].</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="rotate/3">
+    <span class="signature"><strong>rotate(v, k, theta)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#rotate/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <div class="docstring"><p><code class="inline">rotate( v, k, theta)</code> rotates a vector (v) about a unit vector (k) by theta radians.</p>
+<p>This uses the <a href="http://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula">Formula of Rodriguez</a>:</p>
+<p>Vrot = V<em>cos(theta) + (K x V)</em>sin(theta) + K(K*V)(1-cos(theta))</p>
 </div>
   
 </div>
