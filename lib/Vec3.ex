@@ -187,4 +187,24 @@ defmodule Graphmath.Vec3 do
         dz = w - z
         distance > :math.sqrt( dx*dx + dy*dy + dz*dz)
     end
+
+    @doc """
+    `rotate( v, k, theta)` rotates a vector (v) about a unit vector (k) by theta radians.
+
+    This uses the [Formula of Rodriguez](http://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula):
+
+    Vrot = V*cos(theta) + (K x V)*sin(theta) + K(K*V)(1-cos(theta))
+    """
+    def rotate( v, k, theta) do
+        [ vx, vy, vz | _ ] = v
+        [ kx, ky, kz | _ ] = k
+        ct = :math.cos(theta)
+        st = :math.sin(theta)
+        k_dot_v = ( (vx*kx) + (vy*ky) + (vz*kz) )
+        coeff = (1.0-ct) * k_dot_v
+
+        scale( v, ct)
+        |> add( scale( cross( k, v), st) )
+        |> add( scale(k, coeff) )
+    end
 end
