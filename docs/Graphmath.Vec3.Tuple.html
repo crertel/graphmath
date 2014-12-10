@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Graphmath.Vec2.Tuple</title>
+    <title>Graphmath.Vec3.Tuple</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
 
@@ -20,10 +20,10 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.3.1 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; Vec2 &rarr; <a href="Graphmath.Vec2.Tuple.html">Tuple</a></div>
+      <div class="breadcrumbs">graphmath v0.3.1 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; Vec3 &rarr; <a href="Graphmath.Vec3.Tuple.html">Tuple</a></div>
 
       <h1>
-        Graphmath.Vec2.Tuple
+        Graphmath.Vec3.Tuple
         
       </h1>
 
@@ -41,8 +41,8 @@
 
       
         <div id="moduledoc" class="docstring">
-          <p>This is the 2D mathematics library for graphmath.</p>
-<p>This submodule handles vectors stored as a tuple.</p>
+          <p>This is the 3D mathematics library for graphmath.</p>
+<p>This submodule handles 3D vectors using tuples of floats.</p>
 
         </div>
       
@@ -55,70 +55,77 @@
           <tr>
   <td class="summary_signature"><a href="#add/2">add(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">add( a, b)</code> adds a vec2 (a) to a vec2 (b)</p>
+    <td class="summary_synopsis"><p><code class="inline">add( a, b)</code> adds a vec3 (a) to a vec3 (b)</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#create/0">create()</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">create()</code> creates a zero vec2</p>
+    <td class="summary_synopsis"><p><code class="inline">create()</code> is used to create a 3d vector</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#create/1">create(vec)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">create(vec)</code> creates a vec2 of value (x,y) out of a list of 2 or more numbers</p>
+    <td class="summary_synopsis"><p><code class="inline">create(vec)</code> creates a vec3 of value {x,y,z} out of a list of 3 or more numbers</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#create/2">create(x, y)</a></td>
+  <td class="summary_signature"><a href="#create/3">create(x, y, z)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">create(x,y)</code> creates a vec2 of value (x,y)</p>
+    <td class="summary_synopsis"><p><code class="inline">create(x,y,z)</code> creates a vec3 of value (x,y,z)</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#cross/2">cross(a, b)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">cross( a, b)</code> finds the cross productof a vec3 (a) with another vec3 (b)</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#dot/2">dot(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">dot( a, b)</code> finds the dot (inner) product of a vec2 (a)  with another vec2 (b)</p>
+    <td class="summary_synopsis"><p><code class="inline">dot( a, b)</code> finds the dot (inner) product of a vec3 (a)  with another vec3 (b)</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#length/1">length(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">length(a)</code> finds the length (L2 norm) of a vec2 (a)</p>
+    <td class="summary_synopsis"><p><code class="inline">length(a)</code> finds the length (L2 norm) of a vec3 (a)</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#length_manhattan/1">length_manhattan(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">length_manhattan(a)</code> finds the Manhattan (L1 norm) length of a vec2 (a)</p>
+    <td class="summary_synopsis"><p><code class="inline">length_manhattan(a)</code> finds the Manhattan (L1 norm) length of a vec3 (a)</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#length_squared/1">length_squared(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">length_squared(a)</code> finds the square of the length of a vec2 (a)</p>
+    <td class="summary_synopsis"><p><code class="inline">length_squared(a)</code> finds the square of the length of a vec3 (a)</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#lerp/3">lerp(a, b, t)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">lerp(a,b,t)</code> is used to linearly interpolate between two given vectors a and b along an interpolant t</p>
+    <td class="summary_synopsis"><p><code class="inline">lerp(a,b,t)</code> linearly interpolates between one vec3 (a) and another vec3 (b) along an interpolant t</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#multiply/2">multiply(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">multiply( a, b)</code> mulitplies element-wise a vec2 (a) by a vec2 (b)</p>
+    <td class="summary_synopsis"><p><code class="inline">multiply( a, b)</code> mulitplies element-wise a vec3 (a) by a vec3 (b)</p>
 </td>
   
 </tr>
@@ -132,42 +139,28 @@
 <tr>
   <td class="summary_signature"><a href="#normalize/1">normalize(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a vec2 (a)</p>
+    <td class="summary_synopsis"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a vec3 (a)</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#perp_prod/2">perp_prod(a, b)</a></td>
+  <td class="summary_signature"><a href="#rotate/3">rotate(v, k, theta)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">perp_prod( a, b)</code> finds the perpindicular product of a vec2 (a) with another vec2 (b)</p>
-</td>
-  
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#project/2">project(a, b)</a></td>
-  
-    <td class="summary_synopsis"><p><code class="inline">project(a,b)</code> projects one vector onto another, and returns the resulting image</p>
-</td>
-  
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#rotate/2">rotate(a, theta)</a></td>
-  
-    <td class="summary_synopsis"><p><code class="inline">rotate(a,theta)</code> rotates a vec2 (a) CCW about the +Z axis <code class="inline">theta</code> radians</p>
+    <td class="summary_synopsis"><p><code class="inline">rotate( v, k, theta)</code> rotates a vector (v) about a unit vector (k) by theta radians</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#scale/2">scale(a, scale)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">scale( a, scale)</code> uniformly scales a vec2 (a) by an amount (x)</p>
+    <td class="summary_synopsis"><p><code class="inline">scale( a, scale)</code> uniformly scales a vec3 (a) by an amount (x)</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#subtract/2">subtract(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">subtract(a, b)</code> subtracts a vec2 (b) from a vec2 (a)</p>
+    <td class="summary_synopsis"><p><code class="inline">subtract(a, b)</code> subtracts a vec3 (b) from a vec3 (a)</p>
 </td>
   
 </tr>
@@ -193,12 +186,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>add({float, float}, {float, float}) :: {float, float}</li>
+        <li>add({float, float, float}, {float, float, float}) :: {float, float, float}</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">add( a, b)</code> adds a vec2 (a) to a vec2 (b).</p>
-<p>It returns a tuple of the form { ax + bx, ay + by }.</p>
+  <div class="docstring"><p><code class="inline">add( a, b)</code> adds a vec3 (a) to a vec3 (b).</p>
+<p>It returns a tuple of the form { ax + bx, ay + by, az + bz }.</p>
 </div>
   
 </div>
@@ -215,12 +208,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create :: {float, float}</li>
+        <li>create :: {float, float, float}</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">create()</code> creates a zero vec2.</p>
-<p>It will return a tuple of the form {0.0,0.0}.</p>
+  <div class="docstring"><p><code class="inline">create()</code> is used to create a 3d vector.</p>
+<p>It takes a list of numbers and converts it into a tuple of form {x,y,z}.</p>
 </div>
   
 </div>
@@ -237,21 +230,21 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create([float]) :: {float, float}</li>
+        <li>create([float]) :: {float, float, float}</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">create(vec)</code> creates a vec2 of value (x,y) out of a list of 2 or more numbers.</p>
-<p>It will return a tupleof the form {x,y}.</p>
+  <div class="docstring"><p><code class="inline">create(vec)</code> creates a vec3 of value {x,y,z} out of a list of 3 or more numbers.</p>
+<p>It will return a tuple of the form {x,y,z}.</p>
 </div>
   
 </div>
 <div class="detail">
-  <div class="detail_header" id="create/2">
-    <span class="signature"><strong>create(x, y)</strong></span>
+  <div class="detail_header" id="create/3">
+    <span class="signature"><strong>create(x, y, z)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
-      <a href="#create/2" class="detail_link" title="Link to this function">#</a>
+      <a href="#create/3" class="detail_link" title="Link to this function">#</a>
       <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
     </div>
   </div>
@@ -259,12 +252,36 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create(float, float) :: {float, float}</li>
+        <li>create(float, float, float) :: {float, float, float}</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">create(x,y)</code> creates a vec2 of value (x,y).</p>
-<p>It will return a tuple of the form {x,y}.</p>
+  <div class="docstring"><p><code class="inline">create(x,y,z)</code> creates a vec3 of value (x,y,z).</p>
+<p>It will return a tuple of the form {x,y,z}.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="cross/2">
+    <span class="signature"><strong>cross(a, b)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#cross/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>cross({float, float, float}, {float, float, float}) :: {float, float, float}</li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">cross( a, b)</code> finds the cross productof a vec3 (a) with another vec3 (b).</p>
+<p>The cross product of two vectors is a vector perpendicular to the two soure vectors.
+Its magnitude will be the area of the parallelogram made by the two souce vectors.</p>
+<p>It returns a float of the value ( y1<em>z2 - z1</em>y2, z1<em>x2 - x1</em>z2, x1<em>y2 - y1</em>x2 ).</p>
 </div>
   
 </div>
@@ -281,12 +298,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>dot({float, float}, {float, float}) :: float</li>
+        <li>dot({float, float, float}, {float, float, float}) :: float</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">dot( a, b)</code> finds the dot (inner) product of a vec2 (a)  with another vec2 (b).</p>
-<p>It returns a float of the value (ax<em>bx + ay</em>by).</p>
+  <div class="docstring"><p><code class="inline">dot( a, b)</code> finds the dot (inner) product of a vec3 (a)  with another vec3 (b).</p>
+<p>It returns a float of the value (ax<em>bx + ay</em>by + az*bz).</p>
 </div>
   
 </div>
@@ -303,13 +320,13 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length({float, float}) :: float</li>
+        <li>length({float, float, float}) :: float</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">length(a)</code> finds the length (L2 norm) of a vec2 (a).</p>
+  <div class="docstring"><p><code class="inline">length(a)</code> finds the length (L2 norm) of a vec3 (a).</p>
 <p>The length is the square root of the sum of the squares of the components.</p>
-<p>It returns a float of the value ( sqrt(ax<em>ax + ay</em>ay).</p>
+<p>It returns a float of the value ( sqrt(ax<em>ax + ay</em>ay + az*az).</p>
 </div>
   
 </div>
@@ -326,13 +343,13 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length_manhattan({float, float}) :: float</li>
+        <li>length_manhattan({float, float, float}) :: float</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">length_manhattan(a)</code> finds the Manhattan (L1 norm) length of a vec2 (a).</p>
+  <div class="docstring"><p><code class="inline">length_manhattan(a)</code> finds the Manhattan (L1 norm) length of a vec3 (a).</p>
 <p>The Manhattan length is the sum of the components.</p>
-<p>It returns a float of the value (ax + ay).</p>
+<p>It returns a float of the value (ax + ay + az).</p>
 </div>
   
 </div>
@@ -349,13 +366,13 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length_squared({float, float}) :: float</li>
+        <li>length_squared({float, float, float}) :: float</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">length_squared(a)</code> finds the square of the length of a vec2 (a).</p>
+  <div class="docstring"><p><code class="inline">length_squared(a)</code> finds the square of the length of a vec3 (a).</p>
 <p>In many cases, this is sufficient for comparisions and avaoids a sqrt.</p>
-<p>It returns a float of the value (ax<em>ax + ay</em>ay).</p>
+<p>It returns a float of the value (ax<em>ax + ay</em>ay + az*az).</p>
 </div>
   
 </div>
@@ -372,11 +389,11 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>lerp({float, float}, {float, float}, float) :: {float, float}</li>
+        <li>lerp({float, float, float}, {float, float, float}, float) :: {float, float, float}</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">lerp(a,b,t)</code> is used to linearly interpolate between two given vectors a and b along an interpolant t.</p>
+  <div class="docstring"><p><code class="inline">lerp(a,b,t)</code> linearly interpolates between one vec3 (a) and another vec3 (b) along an interpolant t.</p>
 <p>The interpolant <code class="inline">t</code>  is on the domain [0,1]. Behavior outside of that is undefined.</p>
 </div>
   
@@ -394,11 +411,11 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>multiply({float, float}, {float, float}) :: {float, float}</li>
+        <li>multiply({float, float, float}, {float, float, float}) :: {float, float, float}</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">multiply( a, b)</code> mulitplies element-wise a vec2 (a) by a vec2 (b).</p>
+  <div class="docstring"><p><code class="inline">multiply( a, b)</code> mulitplies element-wise a vec3 (a) by a vec3 (b).</p>
 <p>It returns a tuple of the form { ax<em>bx, ay</em>by }.</p>
 </div>
   
@@ -416,7 +433,7 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>near({float, float}, {float, float}, float) :: boolean</li>
+        <li>near({float, float, float}, {float, float, float}, float) :: boolean</li>
       
     </ul>
   
@@ -437,22 +454,22 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>normalize({float, float}) :: {float, float}</li>
+        <li>normalize({float, float, float}) :: {float, float, float}</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a vec2 (a).</p>
+  <div class="docstring"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a vec3 (a).</p>
 <p>This is done by dividing each component by the vector’s magnitude.</p>
-<p>It returns a tuple of the form { normx, normy }.</p>
+<p>It returns a list of the form [ normx, normy, normz ].</p>
 </div>
   
 </div>
 <div class="detail">
-  <div class="detail_header" id="perp_prod/2">
-    <span class="signature"><strong>perp_prod(a, b)</strong></span>
+  <div class="detail_header" id="rotate/3">
+    <span class="signature"><strong>rotate(v, k, theta)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
-      <a href="#perp_prod/2" class="detail_link" title="Link to this function">#</a>
+      <a href="#rotate/3" class="detail_link" title="Link to this function">#</a>
       <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
     </div>
   </div>
@@ -460,55 +477,13 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>perp_prod({float, float}, {float, float}) :: float</li>
+        <li>rotate({float, float, float}, {float, float, float}, float) :: {float, float, float}</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">perp_prod( a, b)</code> finds the perpindicular product of a vec2 (a) with another vec2 (b).</p>
-<p>The perpindicular product is the magnitude of the cross-product between the two vectors.</p>
-<p>It returns a float of the value (ax<em>by - bx</em>ay).</p>
-</div>
-  
-</div>
-<div class="detail">
-  <div class="detail_header" id="project/2">
-    <span class="signature"><strong>project(a, b)</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#project/2" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
-  </div>
-  
-    <p>Specs:</p>
-    <ul class="spec">
-      
-        <li>project({float, float}, {float, float}) :: {float, float}</li>
-      
-    </ul>
-  
-  <div class="docstring"><p><code class="inline">project(a,b)</code> projects one vector onto another, and returns the resulting image.</p>
-</div>
-  
-</div>
-<div class="detail">
-  <div class="detail_header" id="rotate/2">
-    <span class="signature"><strong>rotate(a, theta)</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#rotate/2" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
-  </div>
-  
-    <p>Specs:</p>
-    <ul class="spec">
-      
-        <li>rotate({float, float}, float) :: {float, float}</li>
-      
-    </ul>
-  
-  <div class="docstring"><p><code class="inline">rotate(a,theta)</code> rotates a vec2 (a) CCW about the +Z axis <code class="inline">theta</code> radians.</p>
+  <div class="docstring"><p><code class="inline">rotate( v, k, theta)</code> rotates a vector (v) about a unit vector (k) by theta radians.</p>
+<p>This uses the <a href="http://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula">Formula of Rodriguez</a>:</p>
+<p>Vrot = V<em>cos(theta) + (K x V)</em>sin(theta) + K(K*V)(1-cos(theta))</p>
 </div>
   
 </div>
@@ -525,12 +500,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>scale({float, float}, float) :: {float, float}</li>
+        <li>scale({float, float, float}, float) :: {float, float, float}</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">scale( a, scale)</code> uniformly scales a vec2 (a) by an amount (x).</p>
-<p>It returns a tuple of the form { ax<em>scale, ay</em>scale }.</p>
+  <div class="docstring"><p><code class="inline">scale( a, scale)</code> uniformly scales a vec3 (a) by an amount (x).</p>
+<p>It returns a tuple of the form { ax<em>scale, ay</em>scale, az*scale }.</p>
 </div>
   
 </div>
@@ -547,12 +522,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>subtract({float, float}, {float, float}) :: {float, float}</li>
+        <li>subtract({float, float, float}, {float, float, float}) :: {float, float, float}</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">subtract(a, b)</code> subtracts a vec2 (b) from a vec2 (a).</p>
-<p>It returns a tuple of the form { ax - bx, ay - by }.</p>
+  <div class="docstring"><p><code class="inline">subtract(a, b)</code> subtracts a vec3 (b) from a vec3 (a).</p>
+<p>It returns a tuple of the form { ax - bx, ay - by, az - bz }.</p>
 </div>
   
 </div>
