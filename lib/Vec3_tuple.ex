@@ -1,87 +1,87 @@
-defmodule Graphmath.Vec3.List do
+defmodule Graphmath.Vec3.Tuple do
 
     @moduledoc """
     This is the 3D mathematics library for graphmath.
 
-    This submodule handles 3D vectors using lists of floats.
+    This submodule handles 3D vectors using tuples of floats.
     """
 
     @doc"""
     `create()` is used to create a 3d vector.
 
-    It takes a list of numbers and converts it into an array of form [x,y,z].
+    It takes a list of numbers and converts it into a tuple of form {x,y,z}.
     """
-    @spec create() :: [float]
+    @spec create() :: {float, float, float}
     def create() do
-        [0,0,0]
+        {0,0,0}
     end
     
     @doc"""
     `create(x,y,z)` creates a vec3 of value (x,y,z).
 
-    It will return a list of the form [x,y,z].
+    It will return a tuple of the form {x,y,z}.
     """
-    @spec create(float,float,float) :: [float]
+    @spec create(float,float,float) :: {float, float, float}
     def create( x, y, z) do
-        [x,y,z]
+        {x,y,z}
     end
         
     @doc"""
-    `create(vec)` creates a vec3 of value (x,y,z) out of a list of 3 or more numbers.
+    `create(vec)` creates a vec3 of value {x,y,z} out of a list of 3 or more numbers.
 
-    It will return a list of the form [x,y,z].
+    It will return a tuple of the form {x,y,z}.
     """
-    @spec create([float]) :: [float]
+    @spec create([float]) :: {float, float, float}
     def create( vec ) do
         [x,y,z | _] = vec
-        [x,y,z]
+        {x,y,z}
     end
 
     @doc """
     `add( a, b)` adds a vec3 (a) to a vec3 (b).
 
-    It returns a list of the form [ ax + bx, ay + by, az + bz ].
+    It returns a tuple of the form { ax + bx, ay + by, az + bz }.
     """
-    @spec add( [float], [float]) :: [float]
+    @spec add( {float, float, float}, {float, float, float}) :: {float, float, float}
     def add( a, b ) do
-        [ x, y, z | _ ] = a
-        [ u, v, w | _ ] = b
-        [ x+u, y+v, z+w ]
+        { x, y, z } = a
+        { u, v, w } = b
+        { x+u, y+v, z+w }
     end
 
     @doc """
     `subtract(a, b)` subtracts a vec3 (b) from a vec3 (a).
 
-    It returns a list of the form [ ax - bx, ay - by, az - bz ].
+    It returns a tuple of the form { ax - bx, ay - by, az - bz }.
     """
-    @spec subtract( [float], [float] ) :: [float]
+    @spec subtract( {float, float, float}, {float, float, float} ) :: {float, float, float}
     def subtract( a, b ) do
-        [ x, y, z | _ ] = a
-        [ u, v, w | _ ] = b
-        [ x-u, y-v, z-w ]
+        { x, y, z } = a
+        { u, v, w } = b
+        { x-u, y-v, z-w }
     end
 
     @doc """
     `multiply( a, b)` mulitplies element-wise a vec3 (a) by a vec3 (b).
 
-    It returns a list of the form [ ax*bx, ay*by ].
+    It returns a tuple of the form { ax*bx, ay*by }.
     """
-    @spec multiply( [float], [float] ) :: [float]
+    @spec multiply( {float, float, float}, {float, float, float} ) :: {float, float, float}
     def multiply( a, b ) do
-        [ x, y, z | _ ] = a
-        [ u, v, w | _ ] = b
-        [ x*u, y*v, z*w ]
+        { x, y, z } = a
+        { u, v, w } = b
+        { x*u, y*v, z*w }
     end
 
     @doc """
     `scale( a, scale)` uniformly scales a vec3 (a) by an amount (x).
 
-    It returns a list of the form [ ax*scale, ay*scale, az*scale ].
+    It returns a tuple of the form { ax*scale, ay*scale, az*scale }.
     """
-    @spec scale( [float], float ) :: [float]
+    @spec scale( {float, float, float}, float ) :: {float, float, float}
     def scale( a, scale ) do
-        [ x,y,z | _ ] = a
-        [ x*scale, y*scale, z*scale ]
+        { x,y,z } = a
+        { x*scale, y*scale, z*scale }
     end
 
     @doc """
@@ -89,10 +89,10 @@ defmodule Graphmath.Vec3.List do
 
     It returns a float of the value (ax*bx + ay*by + az*bz).
     """
-    @spec dot( [float], [float] ) :: float
+    @spec dot( {float, float, float}, {float, float, float} ) :: float
     def dot( a, b ) do
-        [ x, y, z | _ ] = a
-        [ u, v, w | _ ] = b
+        { x, y, z } = a
+        { u, v, w } = b
         (x*u)+(y*v)+(z*w)
     end
 
@@ -104,11 +104,11 @@ defmodule Graphmath.Vec3.List do
     
     It returns a float of the value ( y1*z2 - z1*y2, z1*x2 - x1*z2, x1*y2 - y1*x2 ).
     """
-    @spec cross( [float], [float] ) :: [float]
+    @spec cross( {float, float, float}, {float, float, float} ) :: { float, float, float }
     def cross( a, b ) do
-        [ x, y, z | _ ] = a
-        [ u, v, w | _ ] = b
-        [ y*w - z*v, z*u - x*w, x*v - y*u ]
+        { x, y, z } = a
+        { u, v, w } = b
+        { y*w - z*v, z*u - x*w, x*v - y*u }
     end
 
     
@@ -119,9 +119,9 @@ defmodule Graphmath.Vec3.List do
 
     It returns a float of the value ( sqrt(ax*ax + ay*ay + az*az).
     """
-    @spec length( [float] ) :: float
+    @spec length( {float, float, float} ) :: float
     def length( a ) do
-        [ x, y, z | _ ] = a
+        { x, y, z } = a
         :math.sqrt( (x*x) + (y*y) + (z*z) )
     end
 
@@ -132,9 +132,9 @@ defmodule Graphmath.Vec3.List do
 
     It returns a float of the value (ax*ax + ay*ay + az*az).
     """
-    @spec length_squared( [float] ) :: float
+    @spec length_squared( {float, float, float} ) :: float
     def length_squared( a ) do
-        [ x, y, z | _ ] = a
+        { x, y, z } = a
         (x*x) + (y*y) + (z*z)
     end
 
@@ -145,9 +145,9 @@ defmodule Graphmath.Vec3.List do
     
     It returns a float of the value (ax + ay + az).
     """
-    @spec length_manhattan( [float] ) :: float
+    @spec length_manhattan( {float, float, float} ) :: float
     def length_manhattan( a ) do
-        [ x, y, z | _ ] = a
+        { x, y, z } = a
         x + y + z
     end
 
@@ -158,11 +158,11 @@ defmodule Graphmath.Vec3.List do
 
     It returns a list of the form [ normx, normy, normz ].
     """
-    @spec normalize( [float] ) :: [float]
+    @spec normalize( {float, float, float} ) :: {float, float, float}
     def normalize( a ) do
-        [ x, y, z | _ ] = a
+        { x, y, z } = a
         imag = 1 / :math.sqrt( (x*x) + (y*y) + (z*z) )
-        [x * imag, y * imag, z * imag]
+        {x * imag, y * imag, z * imag}
     end
     
     @doc """
@@ -170,20 +170,20 @@ defmodule Graphmath.Vec3.List do
 
     The interpolant `t`  is on the domain [0,1]. Behavior outside of that is undefined.
     """
-    @spec lerp( [float], [float], float) :: [float]
+    @spec lerp( {float, float, float}, {float, float, float}, float) :: {float, float, float}
     def lerp( a, b, t ) do
-        [ x, y, z | _ ] = a
-        [ u, v, w | _ ] = b
-        [ ( t * u) + ( (1-t) *x ), (t * v) + ( (1-t) *y), (t * w) + ( (1-t) * z)]
+        { x, y, z } = a
+        { u, v, w } = b
+        { ( t * u) + ( (1-t) *x ), (t * v) + ( (1-t) *y), (t * w) + ( (1-t) * z)}
     end
 
     @doc """
     `near(a,b, distance)` checks whether two vectors are within a length of each other.
     """
-    @spec near( [float], [float], float) :: boolean
+    @spec near( {float, float, float}, {float, float, float}, float) :: boolean
     def near( a, b, distance) do
-        [ x, y, z | _ ] = a
-        [ u, v, w | _ ] = b
+        { x, y, z } = a
+        { u, v, w } = b
         dx = u - x
         dy = v - y
         dz = w - z
@@ -197,10 +197,10 @@ defmodule Graphmath.Vec3.List do
 
     Vrot = V*cos(theta) + (K x V)*sin(theta) + K(K*V)(1-cos(theta))
     """
-    @spec rotate( [float], [float], float) :: [float]
+    @spec rotate( {float, float, float}, {float, float, float}, float) :: {float, float, float}
     def rotate( v, k, theta) do
-        [ vx, vy, vz | _ ] = v
-        [ kx, ky, kz | _ ] = k
+        { vx, vy, vz } = v
+        { kx, ky, kz } = k
         ct = :math.cos(theta)
         st = :math.sin(theta)
         k_dot_v = ( (vx*kx) + (vy*ky) + (vz*kz) )
