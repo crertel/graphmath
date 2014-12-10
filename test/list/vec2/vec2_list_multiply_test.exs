@@ -1,4 +1,4 @@
-defmodule Graphmath.Vec2.List.List.Multiply_Vec2 do
+defmodule Graphmath.Vec2.List.Multiply_Vec2 do
   use ExUnit.Case
 
   @tag :vec2

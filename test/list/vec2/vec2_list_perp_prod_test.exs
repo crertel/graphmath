@@ -1,4 +1,4 @@
-defmodule Graphmath.Vec2.List.List.Perp_Prod_Vec2 do
+defmodule Graphmath.Vec2.List.Perp_Prod_Vec2 do
   use ExUnit.Case
 
   @tag :vec2

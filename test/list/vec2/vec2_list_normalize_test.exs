@@ -1,4 +1,4 @@
-defmodule Graphmath.Vec2.List.List.Normalize_Vec2 do
+defmodule Graphmath.Vec2.List.Normalize_Vec2 do
   use ExUnit.Case
  
   @tag :vec2
