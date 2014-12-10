@@ -3,13 +3,13 @@ defmodule Graphmath.Vec2.Tuple do
     @moduledoc """
     This is the 2D mathematics library for graphmath.
 
-    This submodule handles vectors stored as a list.
+    This submodule handles vectors stored as a tuple.
     """
 
     @doc"""
     `create()` creates a zero vec2.
 
-    It will return a list of the form [0.0,0.0].
+    It will return a tuple of the form {0.0,0.0}.
     """
     @spec create() :: {float, float}
     def create() do
@@ -19,7 +19,7 @@ defmodule Graphmath.Vec2.Tuple do
     @doc"""
     `create(x,y)` creates a vec2 of value (x,y).
 
-    It will return a list of the form [x,y].
+    It will return a tuple of the form {x,y}.
     """
     @spec create(float,float) :: {float,float}
     def create(x,y) do
@@ -29,7 +29,7 @@ defmodule Graphmath.Vec2.Tuple do
     @doc"""
     `create(vec)` creates a vec2 of value (x,y) out of a list of 2 or more numbers.
 
-    It will return a list of the form [x,y].
+    It will return a tupleof the form {x,y}.
     """
     @spec create([float]) :: {float,float}
     def create( vec ) do
@@ -40,7 +40,7 @@ defmodule Graphmath.Vec2.Tuple do
     @doc """
     `add( a, b)` adds a vec2 (a) to a vec2 (b).
 
-    It returns a list of the form [ ax + bx, ay + by ].
+    It returns a tuple of the form { ax + bx, ay + by }.
     """
     @spec add( {float, float}, {float, float}) :: {float, float}
     def add( a, b ) do
@@ -52,7 +52,7 @@ defmodule Graphmath.Vec2.Tuple do
     @doc """
     `subtract(a, b)` subtracts a vec2 (b) from a vec2 (a).
 
-    It returns a list of the form [ ax - bx, ay - by ].
+    It returns a tuple of the form { ax - bx, ay - by }.
     """
     @spec subtract( {float, float}, {float, float} ) :: {float, float}
     def subtract( a, b) do
@@ -64,7 +64,7 @@ defmodule Graphmath.Vec2.Tuple do
     @doc """
     `multiply( a, b)` mulitplies element-wise a vec2 (a) by a vec2 (b).
 
-    It returns a list of the form [ ax*bx, ay*by ].
+    It returns a tuple of the form { ax*bx, ay*by }.
     """
     @spec multiply( {float, float}, {float, float} ) :: {float, float}
     def multiply( a, b ) do
@@ -76,7 +76,7 @@ defmodule Graphmath.Vec2.Tuple do
     @doc """
     `scale( a, scale)` uniformly scales a vec2 (a) by an amount (x).
 
-    It returns a list of the form [ ax*scale, ay*scale ].
+    It returns a tuple of the form { ax*scale, ay*scale }.
     """
     @spec scale( {float, float}, float ) :: {float, float}
     def scale( a, scale ) do
@@ -154,7 +154,7 @@ defmodule Graphmath.Vec2.Tuple do
 
     This is done by dividing each component by the vector's magnitude.
 
-    It returns a list of the form [ normx, normy ].
+    It returns a tuple of the form { normx, normy }.
     """
     @spec normalize( {float, float} ) :: {float, float}
     def normalize( a ) do
