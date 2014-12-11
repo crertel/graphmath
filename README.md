@@ -18,6 +18,8 @@ Features
 * Comparison
 * Rotation
 * Linear interpolation
+* Support for list representations of vectors
+* Support for tuple representations of vectors
 
 Installation
 ============
@@ -41,14 +43,10 @@ Just add it to your `mix.exs` file like so:
   end
 ```
 
-
-
 Conventions in library
 ======================
 
 All mathematics are done in a right-handed coordinate system--that is to say, +Z is the cross-product of +X with +Y.
-
-All vectors are (currently) stored as lists of numbers. Later version may add support for structs or other representation types.
 
 All operations are accompied by tests and documentation.
 
