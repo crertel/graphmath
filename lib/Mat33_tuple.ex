@@ -31,7 +31,7 @@ defmodule Graphmath.Mat33.Tuple do
     end
 
     @doc"""
-    `add(A,B)` adds one 3x3 matrix to another.
+    `add(a,b)` adds one 3x3 matrix to another.
     """
     @spec add( mat33, mat33) :: mat33
     def add( a, b ) do
@@ -49,7 +49,7 @@ defmodule Graphmath.Mat33.Tuple do
     end
     
     @doc"""
-    `subtract(A,B)` subtracts one 3x3 matrix from another..
+    `subtract(a,b)` subtracts one 3x3 matrix from another..
     """
     @spec subtract( mat33, mat33) :: mat33
     def subtract( a, b ) do
@@ -66,4 +66,17 @@ defmodule Graphmath.Mat33.Tuple do
           a31 - b31, a32 - b32, a33 - b33 }
     end
 
+    @doc"""
+    `scale( a, k )` scales every element in a matrix a by coefficient k.
+    """
+    @spec scale( mat33, float) :: mat33
+    def scale( a, k) do
+        { a11, a12, a13,
+          a21, a22, a23,
+          a31, a32, a33 } = a
+
+        { a11 * k, a12 * k, a13 * k,
+          a21 * k, a22 * k, a23 * k,
+          a31 * k, a32 * k, a33 * k }
+    end
 end
