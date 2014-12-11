@@ -11,7 +11,7 @@ defmodule Graphmath.Mat33.Tuple do
                      float, float, float }
 
     @doc"""
-    `identity()` is used to create a 3x3 identity matrix.
+    `identity()` creates a 3x3 identity matrix.
     """
     @spec identity() :: mat33
     def identity() do
@@ -21,7 +21,7 @@ defmodule Graphmath.Mat33.Tuple do
     end
 
     @doc"""
-    `zero()` is used to create a 3x3 zero matrix.
+    `zero()` creates a 3x3 zero matrix.
     """
     @spec zero() :: mat33
     def zero() do
@@ -31,7 +31,7 @@ defmodule Graphmath.Mat33.Tuple do
     end
 
     @doc"""
-    `add(A,B)` is used to add one 3x3 matrix to another.
+    `add(A,B)` adds one 3x3 matrix to another.
     """
     @spec add( mat33, mat33) :: mat33
     def add( a, b ) do
@@ -48,4 +48,22 @@ defmodule Graphmath.Mat33.Tuple do
           a31 + b31, a32 + b32, a33 + b33 }
     end
     
+    @doc"""
+    `subtract(A,B)` subtracts one 3x3 matrix from another..
+    """
+    @spec subtract( mat33, mat33) :: mat33
+    def subtract( a, b ) do
+        { a11, a12, a13,
+          a21, a22, a23,
+          a31, a32, a33 } = a
+
+        { b11, b12, b13,
+          b21, b22, b23,
+          b31, b32, b33 } = b
+
+        { a11 - b11, a12 - b12, a13 - b13,
+          a21 - b21, a22 - b22, a23 - b23,
+          a31 - b31, a32 - b32, a33 - b33 }
+    end
+
 end
