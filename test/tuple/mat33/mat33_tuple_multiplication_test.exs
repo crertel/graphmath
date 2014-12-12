@@ -45,4 +45,13 @@ defmodule Graphmath.Mat33.Tuple.Multiply_Mat33 do
              210, 261, 312 } == Graphmath.Mat33.Tuple.multiply( {10,11,12,13,14,15,16,17,18},
                                                                 {1,2,3,4,5,6,7,8,9} )
   end
+  
+  @tag :mat33
+  @tag :multiply
+  test "multiply_transpose( 1:1:9, 10:1:18 )" do
+    assert { 68, 86, 104,
+             167, 212, 257,
+             266, 338, 410 } == Graphmath.Mat33.Tuple.multiply_transpose( {1,2,3,4,5,6,7,8,9},
+                                                          {10,11,12,13,14,15,16,17,18} )
+  end
 end
