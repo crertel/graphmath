@@ -9,6 +9,7 @@ defmodule Graphmath.Mat33.Tuple do
     @type mat33 :: { float, float, float,
                      float, float, float,
                      float, float, float }
+    @type vec3 :: { float, float, float }
 
     @doc"""
     `identity()` creates a 3x3 identity matrix.
@@ -134,5 +135,76 @@ defmodule Graphmath.Mat33.Tuple do
             (a31*b12) + (a32*b22) + (a33*b32),
             (a31*b13) + (a32*b23) + (a33*b33)
         }
+    end
+    
+    @doc"""
+    `column0( a )` selects the first column from a matrix 3x3 as a vec3.
+    """
+    @spec column0( mat33 ) :: vec3
+    def column0( a ) do
+        { a11, _, _,
+          a21, _, _,
+          a31, _, _ } = a
+        
+        {a11,a21,a31}
+    end
+    
+    @doc"""
+    `column1( a )` selects the second column from a matrix 3x3 as a vec3.
+    """
+    @spec column1( mat33 ) :: vec3
+    def column1( a ) do
+        { _, a12, _,
+          _, a22, _,
+          _, a32, _ } = a
+        
+        {a12,a22,a32}
+    end
+    
+    @doc"""
+    `column2( a )` selects the third column from a matrix 3x3 as a vec3.
+    """
+    @spec column2( mat33 ) :: vec3
+    def column2( a ) do
+        { _, _, a13,
+          _, _, a23,
+          _, _, a33 } = a
+        
+        {a13,a23,a33}
+    end
+    
+    @doc"""
+    `row0( a )` selects the first row from a matrix 3x3 as a vec3.
+    """
+    @spec row0( mat33 ) :: vec3
+    def row0( a ) do
+        { a11, a12, a13,
+          _, _, _,
+          _, _, _ } = a
+        
+        {a11,a12,a13}
+    end
+    @doc"""
+    `row1( a )` selects the second row from a matrix 3x3 as a vec3.
+    """
+    @spec row1( mat33 ) :: vec3
+    def row1( a ) do
+        { _, _, _,
+          a21, a22, a23,
+          _, _, _ } = a
+        
+        {a21,a22,a23}
+    end
+    
+    @doc"""
+    `row2( a )` selects the third row from a matrix 3x3 as a vec3.
+    """
+    @spec row2( mat33 ) :: vec3
+    def row2( a ) do
+        { _, _, _,
+          _, _, _,
+          a31, a32, a33 } = a
+        
+        {a31,a32,a33}
     end
 end
