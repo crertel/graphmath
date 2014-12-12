@@ -207,4 +207,24 @@ defmodule Graphmath.Mat33.Tuple do
         
         {a31,a32,a33}
     end
+    
+    @doc"""
+    `diag( a )` selects the diagonal from a matrix 3x3 as a vec3.
+    """
+    @spec diag( mat33 ) :: vec3
+    def diag( a ) do
+        { a11, _, _,
+          _, a22, _,
+          _, _, a33 } = a
+        
+        {a11,a22,a33}
+    end
+
+    @doc"""
+    `at( a, i, j)` selects the element of a 3x3 matrix at row i and column j.
+    """
+    @spec at( mat33, Integer, Integer ) :: float
+    def at( a, i, j ) do
+        elem( a, 3*i + j )
+    end
 end
