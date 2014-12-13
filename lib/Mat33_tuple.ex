@@ -227,4 +227,40 @@ defmodule Graphmath.Mat33.Tuple do
     def at( a, i, j ) do
         elem( a, 3*i + j )
     end
+
+    @doc"""
+    `apply( a, v )` transforms a vector `v` by a 3x3 matrix `a`.
+    """
+    @spec apply( mat33, vec3 ) :: vec3
+    def apply( a, v ) do
+        { a11, a12, a13,
+          a21, a22, a23,
+          a31, a32, a33 } = a
+
+        { x, y, z } = v
+
+        {
+            (a11*x)+(a12*y)+(a13*z),
+            (a21*x)+(a22*y)+(a23*z),
+            (a31*x)+(a32*y)+(a33*z)
+        }
+    end
+    
+    @doc"""
+    `apply_left( v, a )` transforms a vector `v` by a 3x3 matrix `a`.
+    """
+    @spec apply_left( vec3, mat33 ) :: vec3
+    def apply_left( v, a ) do
+        { a11, a12, a13,
+          a21, a22, a23,
+          a31, a32, a33 } = a
+
+        { x, y, z } = v
+
+        {
+            (a11*x)+(a21*y)+(a31*z),
+            (a12*x)+(a22*y)+(a32*z),
+            (a13*x)+(a23*y)+(a33*z)
+        }
+    end
 end
