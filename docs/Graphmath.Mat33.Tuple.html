@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.3.2 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; Mat33 &rarr; <a href="Graphmath.Mat33.Tuple.html">Tuple</a></div>
+      <div class="breadcrumbs">graphmath v0.3.3 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; Mat33 &rarr; <a href="Graphmath.Mat33.Tuple.html">Tuple</a></div>
 
       <h1>
         Graphmath.Mat33.Tuple
@@ -58,6 +58,20 @@
   <td class="summary_signature"><a href="#add/2">add(a, b)</a></td>
   
     <td class="summary_synopsis"><p><code class="inline">add(a,b)</code> adds one 3x3 matrix to another</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#apply/2">apply(a, v)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">apply( a, v )</code> transforms a vector <code class="inline">v</code> by a 3x3 matrix <code class="inline">a</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#apply_left/2">apply_left(v, a)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">apply_left( v, a )</code> transforms a vector <code class="inline">v</code> by a 3x3 matrix <code class="inline">a</code></p>
 </td>
   
 </tr>
@@ -203,6 +217,48 @@
     </ul>
   
   <div class="docstring"><p><code class="inline">add(a,b)</code> adds one 3x3 matrix to another.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="apply/2">
+    <span class="signature"><strong>apply(a, v)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#apply/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>apply(<a href="#t:mat33/0">mat33</a>, <a href="#t:vec3/0">vec3</a>) :: <a href="#t:vec3/0">vec3</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">apply( a, v )</code> transforms a vector <code class="inline">v</code> by a 3x3 matrix <code class="inline">a</code>.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="apply_left/2">
+    <span class="signature"><strong>apply_left(v, a)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#apply_left/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>apply_left(<a href="#t:vec3/0">vec3</a>, <a href="#t:mat33/0">mat33</a>) :: <a href="#t:vec3/0">vec3</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">apply_left( v, a )</code> transforms a vector <code class="inline">v</code> by a 3x3 matrix <code class="inline">a</code>.</p>
 </div>
   
 </div>
