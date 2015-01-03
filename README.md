@@ -48,7 +48,7 @@ Conventions in library
 
 All mathematics are done in a right-handed coordinate system--that is to say, +Z is the cross-product of +X with +Y.
 
-All operations are accompied by tests and documentation.
+All operations are accompanied by tests and documentation.
 
 Contributing
 ============
@@ -80,17 +80,11 @@ Wishlist
 
 * Proper support for 4x4 rigid-body transofrms and mass-point math.
 
-* C/SIMD native extennsions (probably want to live in a different, API-compatible library.
+* C/SIMD native extensions (probably want to live in a different, API-compatible library).
 
 * Left-handed coordinate system support (don't care enough right now, but some interop would appreciate it).
 
 * Functions to convert to packed 32-bit and 64-bit float byte arrays.
-
-* Proper support for point-plane arithmetic.
-
-* Proper support for point-line arithmetic.
-
-* Proper support for point-point arithmetic.
 
 License
 =======
