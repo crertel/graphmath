@@ -208,4 +208,13 @@ defmodule Graphmath.Vec2.List do
         coeff = ((x*u) +(y*v)) / (u*u + v*v)
         [u*coeff, v*coeff]
     end
+
+    @doc """
+    `perp(a)` creates a vector perpindicular to a vector `a`.
+    """
+    @spec perp( [float] ) :: [float]
+    def perp( a ) do
+        [ x, y | _ ] = a
+        [ -y, x]
+    end
 end

@@ -6,6 +6,8 @@ defmodule Graphmath.Vec2.Tuple do
     This submodule handles vectors stored as a tuple.
     """
 
+    @type vec2 :: { float, float }
+
     @doc"""
     `create()` creates a zero vec2.
 
@@ -207,5 +209,14 @@ defmodule Graphmath.Vec2.Tuple do
         { u,v } = b
         coeff = ((x*u) +(y*v)) / (u*u + v*v)
         {u*coeff, v*coeff}
+    end
+
+    @doc """
+    `perp(a)` creates a vector perpendicular to another vector `a`.
+    """
+    @spec perp( vec2 ) :: vec2
+    def perp(a) do
+        { x, y } = a
+        { -y, x }
     end
 end

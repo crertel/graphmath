@@ -6,6 +6,8 @@ defmodule Graphmath.Vec3.Tuple do
     This submodule handles 3D vectors using tuples of floats.
     """
 
+    @type vec3 :: {float, float, float}
+
     @doc"""
     `create()` is used to create a 3d vector.
 
