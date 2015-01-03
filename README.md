@@ -18,8 +18,7 @@ Features
 * Comparison
 * Rotation
 * Linear interpolation
-* Support for list representations of vectors
-* Support for tuple representations of vectors
+* Tuples are used to represent vectors and matrices (faster than lists, better for ffi later)
 
 Installation
 ============
