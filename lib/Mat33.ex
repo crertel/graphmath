@@ -102,6 +102,16 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
+    `make_translate( tx, ty )` creates a mat33 that translates a vec2 by (tx, ty).
+    """
+    @spec make_translate( float, float ) :: mat33
+    def make_translate( tx, ty ) do
+        { 1, 0, 0,
+          0, 1, 0,
+          tx, ty, 1 }
+    end
+
+    @doc"""
     `multiply( a, b )` multiply two matrices a and b together.
     """
     @spec multiply( mat33, mat33 ) :: mat33

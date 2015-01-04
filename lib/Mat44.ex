@@ -115,6 +115,17 @@ defmodule Graphmath.Mat44 do
     end
 
     @doc"""
+    `make_translate( tx, ty, tz )` creates a mat44 that translates a point by tx, ty, and tz.
+    """
+    @spec make_translate( float, float, float ) :: mat44
+    def make_translate( tx, ty, tz ) do
+        { 1, 0, 0, 0,
+          0, 1, 0, 0,
+          0, 0, 1, 0,
+          tx, ty, tz, 1 }
+    end
+
+    @doc"""
     `multiply( a, b )` multiply two matrices a and b together.
     """
     @spec multiply( mat44, mat44 ) :: mat44
