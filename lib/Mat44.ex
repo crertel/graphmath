@@ -91,6 +91,28 @@ defmodule Graphmath.Mat44 do
           a31 * k, a32 * k, a33 * k, a34 * k,
           a41 * k, a42 * k, a43 * k, a44 * k }
     end
+    
+    @doc"""
+    `make_scale( k )` creates a mat44 that uniformly scales by a value k.
+    """
+    @spec make_scale( float ) :: mat44
+    def make_scale( k ) do
+        { k, 0, 0, 0,
+          0, k, 0, 0,
+          0, 0, k, 0,
+          0, 0, 0, k }
+    end
+    
+    @doc"""
+    `make_scale( sx, sy, sz, sw )` creates a mat44 that scales by sx, sy, sz, and sz.
+    """
+    @spec make_scale( float, float, float, float ) :: mat44
+    def make_scale( sx, sy, sz, sw ) do
+        { sx, 0, 0, 0,
+          0, sy, 0, 0,
+          0, 0, sz, 0,
+          0, 0, 0, sw}
+    end
 
     @doc"""
     `multiply( a, b )` multiply two matrices a and b together.

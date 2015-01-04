@@ -80,6 +80,26 @@ defmodule Graphmath.Mat33 do
           a21 * k, a22 * k, a23 * k,
           a31 * k, a32 * k, a33 * k }
     end
+    
+    @doc"""
+    `make_scale( k )` creates a mat33 that uniformly scales by a value k.
+    """
+    @spec make_scale( float) :: mat33
+    def make_scale( k ) do
+        { k, 0, 0,
+          0, k, 0,
+          0, 0, k }
+    end
+    
+    @doc"""
+    `make_scale( sx, sy, sz )` creates a mat33 that scales by sx, sy, and sz.
+    """
+    @spec make_scale( float, float, float ) :: mat33
+    def make_scale( sx, sy, sz ) do
+        { sx, 0, 0,
+          0, sy, 0,
+          0, 0, sz }
+    end
 
     @doc"""
     `multiply( a, b )` multiply two matrices a and b together.
