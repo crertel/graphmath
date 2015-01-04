@@ -124,6 +124,40 @@ defmodule Graphmath.Mat44 do
           0, 0, 1, 0,
           tx, ty, tz, 1 }
     end
+    
+    @doc"""
+    `round( a, sigfigs )` rounds every element of a supplied mat44 `a` to number of digits `sigfigs`.
+    """
+    @spec round( mat44, 0..15 ) :: mat44
+    def round( a, sigfigs ) do
+        { a11, a12, a13, a14,
+          a21, a22, a23, a24,
+          a31, a32, a33, a34,
+          a41, a42, a43, a44 } = a
+
+        {
+            Float.round( 1.0*a11, sigfigs),
+            Float.round( 1.0*a12, sigfigs),
+            Float.round( 1.0*a13, sigfigs),
+            Float.round( 1.0*a14, sigfigs),
+            
+            Float.round( 1.0*a21, sigfigs),
+            Float.round( 1.0*a22, sigfigs),
+            Float.round( 1.0*a23, sigfigs),
+            Float.round( 1.0*a24, sigfigs),
+            
+            Float.round( 1.0*a31, sigfigs),
+            Float.round( 1.0*a32, sigfigs),
+            Float.round( 1.0*a33, sigfigs),
+            Float.round( 1.0*a34, sigfigs),
+            
+            Float.round( 1.0*a41, sigfigs),
+            Float.round( 1.0*a42, sigfigs),
+            Float.round( 1.0*a43, sigfigs),
+            Float.round( 1.0*a44, sigfigs)
+        }
+
+    end
 
     @doc"""
     `multiply( a, b )` multiply two matrices a and b together.

@@ -112,6 +112,44 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
+    `make_rotate( theta )` creates a mat33 that rotates a vec2 by `theta` radians about the Z axis.
+    """
+    @spec make_rotate( float ) :: mat33
+    def make_rotate( theta ) do
+        st = :math.sin(theta)
+        ct = :math.cos(theta)
+
+        { ct, st, 0,
+          -st, ct, 0,
+          0, 0, 1 }
+    end
+
+    @doc"""
+    `round( a, sigfigs )` rounds every element of a supplied mat33 `a` to number of digits `sigfigs`.
+    """
+    @spec round( mat33, 0..15 ) :: mat33
+    def round( a, sigfigs ) do
+        { a11, a12, a13,
+          a21, a22, a23,
+          a31, a32, a33 } = a
+
+        {
+            Float.round( 1.0*a11, sigfigs),
+            Float.round( 1.0*a12, sigfigs),
+            Float.round( 1.0*a13, sigfigs),
+            
+            Float.round( 1.0*a21, sigfigs),
+            Float.round( 1.0*a22, sigfigs),
+            Float.round( 1.0*a23, sigfigs),
+            
+            Float.round( 1.0*a31, sigfigs),
+            Float.round( 1.0*a32, sigfigs),
+            Float.round( 1.0*a33, sigfigs)
+        }
+
+    end
+
+    @doc"""
     `multiply( a, b )` multiply two matrices a and b together.
     """
     @spec multiply( mat33, mat33 ) :: mat33
