@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.2.9 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Vec3.html">Vec3</a></div>
+      <div class="breadcrumbs">graphmath v0.4.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Vec3.html">Vec3</a></div>
 
       <h1>
         Graphmath.Vec3
@@ -32,6 +32,8 @@
           <li><a href="#summary">Summary</a></li>
         
         
+          <li><a href="#types_details">Types</a></li>
+        
         
           <li><a href="#functions_details">Functions</a></li>
         
@@ -42,6 +44,7 @@
       
         <div id="moduledoc" class="docstring">
           <p>This is the 3D mathematics library for graphmath.</p>
+<p>This submodule handles 3D vectors using tuples of floats.</p>
 
         </div>
       
@@ -68,7 +71,7 @@
 <tr>
   <td class="summary_signature"><a href="#create/1">create(vec)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">create(vec)</code> creates a vec3 of value (x,y,z) out of a list of 3 or more numbers</p>
+    <td class="summary_synopsis"><p><code class="inline">create(vec)</code> creates a vec3 of value {x,y,z} out of a list of 3 or more numbers</p>
 </td>
   
 </tr>
@@ -168,6 +171,17 @@
       
 
       
+        <div id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:vec3/0">
+    <a href="#t:vec3/0">vec3</a> :: {float, float, float}
+  </p>
+  
+</div>
+
+        </div>
+      
 
       
         <div id="functions_details" class="details_list">
@@ -185,12 +199,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>add([float], [float]) :: [float]</li>
+        <li>add({float, float, float}, {float, float, float}) :: {float, float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">add( a, b)</code> adds a vec3 (a) to a vec3 (b).</p>
-<p>It returns a list of the form [ ax + bx, ay + by, az + bz ].</p>
+<p>It returns a tuple of the form { ax + bx, ay + by, az + bz }.</p>
 </div>
   
 </div>
@@ -207,12 +221,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create :: [float]</li>
+        <li>create :: {float, float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">create()</code> is used to create a 3d vector.</p>
-<p>It takes a list of numbers and converts it into an array of form [x,y,z].</p>
+<p>It takes a list of numbers and converts it into a tuple of form {x,y,z}.</p>
 </div>
   
 </div>
@@ -229,12 +243,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create([float]) :: [float]</li>
+        <li>create([float]) :: {float, float, float}</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">create(vec)</code> creates a vec3 of value (x,y,z) out of a list of 3 or more numbers.</p>
-<p>It will return a list of the form [x,y,z].</p>
+  <div class="docstring"><p><code class="inline">create(vec)</code> creates a vec3 of value {x,y,z} out of a list of 3 or more numbers.</p>
+<p>It will return a tuple of the form {x,y,z}.</p>
 </div>
   
 </div>
@@ -251,12 +265,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create(float, float, float) :: [float]</li>
+        <li>create(float, float, float) :: {float, float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">create(x,y,z)</code> creates a vec3 of value (x,y,z).</p>
-<p>It will return a list of the form [x,y,z].</p>
+<p>It will return a tuple of the form {x,y,z}.</p>
 </div>
   
 </div>
@@ -273,7 +287,7 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>cross([float], [float]) :: [float]</li>
+        <li>cross({float, float, float}, {float, float, float}) :: {float, float, float}</li>
       
     </ul>
   
@@ -297,7 +311,7 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>dot([float], [float]) :: float</li>
+        <li>dot({float, float, float}, {float, float, float}) :: float</li>
       
     </ul>
   
@@ -319,7 +333,7 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length([float]) :: float</li>
+        <li>length({float, float, float}) :: float</li>
       
     </ul>
   
@@ -342,7 +356,7 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length_manhattan([float]) :: float</li>
+        <li>length_manhattan({float, float, float}) :: float</li>
       
     </ul>
   
@@ -365,7 +379,7 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length_squared([float]) :: float</li>
+        <li>length_squared({float, float, float}) :: float</li>
       
     </ul>
   
@@ -388,7 +402,7 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>lerp([float], [float], float) :: [float]</li>
+        <li>lerp({float, float, float}, {float, float, float}, float) :: {float, float, float}</li>
       
     </ul>
   
@@ -410,12 +424,12 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>multiply([float], [float]) :: [float]</li>
+        <li>multiply({float, float, float}, {float, float, float}) :: {float, float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">multiply( a, b)</code> mulitplies element-wise a vec3 (a) by a vec3 (b).</p>
-<p>It returns a list of the form [ ax*bx, ay*by ].</p>
+<p>It returns a tuple of the form { ax<em>bx, ay</em>by }.</p>
 </div>
   
 </div>
@@ -432,7 +446,7 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>near([float], [float], float) :: boolean</li>
+        <li>near({float, float, float}, {float, float, float}, float) :: boolean</li>
       
     </ul>
   
@@ -453,7 +467,7 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>normalize([float]) :: [float]</li>
+        <li>normalize({float, float, float}) :: {float, float, float}</li>
       
     </ul>
   
@@ -472,6 +486,13 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
     </div>
   </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>rotate({float, float, float}, {float, float, float}, float) :: {float, float, float}</li>
+      
+    </ul>
   
   <div class="docstring"><p><code class="inline">rotate( v, k, theta)</code> rotates a vector (v) about a unit vector (k) by theta radians.</p>
 <p>This uses the <a href="http://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula">Formula of Rodriguez</a>:</p>
@@ -492,12 +513,12 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>scale([float], float) :: [float]</li>
+        <li>scale({float, float, float}, float) :: {float, float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">scale( a, scale)</code> uniformly scales a vec3 (a) by an amount (x).</p>
-<p>It returns a list of the form [ ax*scale, ay*scale, az*scale ].</p>
+<p>It returns a tuple of the form { ax<em>scale, ay</em>scale, az*scale }.</p>
 </div>
   
 </div>
@@ -514,12 +535,12 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>subtract([float], [float]) :: [float]</li>
+        <li>subtract({float, float, float}, {float, float, float}) :: {float, float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">subtract(a, b)</code> subtracts a vec3 (b) from a vec3 (a).</p>
-<p>It returns a list of the form [ ax - bx, ay - by, az - bz ].</p>
+<p>It returns a tuple of the form { ax - bx, ay - by, az - bz }.</p>
 </div>
   
 </div>

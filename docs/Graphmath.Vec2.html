@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.2.9 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Vec2.html">Vec2</a></div>
+      <div class="breadcrumbs">graphmath v0.4.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Vec2.html">Vec2</a></div>
 
       <h1>
         Graphmath.Vec2
@@ -32,6 +32,8 @@
           <li><a href="#summary">Summary</a></li>
         
         
+          <li><a href="#types_details">Types</a></li>
+        
         
           <li><a href="#functions_details">Functions</a></li>
         
@@ -42,6 +44,7 @@
       
         <div id="moduledoc" class="docstring">
           <p>This is the 2D mathematics library for graphmath.</p>
+<p>This submodule handles vectors stored as a tuple.</p>
 
         </div>
       
@@ -136,6 +139,13 @@
   
 </tr>
 <tr>
+  <td class="summary_signature"><a href="#perp/1">perp(a)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">perp(a)</code> creates a vector perpendicular to another vector <code class="inline">a</code></p>
+</td>
+  
+</tr>
+<tr>
   <td class="summary_signature"><a href="#perp_prod/2">perp_prod(a, b)</a></td>
   
     <td class="summary_synopsis"><p><code class="inline">perp_prod( a, b)</code> finds the perpindicular product of a vec2 (a) with another vec2 (b)</p>
@@ -175,6 +185,17 @@
       
 
       
+        <div id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:vec2/0">
+    <a href="#t:vec2/0">vec2</a> :: {float, float}
+  </p>
+  
+</div>
+
+        </div>
+      
 
       
         <div id="functions_details" class="details_list">
@@ -192,12 +213,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>add([float], [float]) :: [float]</li>
+        <li>add({float, float}, {float, float}) :: {float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">add( a, b)</code> adds a vec2 (a) to a vec2 (b).</p>
-<p>It returns a list of the form [ ax + bx, ay + by ].</p>
+<p>It returns a tuple of the form { ax + bx, ay + by }.</p>
 </div>
   
 </div>
@@ -214,12 +235,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create :: [float]</li>
+        <li>create :: {float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">create()</code> creates a zero vec2.</p>
-<p>It will return a list of the form [0.0,0.0].</p>
+<p>It will return a tuple of the form {0.0,0.0}.</p>
 </div>
   
 </div>
@@ -236,12 +257,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create([float]) :: [float]</li>
+        <li>create([float]) :: {float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">create(vec)</code> creates a vec2 of value (x,y) out of a list of 2 or more numbers.</p>
-<p>It will return a list of the form [x,y].</p>
+<p>It will return a tupleof the form {x,y}.</p>
 </div>
   
 </div>
@@ -258,12 +279,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create(float, float) :: [float]</li>
+        <li>create(float, float) :: {float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">create(x,y)</code> creates a vec2 of value (x,y).</p>
-<p>It will return a list of the form [x,y].</p>
+<p>It will return a tuple of the form {x,y}.</p>
 </div>
   
 </div>
@@ -280,7 +301,7 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>dot([float], [float]) :: float</li>
+        <li>dot({float, float}, {float, float}) :: float</li>
       
     </ul>
   
@@ -302,7 +323,7 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length([float]) :: float</li>
+        <li>length({float, float}) :: float</li>
       
     </ul>
   
@@ -325,7 +346,7 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length_manhattan([float]) :: float</li>
+        <li>length_manhattan({float, float}) :: float</li>
       
     </ul>
   
@@ -348,7 +369,7 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length_squared([float]) :: float</li>
+        <li>length_squared({float, float}) :: float</li>
       
     </ul>
   
@@ -371,7 +392,7 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>lerp([float], [float], float) :: [float]</li>
+        <li>lerp({float, float}, {float, float}, float) :: {float, float}</li>
       
     </ul>
   
@@ -393,12 +414,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>multiply([float], [float]) :: [float]</li>
+        <li>multiply({float, float}, {float, float}) :: {float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">multiply( a, b)</code> mulitplies element-wise a vec2 (a) by a vec2 (b).</p>
-<p>It returns a list of the form [ ax*bx, ay*by ].</p>
+<p>It returns a tuple of the form { ax<em>bx, ay</em>by }.</p>
 </div>
   
 </div>
@@ -415,7 +436,7 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>near([float], [float], float) :: boolean</li>
+        <li>near({float, float}, {float, float}, float) :: boolean</li>
       
     </ul>
   
@@ -436,13 +457,34 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>normalize([float]) :: [float]</li>
+        <li>normalize({float, float}) :: {float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a vec2 (a).</p>
 <p>This is done by dividing each component by the vector’s magnitude.</p>
-<p>It returns a list of the form [ normx, normy ].</p>
+<p>It returns a tuple of the form { normx, normy }.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="perp/1">
+    <span class="signature"><strong>perp(a)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#perp/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>perp(<a href="#t:vec2/0">vec2</a>) :: <a href="#t:vec2/0">vec2</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">perp(a)</code> creates a vector perpendicular to another vector <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -459,7 +501,7 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>perp_prod([float], [float]) :: float</li>
+        <li>perp_prod({float, float}, {float, float}) :: float</li>
       
     </ul>
   
@@ -482,7 +524,7 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>project([float], [float]) :: [float]</li>
+        <li>project({float, float}, {float, float}) :: {float, float}</li>
       
     </ul>
   
@@ -503,7 +545,7 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>rotate([float], float) :: [float]</li>
+        <li>rotate({float, float}, float) :: {float, float}</li>
       
     </ul>
   
@@ -524,12 +566,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>scale([float], float) :: [float]</li>
+        <li>scale({float, float}, float) :: {float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">scale( a, scale)</code> uniformly scales a vec2 (a) by an amount (x).</p>
-<p>It returns a list of the form [ ax*scale, ay*scale ].</p>
+<p>It returns a tuple of the form { ax<em>scale, ay</em>scale }.</p>
 </div>
   
 </div>
@@ -546,12 +588,12 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>subtract([float], [float]) :: [float]</li>
+        <li>subtract({float, float}, {float, float}) :: {float, float}</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">subtract(a, b)</code> subtracts a vec2 (b) from a vec2 (a).</p>
-<p>It returns a list of the form [ ax - bx, ay - by ].</p>
+<p>It returns a tuple of the form { ax - bx, ay - by }.</p>
 </div>
   
 </div>
