@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.4.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Mat33.html">Mat33</a></div>
+      <div class="breadcrumbs">graphmath v0.4.1 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Mat33.html">Mat33</a></div>
 
       <h1>
         Graphmath.Mat33
@@ -132,6 +132,34 @@
   
 </tr>
 <tr>
+  <td class="summary_signature"><a href="#make_rotate/1">make_rotate(theta)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">make_rotate( theta )</code> creates a mat33 that rotates a vec2 by <code class="inline">theta</code> radians about the Z axis</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#make_scale/1">make_scale(k)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">make_scale( k )</code> creates a mat33 that uniformly scales by a value k</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#make_scale/3">make_scale(sx, sy, sz)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">make_scale( sx, sy, sz )</code> creates a mat33 that scales by sx, sy, and sz</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#make_translate/2">make_translate(tx, ty)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">make_translate( tx, ty )</code> creates a mat33 that translates a vec2 by (tx, ty)</p>
+</td>
+  
+</tr>
+<tr>
   <td class="summary_signature"><a href="#multiply/2">multiply(a, b)</a></td>
   
     <td class="summary_synopsis"><p><code class="inline">multiply( a, b )</code> multiply two matrices a and b together</p>
@@ -142,6 +170,13 @@
   <td class="summary_signature"><a href="#multiply_transpose/2">multiply_transpose(a, b)</a></td>
   
     <td class="summary_synopsis"><p><code class="inline">multiply_transpose( a, b )</code> multiply two matrices a and b transpose together</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#round/2">round(a, sigfigs)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">round( a, sigfigs )</code> rounds every element of a supplied mat33 <code class="inline">a</code> to number of digits <code class="inline">sigfigs</code></p>
 </td>
   
 </tr>
@@ -445,6 +480,90 @@
   
 </div>
 <div class="detail">
+  <div class="detail_header" id="make_rotate/1">
+    <span class="signature"><strong>make_rotate(theta)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#make_rotate/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>make_rotate(float) :: <a href="#t:mat33/0">mat33</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">make_rotate( theta )</code> creates a mat33 that rotates a vec2 by <code class="inline">theta</code> radians about the Z axis.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="make_scale/1">
+    <span class="signature"><strong>make_scale(k)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#make_scale/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>make_scale(float) :: <a href="#t:mat33/0">mat33</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">make_scale( k )</code> creates a mat33 that uniformly scales by a value k.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="make_scale/3">
+    <span class="signature"><strong>make_scale(sx, sy, sz)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#make_scale/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>make_scale(float, float, float) :: <a href="#t:mat33/0">mat33</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">make_scale( sx, sy, sz )</code> creates a mat33 that scales by sx, sy, and sz.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="make_translate/2">
+    <span class="signature"><strong>make_translate(tx, ty)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#make_translate/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>make_translate(float, float) :: <a href="#t:mat33/0">mat33</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">make_translate( tx, ty )</code> creates a mat33 that translates a vec2 by (tx, ty).</p>
+</div>
+  
+</div>
+<div class="detail">
   <div class="detail_header" id="multiply/2">
     <span class="signature"><strong>multiply(a, b)</strong></span>
     <div class="detail_header_links">
@@ -483,6 +602,27 @@
     </ul>
   
   <div class="docstring"><p><code class="inline">multiply_transpose( a, b )</code> multiply two matrices a and b transpose together.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="round/2">
+    <span class="signature"><strong>round(a, sigfigs)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#round/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>round(<a href="#t:mat33/0">mat33</a>, 0 .. 15) :: <a href="#t:mat33/0">mat33</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">round( a, sigfigs )</code> rounds every element of a supplied mat33 <code class="inline">a</code> to number of digits <code class="inline">sigfigs</code>.</p>
 </div>
   
 </div>
