@@ -11,6 +11,7 @@ defmodule Graphmath.Mat44 do
                      float, float, float, float,
                      float, float, float, float}
     @type vec4 :: { float, float, float, float }
+    @type vec3 :: { float, float, float }
 
     @doc"""
     `identity()` creates a 4x4 identity matrix.
@@ -479,6 +480,52 @@ defmodule Graphmath.Mat44 do
             (a12*x)+(a22*y)+(a32*z)+(a42*w),
             (a13*x)+(a23*y)+(a33*z)+(a43*w),
             (a14*x)+(a24*y)+(a34*z)+(a44*w)
+        }
+    end
+    
+    @doc"""
+    `transform_point( a, v )` transforms a vec3 point `v` by a matrix `a`.
+
+    The point `a` is internally treated as having a fourth coordinate equal to 1.0.
+
+    Note that transforming a point will work for all transforms.
+    """
+    @spec transform_point(mat44, vec3) :: vec3
+    def transform_point( a, v ) do
+        { a11, a21, a31, _,
+          a12, a22, a32, _,
+          a13, a23, a33, _,
+          a14, a24, a34, _ } = a
+
+        { x, y, z } = v
+
+        {
+            (a11*x)+(a12*y)+(a13*z) + (a14),
+            (a21*x)+(a22*y)+(a23*z) + (a24),
+            (a31*x)+(a32*y)+(a33*z) + (a34)
+        }
+    end
+    
+    @doc"""
+    `transform_vector( a, v )` transforms a vec3 vector `v` by a matrix `a`.
+
+    The point `a` is internally treated as having a fourth coordinate equal to 0.0.
+
+    Note that transforming a vector will work for only rotations, scales, and shears.
+    """
+    @spec transform_vector(mat44, vec3) :: vec3
+    def transform_vector( a, v ) do
+        { a11, a21, a31, _,
+          a12, a22, a32, _,
+          a13, a23, a33, _,
+          _, _, _, _ } = a
+
+        { x, y, z } = v
+
+        {
+            (a11*x)+(a12*y)+(a13*z),
+            (a21*x)+(a22*y)+(a23*z),
+            (a31*x)+(a32*y)+(a33*z)
         }
     end
 end
