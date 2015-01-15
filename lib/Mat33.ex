@@ -10,6 +10,7 @@ defmodule Graphmath.Mat33 do
                      float, float, float,
                      float, float, float }
     @type vec3 :: { float, float, float }
+    @type vec2 :: { float, float }
 
     @doc"""
     `identity()` creates a 3x3 identity matrix.
@@ -365,6 +366,48 @@ defmodule Graphmath.Mat33 do
             (a11*x)+(a21*y)+(a31*z),
             (a12*x)+(a22*y)+(a32*z),
             (a13*x)+(a23*y)+(a33*z)
+        }
+    end
+
+    @doc"""
+    `transform_point( a, v )` transforms a vec2 point `v` by a matrix `a`.
+
+    The point `a` is internally treated as having a third coordinate equal to 1.0.
+
+    Note that transforming a point will work for all transforms.
+    """
+    @spec transform_point(mat33, vec2) :: vec2
+    def transform_point( a, v ) do
+        { a11, a21, _,
+          a12, a22, _,
+          a13, a23, _ } = a
+
+        { x, y } = v
+
+        {
+            (a11*x)+(a12*y) + (a13),
+            (a21*x)+(a22*y) + (a23)
+        }
+    end
+    
+    @doc"""
+    `transform_vector( a, v )` transforms a vec2 vector `v` by a matrix `a`.
+
+    The point `a` is internally treated as having a third coordinate equal to 0.0.
+
+    Note that transforming a vector will work for only rotations, scales, and shears.
+    """
+    @spec transform_vector(mat33, vec2) :: vec2
+    def transform_vector( a, v ) do
+        { a11, a21, _,
+          a12, a22, _,
+          _, _, _ } = a
+
+        { x, y } = v
+
+        {
+            (a11*x)+(a12*y),
+            (a21*x)+(a22*y)
         }
     end
 end
