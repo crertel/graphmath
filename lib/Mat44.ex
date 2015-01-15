@@ -124,6 +124,49 @@ defmodule Graphmath.Mat44 do
           0, 0, 1, 0,
           tx, ty, tz, 1 }
     end
+
+
+    @doc"""
+    `make_rotate_x( theta )` creates a mat44 that rotates a vec3 by `theta` radians about the X axis.
+    """
+    @spec make_rotate_x( float ) :: mat44
+    def make_rotate_x( theta ) do
+        st = :math.sin(theta)
+        ct = :math.cos(theta)
+
+        { 1, 0,   0,  0,
+          0, ct,  st, 0,
+          0, -st, ct, 0,
+          0,   0, 0,  1 }
+    end
+    
+    @doc"""
+    `make_rotate_y( theta )` creates a mat44 that rotates a vec3 by `theta` radians about the Y axis.
+    """
+    @spec make_rotate_y( float ) :: mat44
+    def make_rotate_y( theta ) do
+        st = :math.sin(theta)
+        ct = :math.cos(theta)
+
+        { ct,  0, st, 0,
+          0,   1, 0,  0,
+          -st, 0, ct, 0,
+          0,   0, 0,  1 }
+    end
+    
+    @doc"""
+    `make_rotate_z( theta )` creates a mat44 that rotates a vec3 by `theta` radians about the Z axis.
+    """
+    @spec make_rotate_z( float ) :: mat44
+    def make_rotate_z( theta ) do
+        st = :math.sin(theta)
+        ct = :math.cos(theta)
+        
+        { ct,  st, 0, 0,
+          -st, ct, 0, 0,
+          0,   0,  1, 0,
+          0,   0,  0, 1 }
+    end
     
     @doc"""
     `round( a, sigfigs )` rounds every element of a supplied mat44 `a` to number of digits `sigfigs`.
