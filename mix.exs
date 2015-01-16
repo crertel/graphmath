@@ -7,6 +7,7 @@ defmodule Graphmath.Mixfile do
      elixir: "~> 1.0",
      description: description,
      package: package,
+     docs: [readme: true, main: "README"]]
      deps: deps,
      test_coverage: [tool: ExCoveralls]
      ]
