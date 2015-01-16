@@ -4,7 +4,10 @@ otp_release:
 before_install:
   - git clone https://github.com/elixir-lang/elixir
   - cd elixir && make && cd ..
-before_script: "export PATH=`pwd`/elixir/bin:$PATH"
-script: "MIX_ENV=test mix do deps.get, test"
+before_script:
+  - export PATH=`pwd`/elixir/bin:$PATH
+  - mix local.hex --force
+  - mix deps.get --only test
+script: mix test
 after_success:
-  - "yes | mix compile && mix coveralls.travis"
+  - mix coveralls.travis
