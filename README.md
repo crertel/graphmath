@@ -1,5 +1,8 @@
 [![Build Status](https://api.travis-ci.org/repositories/crertel/graphmath.svg)](https://travis-ci.org/crertel/graphmath)
 
+ [![hex.pm version](https://img.shields.io/hexpm/v/graphmath.svg)](https://hex.pm/packages/graphmath)
+ [![hex.pm downloads](https://img.shields.io/hexpm/dt/graphmath.svg)](https://hex.pm/packages/graphmath)
+
 What is graphmath?
 ===================
 
