@@ -7,7 +7,7 @@ defmodule Graphmath.Mixfile do
      elixir: "~> 1.0",
      description: description,
      package: package,
-     docs: [readme: true, main: "README"],
+     docs: &docs/0,
      deps: deps,
      test_coverage: [tool: ExCoveralls]
      ]
@@ -36,6 +36,12 @@ defmodule Graphmath.Mixfile do
       licenses: ["Public Domain (unlicense)", "WTFPL", "New BSD"],
       links: %{"GitHub" => "https://github.com/crertel/graphmath"}
     ]
+  end
+
+  defp docs do
+    {ref, 0} = System.cmd("git", ["rev-parse", "--verify", "--quiet", "HEAD"])
+    [ source_ref: ref,
+     main: "overview"]
   end
 
 end
