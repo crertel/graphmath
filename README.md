@@ -1,8 +1,8 @@
+[![Build Status](https://api.travis-ci.org/repositories/crertel/graphmath.svg)](https://travis-ci.org/crertel/graphmath)
+[![Inline docs](http://inch-ci.org/github/crertel/graphmath.svg)](http://inch-ci.org/github/crertel/graphmath)
 [![hex.pm version](https://img.shields.io/hexpm/v/graphmath.svg)](https://hex.pm/packages/graphmath)
 [![hex.pm downloads](https://img.shields.io/hexpm/dt/graphmath.svg)](https://hex.pm/packages/graphmath)
-[![Build Status](https://api.travis-ci.org/repositories/crertel/graphmath.svg)](https://travis-ci.org/crertel/graphmath)
-[![Coverage Status](https://coveralls.io/repos/crertel/graphmath/badge.png?branch=master)](https://coveralls.io/r/crertel/graphmath?branch=master)
-[![Inline docs](http://inch-ci.org/github/crertel/graphmath.svg)](http://inch-ci.org/github/crertel/graphmath)
+[![Coverage Status](https://coveralls.io/repos/crertel/graphmath/badge.svg?branch=master)](https://coveralls.io/r/crertel/graphmath?branch=master)
 
 What is graphmath?
 ===================
