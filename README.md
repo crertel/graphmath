@@ -2,6 +2,7 @@
 [![hex.pm downloads](https://img.shields.io/hexpm/dt/graphmath.svg)](https://hex.pm/packages/graphmath)
 [![Build Status](https://api.travis-ci.org/repositories/crertel/graphmath.svg)](https://travis-ci.org/crertel/graphmath)
 [![Coverage Status](https://coveralls.io/repos/crertel/graphmath/badge.png?branch=master)](https://coveralls.io/r/crertel/graphmath?branch=master)
+[![Inline docs](http://inch-ci.org/github/crertel/graphmath.svg)](http://inch-ci.org/github/crertel/graphmath)
 
 What is graphmath?
 ===================
