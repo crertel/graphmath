@@ -7,7 +7,9 @@ defmodule Graphmath.Mixfile do
      elixir: "~> 1.0",
      description: description,
      package: package,
-     deps: deps]
+     deps: deps,
+     test_coverage: [tool: ExCoveralls]
+     ]
   end
 
   def application, do: []
@@ -21,7 +23,8 @@ defmodule Graphmath.Mixfile do
   defp deps do
     [
         {:earmark, "~> 0.1", only: :dev },
-        {:ex_doc, "~> 0.6", only: :dev}
+        {:ex_doc, "~> 0.6", only: :dev},
+        {:excoveralls, "~> 0.3", only: :dev}
     ]
   end
 
