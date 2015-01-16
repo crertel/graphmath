@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.4.2 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Mat44.html">Mat44</a></div>
+      <div class="breadcrumbs">graphmath v0.4.3 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Mat44.html">Mat44</a></div>
 
       <h1>
         Graphmath.Mat44
@@ -244,6 +244,20 @@
   
 </tr>
 <tr>
+  <td class="summary_signature"><a href="#transform_point/2">transform_point(a, v)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">transform_point( a, v )</code> transforms a vec3 point <code class="inline">v</code> by a matrix <code class="inline">a</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#transform_vector/2">transform_vector(a, v)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">transform_vector( a, v )</code> transforms a vec3 vector <code class="inline">v</code> by a matrix <code class="inline">a</code></p>
+</td>
+  
+</tr>
+<tr>
   <td class="summary_signature"><a href="#zero/0">zero()</a></td>
   
     <td class="summary_synopsis"><p><code class="inline">zero()</code> creates a 4x4 zero matrix</p>
@@ -266,6 +280,12 @@
 <div class="type_detail">
   <p class="typespec" id="t:vec4/0">
     <a href="#t:vec4/0">vec4</a> :: {float, float, float, float}
+  </p>
+  
+</div>
+<div class="type_detail">
+  <p class="typespec" id="t:vec3/0">
+    <a href="#t:vec3/0">vec3</a> :: {float, float, float}
   </p>
   
 </div>
@@ -840,6 +860,52 @@
     </ul>
   
   <div class="docstring"><p><code class="inline">subtract(a,b)</code> subtracts one 4x4 matrix from another..</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="transform_point/2">
+    <span class="signature"><strong>transform_point(a, v)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#transform_point/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>transform_point(<a href="#t:mat44/0">mat44</a>, <a href="#t:vec3/0">vec3</a>) :: <a href="#t:vec3/0">vec3</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">transform_point( a, v )</code> transforms a vec3 point <code class="inline">v</code> by a matrix <code class="inline">a</code>.</p>
+<p>The point <code class="inline">a</code> is internally treated as having a fourth coordinate equal to 1.0.</p>
+<p>Note that transforming a point will work for all transforms.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="transform_vector/2">
+    <span class="signature"><strong>transform_vector(a, v)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#transform_vector/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>transform_vector(<a href="#t:mat44/0">mat44</a>, <a href="#t:vec3/0">vec3</a>) :: <a href="#t:vec3/0">vec3</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">transform_vector( a, v )</code> transforms a vec3 vector <code class="inline">v</code> by a matrix <code class="inline">a</code>.</p>
+<p>The point <code class="inline">a</code> is internally treated as having a fourth coordinate equal to 0.0.</p>
+<p>Note that transforming a vector will work for only rotations, scales, and shears.</p>
 </div>
   
 </div>
