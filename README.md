@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/repositories/crertel/graphmath.svg)](https://travis-ci.org/crertel/graphmath)
+
 What is graphmath?
 ===================
 
