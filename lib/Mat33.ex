@@ -85,7 +85,7 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
-    `scale( a, k )` scales every element in a matrix a by coefficient k.
+    `scale( a, k )` scales every element in a `mat33` by a coefficient k.
 
     `a` is the `mat33` to scale.
 
@@ -129,7 +129,7 @@ defmodule Graphmath.Mat33 do
 
     This returns a `mat33` whose diagonal is `{ sx, sy, sz }`.
 
-    Note that, when used with `vec2`s via the *transform* method, `sz` will have no effect.
+    Note that, when used with `vec2`s via the *transform* methods, `sz` will have no effect.
     """
     @spec make_scale( float, float, float ) :: mat33
     def make_scale( sx, sy, sz ) do
@@ -143,9 +143,9 @@ defmodule Graphmath.Mat33 do
 
     `tx` is a float for translating along the x-axis.
 
-    `ty` is a float for translating along the y-axis
+    `ty` is a float for translating along the y-axis.
     
-    This returns a `mat33` which translates by a vec2 `{ tx, ty }`.
+    This returns a `mat33` which translates by a `vec2` `{ tx, ty }`.
     """
     @spec make_translate( float, float ) :: mat33
     def make_translate( tx, ty ) do
@@ -387,9 +387,9 @@ defmodule Graphmath.Mat33 do
 
     `a` is the `mat33` to index.
     
-    `i` is the row integer index [1,3].
+    `i` is the row integer index [0,2].
 
-    `j` is the column integer index [1,3].
+    `j` is the column integer index [0,2].
 
     This returns a float from the matrix at row `i` and column `j`.
     """

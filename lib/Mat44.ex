@@ -14,7 +14,9 @@ defmodule Graphmath.Mat44 do
     @type vec3 :: { float, float, float }
 
     @doc"""
-    `identity()` creates a 4x4 identity matrix.
+    `identity()` creates an identity `mat44`.
+
+    This returns an identity `mat44`.
     """
     @spec identity() :: mat44
     def identity() do
@@ -25,7 +27,9 @@ defmodule Graphmath.Mat44 do
     end
 
     @doc"""
-    `zero()` creates a 4x4 zero matrix.
+    `zero()` creates a zeroed `mat44`.
+
+    This returns a zeroed `mat44`.
     """
     @spec zero() :: mat44
     def zero() do
@@ -36,7 +40,13 @@ defmodule Graphmath.Mat44 do
     end
 
     @doc"""
-    `add(a,b)` adds one 4x4 matrix to another.
+    `add(a,b)` adds one `mat44` to another `mat44`.
+
+    `a` is the first `mat44`.
+
+    `b` is the second `mat44`.
+    
+    This returns a `mat44` which is the element-wise sum of `a` and `b`.
     """
     @spec add( mat44, mat44) :: mat44
     def add( a, b ) do
@@ -57,7 +67,13 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `subtract(a,b)` subtracts one 4x4 matrix from another..
+    `subtract(a,b)` subtracts one `mat44` from another `mat44`.
+
+    `a` is the minuend.
+
+    `b` is the subtraherd.
+
+    This returns a `mat44` formed by the element-wise subtraction of `b` from `a`.
     """
     @spec subtract( mat44, mat44) :: mat44
     def subtract( a, b ) do
@@ -78,7 +94,13 @@ defmodule Graphmath.Mat44 do
     end
 
     @doc"""
-    `scale( a, k )` scales every element in a matrix a by coefficient k.
+    `scale( a, k )` scales every element in a `mat44` by a coefficient k.
+
+    `a` is the `mat44` to scale.
+
+    `k` is the float to scale by.
+
+    This returns a `mat44` `a` scaled element-wise by `k`.
     """
     @spec scale( mat44, float) :: mat44
     def scale( a, k) do
@@ -94,7 +116,11 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `make_scale( k )` creates a mat44 that uniformly scales by a value k.
+    `make_scale( k )` creates a `mat44` that uniformly scales.
+
+    `k` is the float value to scale by.
+
+    This returns a `mat44` whose diagonal is all `k`s.
     """
     @spec make_scale( float ) :: mat44
     def make_scale( k ) do
@@ -105,7 +131,19 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `make_scale( sx, sy, sz, sw )` creates a mat44 that scales by sx, sy, sz, and sz.
+    `make_scale( sx, sy, sz, sw )` creates a `mat44` that scales each axis independently.
+
+    `sx` is a float for scaling the x-axis.
+
+    `sy` is a float for scaling the y-axis.
+
+    `sz` is a float for scaling the z-axis.
+
+    `sw` is a float for scaling the w-axis.
+
+    This returns a `mat44` whose diagonal is `{ sx, sy, sz, sw }`.
+
+    Note that, when used with `vec3`s via the *transform* methods, `sw` will have no effect.
     """
     @spec make_scale( float, float, float, float ) :: mat44
     def make_scale( sx, sy, sz, sw ) do
@@ -117,6 +155,16 @@ defmodule Graphmath.Mat44 do
 
     @doc"""
     `make_translate( tx, ty, tz )` creates a mat44 that translates a point by tx, ty, and tz.
+    
+    `make_translate( tx, ty, tz )` creates a mat44 that translates a vec3 by (tx, ty, tz).
+
+    `tx` is a float for translating along the x-axis.
+
+    `ty` is a float for translating along the y-axis.
+
+    `tz` is a float for translating along the z-axis.
+    
+    This returns a `mat44` which translates by a `vec3` `{ tx, ty, tz }`.
     """
     @spec make_translate( float, float, float ) :: mat44
     def make_translate( tx, ty, tz ) do
@@ -128,7 +176,11 @@ defmodule Graphmath.Mat44 do
 
 
     @doc"""
-    `make_rotate_x( theta )` creates a mat44 that rotates a vec3 by `theta` radians about the X axis.
+    `make_rotate_x( theta )` creates a `mat44` that rotates a `vec3` by `theta` radians about the +X axis.
+
+    `theta` is the float of the number of radians of rotation the matrix will provide.
+
+    This returns a `mat44` which rotates by `theta` radians about the +X axis.
     """
     @spec make_rotate_x( float ) :: mat44
     def make_rotate_x( theta ) do
@@ -142,7 +194,11 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `make_rotate_y( theta )` creates a mat44 that rotates a vec3 by `theta` radians about the Y axis.
+    `make_rotate_y( theta )` creates a `mat44` that rotates a `vec3` by `theta` radians about the +Y axis.
+
+    `theta` is the float of the number of radians of rotation the matrix will provide.
+
+    This returns a `mat44` which rotates by `theta` radians about the +Y axis.
     """
     @spec make_rotate_y( float ) :: mat44
     def make_rotate_y( theta ) do
@@ -156,7 +212,11 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `make_rotate_z( theta )` creates a mat44 that rotates a vec3 by `theta` radians about the Z axis.
+    `make_rotate_Z( theta )` creates a `mat44` that rotates a `vec3` by `theta` radians about the +Z axis.
+
+    `theta` is the float of the number of radians of rotation the matrix will provide.
+
+    This returns a `mat44` which rotates by `theta` radians about the +Z axis.
     """
     @spec make_rotate_z( float ) :: mat44
     def make_rotate_z( theta ) do
@@ -170,7 +230,13 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `round( a, sigfigs )` rounds every element of a supplied mat44 `a` to number of digits `sigfigs`.
+    `round( a, sigfigs )` rounds every element of a `mat44` to some number of decimal places.
+
+    `a` is the `mat44` to round.
+
+    `sigfigs` is an integer on [0,15] of the number of decimal places to round to.
+
+    This returns a `mat44` which is the result of rounding `a`.
     """
     @spec round( mat44, 0..15 ) :: mat44
     def round( a, sigfigs ) do
@@ -205,6 +271,12 @@ defmodule Graphmath.Mat44 do
 
     @doc"""
     `multiply( a, b )` multiply two matrices a and b together.
+
+    `a` is the `mat44` multiplicand.
+
+    `b` is the `mat44` multiplier.
+
+    This returns the `mat44` product of the `a` and `b`.
     """
     @spec multiply( mat44, mat44 ) :: mat44
     def multiply( a, b ) do
@@ -242,7 +314,13 @@ defmodule Graphmath.Mat44 do
     end
 
     @doc"""
-    `multiply_transpose( a, b )` multiply two matrices a and b transpose together.
+    `multiply_transpose( a, b )` multiply two matrices a and b<sup>T</sup> together.
+    
+    `a` is the `mat44` multiplicand.
+
+    `b` is the `mat44` multiplier.
+
+    This returns the `mat44` product of the `a` and `b`<sup>T</sup>.
     """
     @spec multiply_transpose( mat44, mat44 ) :: mat44
     def multiply_transpose( a, b ) do
@@ -280,7 +358,11 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `column0( a )` selects the first column from a matrix 4x4 as a vec4.
+    `column0( a )` selects the first column of a `mat44`.
+
+    `a` is the `mat44` to take the first column of.
+
+    This returns a `vec4` representing the first column of `a`.
     """
     @spec column0( mat44 ) :: vec4
     def column0( a ) do
@@ -293,7 +375,11 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `column1( a )` selects the second column from a matrix 4x4 as a vec4.
+    `column1( a )` selects the second column of a `mat44`.
+
+    `a` is the `mat44` to take the second column of.
+
+    This returns a `vec4` representing the second column of `a`.
     """
     @spec column1( mat44 ) :: vec4
     def column1( a ) do
@@ -306,7 +392,11 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `column2( a )` selects the third column from a matrix 4x4 as a vec4.
+    `column2( a )` selects the third column of a `mat44`.
+
+    `a` is the `mat44` to take the third column of.
+
+    This returns a `vec4` representing the third column of `a`.
     """
     @spec column2( mat44 ) :: vec4
     def column2( a ) do
@@ -319,7 +409,11 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `column3( a )` selects the fourth column from a matrix 4x4 as a vec4.
+    `column3( a )` selects the fourth column of a `mat44`.
+
+    `a` is the `mat44` to take the fourth column of.
+
+    This returns a `vec4` representing the fourth column of `a`.
     """
     @spec column3( mat44 ) :: vec4
     def column3( a ) do
@@ -332,7 +426,11 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `row0( a )` selects the first row from a matrix 4x4 as a vec4.
+    `row0( a )` selects the first row of a `mat44`.
+    
+    `a` is the `mat44` to take the first row of.
+
+    This returns a `vec4` representing the first row of `a`.
     """
     @spec row0( mat44 ) :: vec4
     def row0( a ) do
@@ -344,7 +442,11 @@ defmodule Graphmath.Mat44 do
         {a11,a12,a13,a14}
     end
     @doc"""
-    `row1( a )` selects the second row from a matrix 4x4 as a vec4.
+    `row1( a )` selects the second row of a `mat44`.
+    
+    `a` is the `mat44` to take the second row of.
+
+    This returns a `vec4` representing the second row of `a`.
     """
     @spec row1( mat44 ) :: vec4
     def row1( a ) do
@@ -357,7 +459,11 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `row2( a )` selects the third row from a matrix 4x4 as a vec4.
+    `row2( a )` selects the third row of a `mat44`.
+    
+    `a` is the `mat44` to take the third row of.
+
+    This returns a `vec4` representing the third row of `a`.
     """
     @spec row2( mat44 ) :: vec4
     def row2( a ) do
@@ -370,7 +476,11 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `row3( a )` selects the fourth row from a matrix 4x4 as a vec4.
+    `row3( a )` selects the fourth row of a `mat44`.
+    
+    `a` is the `mat44` to take the fourth row of.
+
+    This returns a `vec4` representing the fourth row of `a`.
     """
     @spec row3( mat44 ) :: vec4
     def row3( a ) do
@@ -383,7 +493,11 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `diag( a )` selects the diagonal from a matrix 4x4 as a vec4.
+    `diag( a )` selects the diagonal of a `mat44`.
+    
+    `a` is the `mat44` to take the diagonal of.
+
+    This returns a `vec4` representing the diagonal of `a`.
     """
     @spec diag( mat44 ) :: vec4
     def diag( a ) do
@@ -396,7 +510,15 @@ defmodule Graphmath.Mat44 do
     end
 
     @doc"""
-    `at( a, i, j)` selects the element of a 4x4 matrix at row i and column j.
+    `at( a, i, j)` selects an element of a `mat44`.
+
+    `a` is the `mat44` to index.
+    
+    `i` is the row integer index [0,3].
+
+    `j` is the column integer index [0,3].
+
+    This returns a float from the matrix at row `i` and column `j`.
     """
     @spec at( mat44, Integer, Integer ) :: float
     def at( a, i, j ) do
@@ -404,7 +526,15 @@ defmodule Graphmath.Mat44 do
     end
 
     @doc"""
-    `apply( a, v )` transforms a vector `v` by a 4x4 matrix `a`.
+    `apply( a, v )` transforms a `vec4` by a `mat44`.
+
+    `a` is the `mat44` to transform by.
+
+    `v` is the `vec4` to be transformed.
+
+    This returns a `vec4` representing **A****v**.
+
+    This is the "full" application of a matrix, and uses all elements.
     """
     @spec apply( mat44, vec4 ) :: vec4
     def apply( a, v ) do
@@ -424,7 +554,15 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `apply_transpose( a, v )` transforms a vector `v` by a 4x4 matrix `a` transposed.
+    `apply_transpose( a, v )` transforms a `vec4` by a a transposed `mat44`.
+    
+    `a` is the `mat44` to transform by.
+
+    `v` is the `vec4` to be transformed.
+
+    This returns a `vec4` representing **A**<sup>T</sup>**v**.
+    
+    This is the "full" application of a matrix, and uses all elements.
     """
     @spec apply_transpose( mat44, vec4 ) :: vec4
     def apply_transpose( a, v ) do
@@ -444,7 +582,15 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `apply_left( v, a )` transforms a vector `v` by a 4x4 matrix `a`.
+    `apply_left( v, a )` transforms a `vec4` by a `mat44`, applied on the left.
+
+    `a` is the `mat44` to transform by.
+
+    `v` is the `vec4` to be transformed.
+
+    This returns a `vec4` representing **v****A**.
+
+    This is the "full" application of a matrix, and uses all elements.
     """
     @spec apply_left( vec4, mat44 ) :: vec4
     def apply_left( v, a ) do
@@ -464,7 +610,15 @@ defmodule Graphmath.Mat44 do
     end
 
     @doc"""
-    `apply_left_transpose( v, a )` transforms a vector `v` by a 4x4 matrix `a` transposed.
+    `apply_left_transpose( v, a )` transforms a `vec3` by a transposed `mat33`, applied on the left.
+    
+    `a` is the `mat44` to transform by.
+
+    `v` is the `vec4` to be transformed.
+
+    This returns a `vec4` representing **v****A**<sup>T</sup>.
+    
+    This is the "full" application of a matrix, and uses all elements.
     """
     @spec apply_left_transpose( vec4, mat44 ) :: vec4
     def apply_left_transpose( v, a ) do
@@ -484,7 +638,13 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `transform_point( a, v )` transforms a vec3 point `v` by a matrix `a`.
+    `transform_point( a, v )` transforms a `vec3` point by a `mat44`.
+
+    `a` is a `mat44` used to transform the point.
+
+    `v` is a `vec3` to be transformed.
+
+    This returns a `vec3` representing the application of `a` to `v`.
 
     The point `a` is internally treated as having a fourth coordinate equal to 1.0.
 
@@ -507,7 +667,13 @@ defmodule Graphmath.Mat44 do
     end
     
     @doc"""
-    `transform_vector( a, v )` transforms a vec3 vector `v` by a matrix `a`.
+    `transform_vector( a, v )` transforms a `vec3` vector by a `mat44`.
+
+    `a` is a `mat44` used to transform the point.
+
+    `v` is a `vec3` to be transformed.
+
+    This returns a `vec3` representing the application of `a` to `v`.
 
     The point `a` is internally treated as having a fourth coordinate equal to 0.0.
 
