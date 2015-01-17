@@ -57,7 +57,7 @@
           <tr>
   <td class="summary_signature"><a href="#add/2">add(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">add(a,b)</code> adds one 3x3 matrix to another</p>
+    <td class="summary_synopsis"><p><code class="inline">add(a,b)</code> adds one <code class="inline">mat33</code> to another <code class="inline">mat33</code></p>
 </td>
   
 </tr>
@@ -127,7 +127,7 @@
 <tr>
   <td class="summary_signature"><a href="#identity/0">identity()</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">identity()</code> creates a 3x3 identity matrix</p>
+    <td class="summary_synopsis"><p><code class="inline">identity()</code> creates an identity <code class="inline">mat33</code></p>
 </td>
   
 </tr>
@@ -141,7 +141,7 @@
 <tr>
   <td class="summary_signature"><a href="#make_scale/1">make_scale(k)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">make_scale( k )</code> creates a mat33 that uniformly scales by a value k</p>
+    <td class="summary_synopsis"><p><code class="inline">make_scale( k )</code> creates a <code class="inline">mat33</code> that uniformly scales</p>
 </td>
   
 </tr>
@@ -211,7 +211,7 @@
 <tr>
   <td class="summary_signature"><a href="#subtract/2">subtract(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">subtract(a,b)</code> subtracts one 3x3 matrix from another</p>
+    <td class="summary_synopsis"><p><code class="inline">subtract(a,b)</code> subtracts one <code class="inline">mat33</code> from another <code class="inline">mat33</code></p>
 </td>
   
 </tr>
@@ -232,7 +232,7 @@
 <tr>
   <td class="summary_signature"><a href="#zero/0">zero()</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">zero()</code> creates a 3x3 zero matrix</p>
+    <td class="summary_synopsis"><p><code class="inline">zero()</code> creates a zeroed <code class="inline">mat33</code></p>
 </td>
   
 </tr>
@@ -285,7 +285,10 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">add(a,b)</code> adds one 3x3 matrix to another.</p>
+  <div class="docstring"><p><code class="inline">add(a,b)</code> adds one <code class="inline">mat33</code> to another <code class="inline">mat33</code>.</p>
+<p><code class="inline">a</code> is the first <code class="inline">mat33</code>.</p>
+<p><code class="inline">b</code> is the second <code class="inline">mat33</code>.</p>
+<p>This returns a <code class="inline">mat33</code> which is the element-wise sum of <code class="inline">a</code> and <code class="inline">b</code>.</p>
 </div>
   
 </div>
@@ -495,7 +498,8 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">identity()</code> creates a 3x3 identity matrix.</p>
+  <div class="docstring"><p><code class="inline">identity()</code> creates an identity <code class="inline">mat33</code>.</p>
+<p>This returns an identity <code class="inline">mat33</code>.</p>
 </div>
   
 </div>
@@ -537,7 +541,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">make_scale( k )</code> creates a mat33 that uniformly scales by a value k.</p>
+  <div class="docstring"><p><code class="inline">make_scale( k )</code> creates a <code class="inline">mat33</code> that uniformly scales.</p>
+<p><code class="inline">k</code> is the float value to scale by.</p>
+<p>This returns a <code class="inline">mat33</code> whose diagonal is all <code class="inline">k</code>s.</p>
 </div>
   
 </div>
@@ -559,6 +565,11 @@
     </ul>
   
   <div class="docstring"><p><code class="inline">make_scale( sx, sy, sz )</code> creates a mat33 that scales by sx, sy, and sz.</p>
+<p><code class="inline">sx</code> is a float for scaling the x-axis.</p>
+<p><code class="inline">sy</code> is a float for scaling the y-axis.</p>
+<p><code class="inline">sz</code> is a float for scaling the z-axis.</p>
+<p>This returns a <code class="inline">mat33</code> whose diagonal is <code class="inline">{ sx, sy, sz }</code>.</p>
+<p>Note that, when used with <code class="inline">vec2</code>s via the <em>transform</em> method, <code class="inline">sz</code> will have no effect.</p>
 </div>
   
 </div>
@@ -727,6 +738,9 @@
     </ul>
   
   <div class="docstring"><p><code class="inline">scale( a, k )</code> scales every element in a matrix a by coefficient k.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat33</code> to scale.</p>
+<p><code class="inline">k</code> is the float to scale by.</p>
+<p>This returns a <code class="inline">mat33</code> <code class="inline">a</code> scaled element-wise by <code class="inline">k</code>.</p>
 </div>
   
 </div>
@@ -747,7 +761,10 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">subtract(a,b)</code> subtracts one 3x3 matrix from another..</p>
+  <div class="docstring"><p><code class="inline">subtract(a,b)</code> subtracts one <code class="inline">mat33</code> from another <code class="inline">mat33</code>.</p>
+<p><code class="inline">a</code> is the minuend.</p>
+<p><code class="inline">b</code> is the subtraherd.</p>
+<p>This returns a <code class="inline">mat33</code> formed by the element-wise subtraction of <code class="inline">b</code> from <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -814,7 +831,8 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">zero()</code> creates a 3x3 zero matrix.</p>
+  <div class="docstring"><p><code class="inline">zero()</code> creates a zeroed <code class="inline">mat33</code>.</p>
+<p>This returns a zeroed <code class="inline">mat33</code>.</p>
 </div>
   
 </div>

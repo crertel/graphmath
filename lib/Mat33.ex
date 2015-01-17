@@ -13,7 +13,9 @@ defmodule Graphmath.Mat33 do
     @type vec2 :: { float, float }
 
     @doc"""
-    `identity()` creates a 3x3 identity matrix.
+    `identity()` creates an identity `mat33`.
+
+    This returns an identity `mat33`.
     """
     @spec identity() :: mat33
     def identity() do
@@ -23,7 +25,9 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
-    `zero()` creates a 3x3 zero matrix.
+    `zero()` creates a zeroed `mat33`.
+
+    This returns a zeroed `mat33`.
     """
     @spec zero() :: mat33
     def zero() do
@@ -33,7 +37,13 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
-    `add(a,b)` adds one 3x3 matrix to another.
+    `add(a,b)` adds one `mat33` to another `mat33`.
+
+    `a` is the first `mat33`.
+
+    `b` is the second `mat33`.
+    
+    This returns a `mat33` which is the element-wise sum of `a` and `b`.
     """
     @spec add( mat33, mat33) :: mat33
     def add( a, b ) do
@@ -51,7 +61,13 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `subtract(a,b)` subtracts one 3x3 matrix from another..
+    `subtract(a,b)` subtracts one `mat33` from another `mat33`.
+
+    `a` is the minuend.
+
+    `b` is the subtraherd.
+
+    This returns a `mat33` formed by the element-wise subtraction of `b` from `a`.
     """
     @spec subtract( mat33, mat33) :: mat33
     def subtract( a, b ) do
@@ -70,6 +86,12 @@ defmodule Graphmath.Mat33 do
 
     @doc"""
     `scale( a, k )` scales every element in a matrix a by coefficient k.
+
+    `a` is the `mat33` to scale.
+
+    `k` is the float to scale by.
+
+    This returns a `mat33` `a` scaled element-wise by `k`.
     """
     @spec scale( mat33, float) :: mat33
     def scale( a, k) do
@@ -83,7 +105,11 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `make_scale( k )` creates a mat33 that uniformly scales by a value k.
+    `make_scale( k )` creates a `mat33` that uniformly scales.
+
+    `k` is the float value to scale by.
+
+    This returns a `mat33` whose diagonal is all `k`s.
     """
     @spec make_scale( float) :: mat33
     def make_scale( k ) do
@@ -93,7 +119,17 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `make_scale( sx, sy, sz )` creates a mat33 that scales by sx, sy, and sz.
+    `make_scale( sx, sy, sz )` creates a `mat33` that scales each axis independently.
+
+    `sx` is a float for scaling the x-axis.
+
+    `sy` is a float for scaling the y-axis.
+
+    `sz` is a float for scaling the z-axis.
+
+    This returns a `mat33` whose diagonal is `{ sx, sy, sz }`.
+
+    Note that, when used with `vec2`s via the *transform* method, `sz` will have no effect.
     """
     @spec make_scale( float, float, float ) :: mat33
     def make_scale( sx, sy, sz ) do
@@ -104,6 +140,12 @@ defmodule Graphmath.Mat33 do
 
     @doc"""
     `make_translate( tx, ty )` creates a mat33 that translates a vec2 by (tx, ty).
+
+    `tx` is a float for translating along the x-axis.
+
+    `ty` is a float for translating along the y-axis
+    
+    This returns a `mat33` which translates by a vec2 `{ tx, ty }`.
     """
     @spec make_translate( float, float ) :: mat33
     def make_translate( tx, ty ) do
@@ -113,7 +155,11 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
-    `make_rotate( theta )` creates a mat33 that rotates a vec2 by `theta` radians about the Z axis.
+    `make_rotate( theta )` creates a mat33 that rotates a vec2 by `theta` radians about the +Z axis.
+
+    `theta` is the float of the number of radians of rotation the matrix will provide.
+
+    This returns a `mat33` which rotates by `theta` radians about the +Z axis.
     """
     @spec make_rotate( float ) :: mat33
     def make_rotate( theta ) do
@@ -126,7 +172,13 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
-    `round( a, sigfigs )` rounds every element of a supplied mat33 `a` to number of digits `sigfigs`.
+    `round( a, sigfigs )` rounds every element of a `mat33` to some number of decimal places.
+
+    `a` is the `mat33` to round.
+
+    `sigfigs` is an integer on [0,15] of the number of decimal places to round to.
+
+    This returns a `mat33` which is the result of rounding `a`.
     """
     @spec round( mat33, 0..15 ) :: mat33
     def round( a, sigfigs ) do
@@ -152,6 +204,12 @@ defmodule Graphmath.Mat33 do
 
     @doc"""
     `multiply( a, b )` multiply two matrices a and b together.
+
+    `a` is the `mat33` multiplicand.
+
+    `b` is the `mat33` multiplier.
+
+    This returns the `mat33` product of the `a` and `b`.
     """
     @spec multiply( mat33, mat33 ) :: mat33
     def multiply( a, b ) do
@@ -179,7 +237,13 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
-    `multiply_transpose( a, b )` multiply two matrices a and b transpose together.
+    `multiply_transpose( a, b )` multiply two matrices a and b<sup>T</sup> together.
+    
+    `a` is the `mat33` multiplicand.
+
+    `b` is the `mat33` multiplier.
+
+    This returns the `mat33` product of the `a` and `b`<sup>T</sup>.
     """
     @spec multiply_transpose( mat33, mat33 ) :: mat33
     def multiply_transpose( a, b ) do
@@ -207,7 +271,11 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `column0( a )` selects the first column from a matrix 3x3 as a vec3.
+    `column0( a )` selects the first column of a `mat33`.
+
+    `a` is the `mat33` to take the first column of.
+
+    This returns a `vec3` representing the first column of `a`.
     """
     @spec column0( mat33 ) :: vec3
     def column0( a ) do
@@ -219,7 +287,11 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `column1( a )` selects the second column from a matrix 3x3 as a vec3.
+    `column1( a )` selects the second column of a `mat33`.
+    
+    `a` is the `mat33` to take the second column of.
+
+    This returns a `vec3` representing the second column of `a`.
     """
     @spec column1( mat33 ) :: vec3
     def column1( a ) do
@@ -231,7 +303,11 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `column2( a )` selects the third column from a matrix 3x3 as a vec3.
+    `column2( a )` selects the third column of a `mat33`.
+    
+    `a` is the `mat33` to take the third column of.
+
+    This returns a `vec3` representing the third column of `a`.
     """
     @spec column2( mat33 ) :: vec3
     def column2( a ) do
@@ -243,7 +319,11 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `row0( a )` selects the first row from a matrix 3x3 as a vec3.
+    `row0( a )` selects the first row of a `mat33`.
+    
+    `a` is the `mat33` to take the first row of.
+
+    This returns a `vec3` representing the first row of `a`.
     """
     @spec row0( mat33 ) :: vec3
     def row0( a ) do
@@ -253,8 +333,13 @@ defmodule Graphmath.Mat33 do
         
         {a11,a12,a13}
     end
+
     @doc"""
-    `row1( a )` selects the second row from a matrix 3x3 as a vec3.
+    `row1( a )` selects the second row of a `mat33`.
+    
+    `a` is the `mat33` to take the second row of.
+
+    This returns a `vec3` representing the second row of `a`.
     """
     @spec row1( mat33 ) :: vec3
     def row1( a ) do
@@ -266,7 +351,11 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `row2( a )` selects the third row from a matrix 3x3 as a vec3.
+    `row2( a )` selects the third row of a `mat33`.
+    
+    `a` is the `mat33` to take the third row of.
+
+    This returns a `vec3` representing the third row of `a`.
     """
     @spec row2( mat33 ) :: vec3
     def row2( a ) do
@@ -278,7 +367,11 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `diag( a )` selects the diagonal from a matrix 3x3 as a vec3.
+    `diag( a )` selects the diagonal of a `mat33`.
+    
+    `a` is the `mat33` to take the diagonal of.
+
+    This returns a `vec3` representing the diagonal of `a`.
     """
     @spec diag( mat33 ) :: vec3
     def diag( a ) do
@@ -290,7 +383,15 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
-    `at( a, i, j)` selects the element of a 3x3 matrix at row i and column j.
+    `at( a, i, j)` selects an element of a `mat33`.
+
+    `a` is the `mat33` to index.
+    
+    `i` is the row integer index [1,3].
+
+    `j` is the column integer index [1,3].
+
+    This returns a float from the matrix at row `i` and column `j`.
     """
     @spec at( mat33, Integer, Integer ) :: float
     def at( a, i, j ) do
@@ -298,7 +399,15 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
-    `apply( a, v )` transforms a vector `v` by a 3x3 matrix `a`.
+    `apply( a, v )` transforms a `vec3` by a `mat33`.
+
+    `a` is the `mat33` to transform by.
+
+    `v` is the `vec3` to be transformed.
+
+    This returns a `vec3` representing **A****v**.
+
+    This is the "full" application of a matrix, and uses all elements.
     """
     @spec apply( mat33, vec3 ) :: vec3
     def apply( a, v ) do
@@ -316,7 +425,15 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `apply_transpose( a, v )` transforms a vector `v` by a 3x3 matrix `a` transposed.
+    `apply_transpose( a, v )` transforms a `vec3` by a a transposed `mat33`.
+    
+    `a` is the `mat33` to transform by.
+
+    `v` is the `vec3` to be transformed.
+
+    This returns a `vec3` representing **A**<sup>T</sup>**v**.
+    
+    This is the "full" application of a matrix, and uses all elements.
     """
     @spec apply_transpose( mat33, vec3 ) :: vec3
     def apply_transpose( a, v ) do
@@ -334,7 +451,15 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `apply_left( v, a )` transforms a vector `v` by a 3x3 matrix `a`.
+    `apply_left( v, a )` transforms a `vec3` by a `mat33`, applied on the left.
+
+    `a` is the `mat33` to transform by.
+
+    `v` is the `vec3` to be transformed.
+
+    This returns a `vec3` representing **v****A**.
+
+    This is the "full" application of a matrix, and uses all elements.
     """
     @spec apply_left( vec3, mat33 ) :: vec3
     def apply_left( v, a ) do
@@ -352,7 +477,15 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
-    `apply_left_transpose( v, a )` transforms a vector `v` by a 3x3 matrix `a` transposed.
+    `apply_left_transpose( v, a )` transforms a `vec3` by a transposed `mat33`, applied on the left.
+    
+    `a` is the `mat33` to transform by.
+
+    `v` is the `vec3` to be transformed.
+
+    This returns a `vec3` representing **v****A**<sup>T</sup>.
+    
+    This is the "full" application of a matrix, and uses all elements.
     """
     @spec apply_left_transpose( vec3, mat33 ) :: vec3
     def apply_left_transpose( v, a ) do
@@ -370,7 +503,13 @@ defmodule Graphmath.Mat33 do
     end
 
     @doc"""
-    `transform_point( a, v )` transforms a vec2 point `v` by a matrix `a`.
+    `transform_point( a, v )` transforms a `vec2` point by a `mat33`.
+
+    `a` is a `mat33` used to transform the point.
+
+    `v` is a `vec2` to be transformed.
+
+    This returns a `vec2` representing the application of `a` to `v`.
 
     The point `a` is internally treated as having a third coordinate equal to 1.0.
 
@@ -391,7 +530,13 @@ defmodule Graphmath.Mat33 do
     end
     
     @doc"""
-    `transform_vector( a, v )` transforms a vec2 vector `v` by a matrix `a`.
+    `transform_vector( a, v )` transforms a `vec2` vector by a `mat33`.
+
+    `a` is a `mat33` used to transform the point.
+
+    `v` is a `vec2` to be transformed.
+
+    This returns a `vec2` representing the application of `a` to `v`.
 
     The point `a` is internally treated as having a third coordinate equal to 0.0.
 
