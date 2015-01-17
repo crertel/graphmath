@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.4.4 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Mat33.html">Mat33</a></div>
+      <div class="breadcrumbs">graphmath v0.4.5 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Mat33.html">Mat33</a></div>
 
       <h1>
         Graphmath.Mat33
@@ -204,7 +204,7 @@
 <tr>
   <td class="summary_signature"><a href="#scale/2">scale(a, k)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">scale( a, k )</code> scales every element in a matrix a by coefficient k</p>
+    <td class="summary_synopsis"><p><code class="inline">scale( a, k )</code> scales every element in a <code class="inline">mat33</code> by a coefficient k</p>
 </td>
   
 </tr>
@@ -411,8 +411,8 @@
   
   <div class="docstring"><p><code class="inline">at( a, i, j)</code> selects an element of a <code class="inline">mat33</code>.</p>
 <p><code class="inline">a</code> is the <code class="inline">mat33</code> to index.</p>
-<p><code class="inline">i</code> is the row integer index [1,3].</p>
-<p><code class="inline">j</code> is the column integer index [1,3].</p>
+<p><code class="inline">i</code> is the row integer index [0,2].</p>
+<p><code class="inline">j</code> is the column integer index [0,2].</p>
 <p>This returns a float from the matrix at row <code class="inline">i</code> and column <code class="inline">j</code>.</p>
 </div>
   
@@ -599,7 +599,7 @@
 <p><code class="inline">sy</code> is a float for scaling the y-axis.</p>
 <p><code class="inline">sz</code> is a float for scaling the z-axis.</p>
 <p>This returns a <code class="inline">mat33</code> whose diagonal is <code class="inline">{ sx, sy, sz }</code>.</p>
-<p>Note that, when used with <code class="inline">vec2</code>s via the <em>transform</em> method, <code class="inline">sz</code> will have no effect.</p>
+<p>Note that, when used with <code class="inline">vec2</code>s via the <em>transform</em> methods, <code class="inline">sz</code> will have no effect.</p>
 </div>
   
 </div>
@@ -622,8 +622,8 @@
   
   <div class="docstring"><p><code class="inline">make_translate( tx, ty )</code> creates a mat33 that translates a vec2 by (tx, ty).</p>
 <p><code class="inline">tx</code> is a float for translating along the x-axis.</p>
-<p><code class="inline">ty</code> is a float for translating along the y-axis</p>
-<p>This returns a <code class="inline">mat33</code> which translates by a vec2 <code class="inline">{ tx, ty }</code>.</p>
+<p><code class="inline">ty</code> is a float for translating along the y-axis.</p>
+<p>This returns a <code class="inline">mat33</code> which translates by a <code class="inline">vec2</code> <code class="inline">{ tx, ty }</code>.</p>
 </div>
   
 </div>
@@ -785,7 +785,7 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">scale( a, k )</code> scales every element in a matrix a by coefficient k.</p>
+  <div class="docstring"><p><code class="inline">scale( a, k )</code> scales every element in a <code class="inline">mat33</code> by a coefficient k.</p>
 <p><code class="inline">a</code> is the <code class="inline">mat33</code> to scale.</p>
 <p><code class="inline">k</code> is the float to scale by.</p>
 <p>This returns a <code class="inline">mat33</code> <code class="inline">a</code> scaled element-wise by <code class="inline">k</code>.</p>

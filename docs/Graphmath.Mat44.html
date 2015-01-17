@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.4.4 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Mat44.html">Mat44</a></div>
+      <div class="breadcrumbs">graphmath v0.4.5 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Graphmath.html">Graphmath</a> &rarr; <a href="Graphmath.Mat44.html">Mat44</a></div>
 
       <h1>
         Graphmath.Mat44
@@ -57,119 +57,119 @@
           <tr>
   <td class="summary_signature"><a href="#add/2">add(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">add(a,b)</code> adds one 4x4 matrix to another</p>
+    <td class="summary_synopsis"><p><code class="inline">add(a,b)</code> adds one <code class="inline">mat44</code> to another <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#apply/2">apply(a, v)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">apply( a, v )</code> transforms a vector <code class="inline">v</code> by a 4x4 matrix <code class="inline">a</code></p>
+    <td class="summary_synopsis"><p><code class="inline">apply( a, v )</code> transforms a <code class="inline">vec4</code> by a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#apply_left/2">apply_left(v, a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">apply_left( v, a )</code> transforms a vector <code class="inline">v</code> by a 4x4 matrix <code class="inline">a</code></p>
+    <td class="summary_synopsis"><p><code class="inline">apply_left( v, a )</code> transforms a <code class="inline">vec4</code> by a <code class="inline">mat44</code>, applied on the left</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#apply_left_transpose/2">apply_left_transpose(v, a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">apply_left_transpose( v, a )</code> transforms a vector <code class="inline">v</code> by a 4x4 matrix <code class="inline">a</code> transposed</p>
+    <td class="summary_synopsis"><p><code class="inline">apply_left_transpose( v, a )</code> transforms a <code class="inline">vec3</code> by a transposed <code class="inline">mat33</code>, applied on the left</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#apply_transpose/2">apply_transpose(a, v)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">apply_transpose( a, v )</code> transforms a vector <code class="inline">v</code> by a 4x4 matrix <code class="inline">a</code> transposed</p>
+    <td class="summary_synopsis"><p><code class="inline">apply_transpose( a, v )</code> transforms a <code class="inline">vec4</code> by a a transposed <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#at/3">at(a, i, j)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">at( a, i, j)</code> selects the element of a 4x4 matrix at row i and column j</p>
+    <td class="summary_synopsis"><p><code class="inline">at( a, i, j)</code> selects an element of a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#column0/1">column0(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">column0( a )</code> selects the first column from a matrix 4x4 as a vec4</p>
+    <td class="summary_synopsis"><p><code class="inline">column0( a )</code> selects the first column of a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#column1/1">column1(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">column1( a )</code> selects the second column from a matrix 4x4 as a vec4</p>
+    <td class="summary_synopsis"><p><code class="inline">column1( a )</code> selects the second column of a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#column2/1">column2(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">column2( a )</code> selects the third column from a matrix 4x4 as a vec4</p>
+    <td class="summary_synopsis"><p><code class="inline">column2( a )</code> selects the third column of a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#column3/1">column3(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">column3( a )</code> selects the fourth column from a matrix 4x4 as a vec4</p>
+    <td class="summary_synopsis"><p><code class="inline">column3( a )</code> selects the fourth column of a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#diag/1">diag(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">diag( a )</code> selects the diagonal from a matrix 4x4 as a vec4</p>
+    <td class="summary_synopsis"><p><code class="inline">diag( a )</code> selects the diagonal of a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#identity/0">identity()</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">identity()</code> creates a 4x4 identity matrix</p>
+    <td class="summary_synopsis"><p><code class="inline">identity()</code> creates an identity <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#make_rotate_x/1">make_rotate_x(theta)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">make_rotate_x( theta )</code> creates a mat44 that rotates a vec3 by <code class="inline">theta</code> radians about the X axis</p>
+    <td class="summary_synopsis"><p><code class="inline">make_rotate_x( theta )</code> creates a <code class="inline">mat44</code> that rotates a <code class="inline">vec3</code> by <code class="inline">theta</code> radians about the +X axis</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#make_rotate_y/1">make_rotate_y(theta)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">make_rotate_y( theta )</code> creates a mat44 that rotates a vec3 by <code class="inline">theta</code> radians about the Y axis</p>
+    <td class="summary_synopsis"><p><code class="inline">make_rotate_y( theta )</code> creates a <code class="inline">mat44</code> that rotates a <code class="inline">vec3</code> by <code class="inline">theta</code> radians about the +Y axis</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#make_rotate_z/1">make_rotate_z(theta)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">make_rotate_z( theta )</code> creates a mat44 that rotates a vec3 by <code class="inline">theta</code> radians about the Z axis</p>
+    <td class="summary_synopsis"><p><code class="inline">make_rotate_Z( theta )</code> creates a <code class="inline">mat44</code> that rotates a <code class="inline">vec3</code> by <code class="inline">theta</code> radians about the +Z axis</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#make_scale/1">make_scale(k)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">make_scale( k )</code> creates a mat44 that uniformly scales by a value k</p>
+    <td class="summary_synopsis"><p><code class="inline">make_scale( k )</code> creates a <code class="inline">mat44</code> that uniformly scales</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#make_scale/4">make_scale(sx, sy, sz, sw)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">make_scale( sx, sy, sz, sw )</code> creates a mat44 that scales by sx, sy, sz, and sz</p>
+    <td class="summary_synopsis"><p><code class="inline">make_scale( sx, sy, sz, sw )</code> creates a <code class="inline">mat44</code> that scales each axis independently</p>
 </td>
   
 </tr>
@@ -190,77 +190,77 @@
 <tr>
   <td class="summary_signature"><a href="#multiply_transpose/2">multiply_transpose(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">multiply_transpose( a, b )</code> multiply two matrices a and b transpose together</p>
+    <td class="summary_synopsis"><p><code class="inline">multiply_transpose( a, b )</code> multiply two matrices a and b<sup>T</sup> together</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#round/2">round(a, sigfigs)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">round( a, sigfigs )</code> rounds every element of a supplied mat44 <code class="inline">a</code> to number of digits <code class="inline">sigfigs</code></p>
+    <td class="summary_synopsis"><p><code class="inline">round( a, sigfigs )</code> rounds every element of a <code class="inline">mat44</code> to some number of decimal places</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#row0/1">row0(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">row0( a )</code> selects the first row from a matrix 4x4 as a vec4</p>
+    <td class="summary_synopsis"><p><code class="inline">row0( a )</code> selects the first row of a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#row1/1">row1(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">row1( a )</code> selects the second row from a matrix 4x4 as a vec4</p>
+    <td class="summary_synopsis"><p><code class="inline">row1( a )</code> selects the second row of a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#row2/1">row2(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">row2( a )</code> selects the third row from a matrix 4x4 as a vec4</p>
+    <td class="summary_synopsis"><p><code class="inline">row2( a )</code> selects the third row of a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#row3/1">row3(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">row3( a )</code> selects the fourth row from a matrix 4x4 as a vec4</p>
+    <td class="summary_synopsis"><p><code class="inline">row3( a )</code> selects the fourth row of a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#scale/2">scale(a, k)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">scale( a, k )</code> scales every element in a matrix a by coefficient k</p>
+    <td class="summary_synopsis"><p><code class="inline">scale( a, k )</code> scales every element in a <code class="inline">mat44</code> by a coefficient k</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#subtract/2">subtract(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">subtract(a,b)</code> subtracts one 4x4 matrix from another</p>
+    <td class="summary_synopsis"><p><code class="inline">subtract(a,b)</code> subtracts one <code class="inline">mat44</code> from another <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#transform_point/2">transform_point(a, v)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">transform_point( a, v )</code> transforms a vec3 point <code class="inline">v</code> by a matrix <code class="inline">a</code></p>
+    <td class="summary_synopsis"><p><code class="inline">transform_point( a, v )</code> transforms a <code class="inline">vec3</code> point by a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#transform_vector/2">transform_vector(a, v)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">transform_vector( a, v )</code> transforms a vec3 vector <code class="inline">v</code> by a matrix <code class="inline">a</code></p>
+    <td class="summary_synopsis"><p><code class="inline">transform_vector( a, v )</code> transforms a <code class="inline">vec3</code> vector by a <code class="inline">mat44</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#zero/0">zero()</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">zero()</code> creates a 4x4 zero matrix</p>
+    <td class="summary_synopsis"><p><code class="inline">zero()</code> creates a zeroed <code class="inline">mat44</code></p>
 </td>
   
 </tr>
@@ -313,7 +313,10 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">add(a,b)</code> adds one 4x4 matrix to another.</p>
+  <div class="docstring"><p><code class="inline">add(a,b)</code> adds one <code class="inline">mat44</code> to another <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the first <code class="inline">mat44</code>.</p>
+<p><code class="inline">b</code> is the second <code class="inline">mat44</code>.</p>
+<p>This returns a <code class="inline">mat44</code> which is the element-wise sum of <code class="inline">a</code> and <code class="inline">b</code>.</p>
 </div>
   
 </div>
@@ -334,7 +337,11 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">apply( a, v )</code> transforms a vector <code class="inline">v</code> by a 4x4 matrix <code class="inline">a</code>.</p>
+  <div class="docstring"><p><code class="inline">apply( a, v )</code> transforms a <code class="inline">vec4</code> by a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to transform by.</p>
+<p><code class="inline">v</code> is the <code class="inline">vec4</code> to be transformed.</p>
+<p>This returns a <code class="inline">vec4</code> representing <strong>A**</strong>v**.</p>
+<p>This is the “full” application of a matrix, and uses all elements.</p>
 </div>
   
 </div>
@@ -355,7 +362,11 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">apply_left( v, a )</code> transforms a vector <code class="inline">v</code> by a 4x4 matrix <code class="inline">a</code>.</p>
+  <div class="docstring"><p><code class="inline">apply_left( v, a )</code> transforms a <code class="inline">vec4</code> by a <code class="inline">mat44</code>, applied on the left.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to transform by.</p>
+<p><code class="inline">v</code> is the <code class="inline">vec4</code> to be transformed.</p>
+<p>This returns a <code class="inline">vec4</code> representing <strong>v**</strong>A**.</p>
+<p>This is the “full” application of a matrix, and uses all elements.</p>
 </div>
   
 </div>
@@ -376,7 +387,11 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">apply_left_transpose( v, a )</code> transforms a vector <code class="inline">v</code> by a 4x4 matrix <code class="inline">a</code> transposed.</p>
+  <div class="docstring"><p><code class="inline">apply_left_transpose( v, a )</code> transforms a <code class="inline">vec3</code> by a transposed <code class="inline">mat33</code>, applied on the left.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to transform by.</p>
+<p><code class="inline">v</code> is the <code class="inline">vec4</code> to be transformed.</p>
+<p>This returns a <code class="inline">vec4</code> representing <strong>v**</strong>A**<sup>T</sup>.</p>
+<p>This is the “full” application of a matrix, and uses all elements.</p>
 </div>
   
 </div>
@@ -397,7 +412,11 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">apply_transpose( a, v )</code> transforms a vector <code class="inline">v</code> by a 4x4 matrix <code class="inline">a</code> transposed.</p>
+  <div class="docstring"><p><code class="inline">apply_transpose( a, v )</code> transforms a <code class="inline">vec4</code> by a a transposed <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to transform by.</p>
+<p><code class="inline">v</code> is the <code class="inline">vec4</code> to be transformed.</p>
+<p>This returns a <code class="inline">vec4</code> representing <strong>A</strong><sup>T</sup><strong>v</strong>.</p>
+<p>This is the “full” application of a matrix, and uses all elements.</p>
 </div>
   
 </div>
@@ -418,7 +437,11 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">at( a, i, j)</code> selects the element of a 4x4 matrix at row i and column j.</p>
+  <div class="docstring"><p><code class="inline">at( a, i, j)</code> selects an element of a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to index.</p>
+<p><code class="inline">i</code> is the row integer index [0,3].</p>
+<p><code class="inline">j</code> is the column integer index [0,3].</p>
+<p>This returns a float from the matrix at row <code class="inline">i</code> and column <code class="inline">j</code>.</p>
 </div>
   
 </div>
@@ -439,7 +462,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">column0( a )</code> selects the first column from a matrix 4x4 as a vec4.</p>
+  <div class="docstring"><p><code class="inline">column0( a )</code> selects the first column of a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to take the first column of.</p>
+<p>This returns a <code class="inline">vec4</code> representing the first column of <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -460,7 +485,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">column1( a )</code> selects the second column from a matrix 4x4 as a vec4.</p>
+  <div class="docstring"><p><code class="inline">column1( a )</code> selects the second column of a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to take the second column of.</p>
+<p>This returns a <code class="inline">vec4</code> representing the second column of <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -481,7 +508,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">column2( a )</code> selects the third column from a matrix 4x4 as a vec4.</p>
+  <div class="docstring"><p><code class="inline">column2( a )</code> selects the third column of a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to take the third column of.</p>
+<p>This returns a <code class="inline">vec4</code> representing the third column of <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -502,7 +531,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">column3( a )</code> selects the fourth column from a matrix 4x4 as a vec4.</p>
+  <div class="docstring"><p><code class="inline">column3( a )</code> selects the fourth column of a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to take the fourth column of.</p>
+<p>This returns a <code class="inline">vec4</code> representing the fourth column of <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -523,7 +554,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">diag( a )</code> selects the diagonal from a matrix 4x4 as a vec4.</p>
+  <div class="docstring"><p><code class="inline">diag( a )</code> selects the diagonal of a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to take the diagonal of.</p>
+<p>This returns a <code class="inline">vec4</code> representing the diagonal of <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -544,7 +577,8 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">identity()</code> creates a 4x4 identity matrix.</p>
+  <div class="docstring"><p><code class="inline">identity()</code> creates an identity <code class="inline">mat44</code>.</p>
+<p>This returns an identity <code class="inline">mat44</code>.</p>
 </div>
   
 </div>
@@ -565,7 +599,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">make_rotate_x( theta )</code> creates a mat44 that rotates a vec3 by <code class="inline">theta</code> radians about the X axis.</p>
+  <div class="docstring"><p><code class="inline">make_rotate_x( theta )</code> creates a <code class="inline">mat44</code> that rotates a <code class="inline">vec3</code> by <code class="inline">theta</code> radians about the +X axis.</p>
+<p><code class="inline">theta</code> is the float of the number of radians of rotation the matrix will provide.</p>
+<p>This returns a <code class="inline">mat44</code> which rotates by <code class="inline">theta</code> radians about the +X axis.</p>
 </div>
   
 </div>
@@ -586,7 +622,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">make_rotate_y( theta )</code> creates a mat44 that rotates a vec3 by <code class="inline">theta</code> radians about the Y axis.</p>
+  <div class="docstring"><p><code class="inline">make_rotate_y( theta )</code> creates a <code class="inline">mat44</code> that rotates a <code class="inline">vec3</code> by <code class="inline">theta</code> radians about the +Y axis.</p>
+<p><code class="inline">theta</code> is the float of the number of radians of rotation the matrix will provide.</p>
+<p>This returns a <code class="inline">mat44</code> which rotates by <code class="inline">theta</code> radians about the +Y axis.</p>
 </div>
   
 </div>
@@ -607,7 +645,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">make_rotate_z( theta )</code> creates a mat44 that rotates a vec3 by <code class="inline">theta</code> radians about the Z axis.</p>
+  <div class="docstring"><p><code class="inline">make_rotate_Z( theta )</code> creates a <code class="inline">mat44</code> that rotates a <code class="inline">vec3</code> by <code class="inline">theta</code> radians about the +Z axis.</p>
+<p><code class="inline">theta</code> is the float of the number of radians of rotation the matrix will provide.</p>
+<p>This returns a <code class="inline">mat44</code> which rotates by <code class="inline">theta</code> radians about the +Z axis.</p>
 </div>
   
 </div>
@@ -628,7 +668,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">make_scale( k )</code> creates a mat44 that uniformly scales by a value k.</p>
+  <div class="docstring"><p><code class="inline">make_scale( k )</code> creates a <code class="inline">mat44</code> that uniformly scales.</p>
+<p><code class="inline">k</code> is the float value to scale by.</p>
+<p>This returns a <code class="inline">mat44</code> whose diagonal is all <code class="inline">k</code>s.</p>
 </div>
   
 </div>
@@ -649,7 +691,13 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">make_scale( sx, sy, sz, sw )</code> creates a mat44 that scales by sx, sy, sz, and sz.</p>
+  <div class="docstring"><p><code class="inline">make_scale( sx, sy, sz, sw )</code> creates a <code class="inline">mat44</code> that scales each axis independently.</p>
+<p><code class="inline">sx</code> is a float for scaling the x-axis.</p>
+<p><code class="inline">sy</code> is a float for scaling the y-axis.</p>
+<p><code class="inline">sz</code> is a float for scaling the z-axis.</p>
+<p><code class="inline">sw</code> is a float for scaling the w-axis.</p>
+<p>This returns a <code class="inline">mat44</code> whose diagonal is <code class="inline">{ sx, sy, sz, sw }</code>.</p>
+<p>Note that, when used with <code class="inline">vec3</code>s via the <em>transform</em> methods, <code class="inline">sw</code> will have no effect.</p>
 </div>
   
 </div>
@@ -671,6 +719,11 @@
     </ul>
   
   <div class="docstring"><p><code class="inline">make_translate( tx, ty, tz )</code> creates a mat44 that translates a point by tx, ty, and tz.</p>
+<p><code class="inline">make_translate( tx, ty, tz )</code> creates a mat44 that translates a vec3 by (tx, ty, tz).</p>
+<p><code class="inline">tx</code> is a float for translating along the x-axis.</p>
+<p><code class="inline">ty</code> is a float for translating along the y-axis.</p>
+<p><code class="inline">tz</code> is a float for translating along the z-axis.</p>
+<p>This returns a <code class="inline">mat44</code> which translates by a <code class="inline">vec3</code> <code class="inline">{ tx, ty, tz }</code>.</p>
 </div>
   
 </div>
@@ -692,6 +745,9 @@
     </ul>
   
   <div class="docstring"><p><code class="inline">multiply( a, b )</code> multiply two matrices a and b together.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> multiplicand.</p>
+<p><code class="inline">b</code> is the <code class="inline">mat44</code> multiplier.</p>
+<p>This returns the <code class="inline">mat44</code> product of the <code class="inline">a</code> and <code class="inline">b</code>.</p>
 </div>
   
 </div>
@@ -712,7 +768,10 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">multiply_transpose( a, b )</code> multiply two matrices a and b transpose together.</p>
+  <div class="docstring"><p><code class="inline">multiply_transpose( a, b )</code> multiply two matrices a and b<sup>T</sup> together.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> multiplicand.</p>
+<p><code class="inline">b</code> is the <code class="inline">mat44</code> multiplier.</p>
+<p>This returns the <code class="inline">mat44</code> product of the <code class="inline">a</code> and <code class="inline">b</code><sup>T</sup>.</p>
 </div>
   
 </div>
@@ -733,7 +792,10 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">round( a, sigfigs )</code> rounds every element of a supplied mat44 <code class="inline">a</code> to number of digits <code class="inline">sigfigs</code>.</p>
+  <div class="docstring"><p><code class="inline">round( a, sigfigs )</code> rounds every element of a <code class="inline">mat44</code> to some number of decimal places.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to round.</p>
+<p><code class="inline">sigfigs</code> is an integer on [0,15] of the number of decimal places to round to.</p>
+<p>This returns a <code class="inline">mat44</code> which is the result of rounding <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -754,7 +816,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">row0( a )</code> selects the first row from a matrix 4x4 as a vec4.</p>
+  <div class="docstring"><p><code class="inline">row0( a )</code> selects the first row of a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to take the first row of.</p>
+<p>This returns a <code class="inline">vec4</code> representing the first row of <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -775,7 +839,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">row1( a )</code> selects the second row from a matrix 4x4 as a vec4.</p>
+  <div class="docstring"><p><code class="inline">row1( a )</code> selects the second row of a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to take the second row of.</p>
+<p>This returns a <code class="inline">vec4</code> representing the second row of <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -796,7 +862,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">row2( a )</code> selects the third row from a matrix 4x4 as a vec4.</p>
+  <div class="docstring"><p><code class="inline">row2( a )</code> selects the third row of a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to take the third row of.</p>
+<p>This returns a <code class="inline">vec4</code> representing the third row of <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -817,7 +885,9 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">row3( a )</code> selects the fourth row from a matrix 4x4 as a vec4.</p>
+  <div class="docstring"><p><code class="inline">row3( a )</code> selects the fourth row of a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to take the fourth row of.</p>
+<p>This returns a <code class="inline">vec4</code> representing the fourth row of <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -838,7 +908,10 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">scale( a, k )</code> scales every element in a matrix a by coefficient k.</p>
+  <div class="docstring"><p><code class="inline">scale( a, k )</code> scales every element in a <code class="inline">mat44</code> by a coefficient k.</p>
+<p><code class="inline">a</code> is the <code class="inline">mat44</code> to scale.</p>
+<p><code class="inline">k</code> is the float to scale by.</p>
+<p>This returns a <code class="inline">mat44</code> <code class="inline">a</code> scaled element-wise by <code class="inline">k</code>.</p>
 </div>
   
 </div>
@@ -859,7 +932,10 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">subtract(a,b)</code> subtracts one 4x4 matrix from another..</p>
+  <div class="docstring"><p><code class="inline">subtract(a,b)</code> subtracts one <code class="inline">mat44</code> from another <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is the minuend.</p>
+<p><code class="inline">b</code> is the subtraherd.</p>
+<p>This returns a <code class="inline">mat44</code> formed by the element-wise subtraction of <code class="inline">b</code> from <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -880,7 +956,10 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">transform_point( a, v )</code> transforms a vec3 point <code class="inline">v</code> by a matrix <code class="inline">a</code>.</p>
+  <div class="docstring"><p><code class="inline">transform_point( a, v )</code> transforms a <code class="inline">vec3</code> point by a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is a <code class="inline">mat44</code> used to transform the point.</p>
+<p><code class="inline">v</code> is a <code class="inline">vec3</code> to be transformed.</p>
+<p>This returns a <code class="inline">vec3</code> representing the application of <code class="inline">a</code> to <code class="inline">v</code>.</p>
 <p>The point <code class="inline">a</code> is internally treated as having a fourth coordinate equal to 1.0.</p>
 <p>Note that transforming a point will work for all transforms.</p>
 </div>
@@ -903,7 +982,10 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">transform_vector( a, v )</code> transforms a vec3 vector <code class="inline">v</code> by a matrix <code class="inline">a</code>.</p>
+  <div class="docstring"><p><code class="inline">transform_vector( a, v )</code> transforms a <code class="inline">vec3</code> vector by a <code class="inline">mat44</code>.</p>
+<p><code class="inline">a</code> is a <code class="inline">mat44</code> used to transform the point.</p>
+<p><code class="inline">v</code> is a <code class="inline">vec3</code> to be transformed.</p>
+<p>This returns a <code class="inline">vec3</code> representing the application of <code class="inline">a</code> to <code class="inline">v</code>.</p>
 <p>The point <code class="inline">a</code> is internally treated as having a fourth coordinate equal to 0.0.</p>
 <p>Note that transforming a vector will work for only rotations, scales, and shears.</p>
 </div>
@@ -926,7 +1008,8 @@
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">zero()</code> creates a 4x4 zero matrix.</p>
+  <div class="docstring"><p><code class="inline">zero()</code> creates a zeroed <code class="inline">mat44</code>.</p>
+<p>This returns a zeroed <code class="inline">mat44</code>.</p>
 </div>
   
 </div>
