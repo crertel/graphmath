@@ -9,42 +9,54 @@ defmodule Graphmath.Vec3 do
     @type vec3 :: {float, float, float}
 
     @doc"""
-    `create()` is used to create a 3d vector.
+    `create()` creates a zeroed `vec3`.
 
-    It takes a list of numbers and converts it into a tuple of form {x,y,z}.
+    It takes no arguments.
+
+    It returns a `vec3` of the form `{0,0,0}`.
     """
-    @spec create() :: {float, float, float}
+    @spec create() :: vec3
     def create() do
         {0,0,0}
     end
     
     @doc"""
-    `create(x,y,z)` creates a vec3 of value (x,y,z).
+    `create(x,y,z)` creates a `vec3` of value (x,y,z).
 
-    It will return a tuple of the form {x,y,z}.
+    `x` is the first element of the `vec3` to be created.
+    `y` is the second element of the `vec3` to be created.
+    `z` is the third element of the `vec3` to be created.
+
+    It returns a `vec3` of the form `{x,y,z}`.
     """
-    @spec create(float,float,float) :: {float, float, float}
+    @spec create(float,float,float) :: vec3
     def create( x, y, z) do
         {x,y,z}
     end
         
     @doc"""
-    `create(vec)` creates a vec3 of value {x,y,z} out of a list of 3 or more numbers.
+    `create(vec)` creates a `vec3` from a list of 3 or more floats.
 
-    It will return a tuple of the form {x,y,z}.
+    `vec` is a list of 3 or more floats.
+
+    It returns a `vec3` of the form `{x,y,z}`, where `x`, `y`, and `z` are the first three elements in `vec`.
     """
-    @spec create([float]) :: {float, float, float}
+    @spec create([float]) :: vec3
     def create( vec ) do
         [x,y,z | _] = vec
         {x,y,z}
     end
 
     @doc """
-    `add( a, b)` adds a vec3 (a) to a vec3 (b).
+    `add( a, b)` adds two `vec3`s.
 
-    It returns a tuple of the form { ax + bx, ay + by, az + bz }.
+    `a` is the first `vec3`.
+
+    `b` is the second `vec3`.
+
+    It returns a `vec3` of the form { a<sub>x</sub> + b<sub>x</sub>, a<sub>y</sub> + b<sub>y</sub>, a<sub>z</sub> + b<sub>z</sub> }.
     """
-    @spec add( {float, float, float}, {float, float, float}) :: {float, float, float}
+    @spec add( vec3, vec3 ) :: vec3
     def add( a, b ) do
         { x, y, z } = a
         { u, v, w } = b
@@ -52,11 +64,17 @@ defmodule Graphmath.Vec3 do
     end
 
     @doc """
-    `subtract(a, b)` subtracts a vec3 (b) from a vec3 (a).
+    `subtract(a, b)` subtracts one `vec3` from another `vec3`.
 
-    It returns a tuple of the form { ax - bx, ay - by, az - bz }.
+    `a` is the `vec3` minuend.
+
+    `b` is the `vec3` subtrahend.
+
+    It returns a `vec3` of the form { a<sub>x</sub> - b<sub>x</sub>, a<sub>y</sub> - b<sub>y</sub>, a<sub>z</sub> - b<sub>z</sub> }.
+
+    (the terminology was found [here](http://mathforum.org/library/drmath/view/58801.html)).
     """
-    @spec subtract( {float, float, float}, {float, float, float} ) :: {float, float, float}
+    @spec subtract( vec3, vec3 ) :: vec3
     def subtract( a, b ) do
         { x, y, z } = a
         { u, v, w } = b
@@ -64,11 +82,15 @@ defmodule Graphmath.Vec3 do
     end
 
     @doc """
-    `multiply( a, b)` mulitplies element-wise a vec3 (a) by a vec3 (b).
+    `multiply( a, b)` multiplies element-wise a `vec3` by another `vec3`.
 
-    It returns a tuple of the form { ax*bx, ay*by }.
+    `a` is the `vec3` multiplicand.
+
+    `b` is the `vec3` multiplier.
+
+    It returns a `vec3` of the form { a<sub>x</sub>b<sub>x</sub>, a<sub>y</sub>b<sub>y</sub>, a<sub>z</sub>b<sub>z</sub> }.
     """
-    @spec multiply( {float, float, float}, {float, float, float} ) :: {float, float, float}
+    @spec multiply( vec3, vec3 ) :: vec3
     def multiply( a, b ) do
         { x, y, z } = a
         { u, v, w } = b
@@ -76,22 +98,30 @@ defmodule Graphmath.Vec3 do
     end
 
     @doc """
-    `scale( a, scale)` uniformly scales a vec3 (a) by an amount (x).
+    `scale( a, scale)` uniformly scales a `vec3`.
 
-    It returns a tuple of the form { ax*scale, ay*scale, az*scale }.
+    `a` is the `vec3` to be scaled.
+
+    `scale` is the float to scale each element of `a` by.
+
+    It returns a tuple of the form { a<sub>x</sub>scale, a<sub>y</sub>scale, a<sub>z</sub>scale }.
     """
-    @spec scale( {float, float, float}, float ) :: {float, float, float}
+    @spec scale( vec3, float ) :: vec3
     def scale( a, scale ) do
         { x,y,z } = a
         { x*scale, y*scale, z*scale }
     end
 
     @doc """
-    `dot( a, b)` finds the dot (inner) product of a vec3 (a)  with another vec3 (b).
+    `dot( a, b)` finds the dot (inner) product of one `vec3` with another `vec3`.
 
-    It returns a float of the value (ax*bx + ay*by + az*bz).
+    `a` is the first `vec3`.
+
+    `b` is the second `vec3`.
+
+    It returns a float of the value (a<sub>x</sub>b<sub>x</sub> + a<sub>y</sub>b<sub>y</sub> + a<sub>z</sub>b<sub>z</sub>).
     """
-    @spec dot( {float, float, float}, {float, float, float} ) :: float
+    @spec dot( vec3, vec3 ) :: float
     def dot( a, b ) do
         { x, y, z } = a
         { u, v, w } = b
@@ -99,14 +129,19 @@ defmodule Graphmath.Vec3 do
     end
 
     @doc """
-    `cross( a, b)` finds the cross productof a vec3 (a) with another vec3 (b).
+    `cross( a, b)` finds the cross productof one `vec3` with another `vec3`.
 
-    The cross product of two vectors is a vector perpendicular to the two soure vectors.
+    `a` is the first `vec3`.
+
+    `b` is the second `vec3`.
+
+    It returns a float of the value ( a<sub>y</sub>b<sub>z</sub> - a<sub>z</sub>b<sub>y</sub>, a<sub>z</sub>b<sub>x</sub> - a<sub>x</sub>b<sub>z</sub>, a<sub>x</sub>b<sub>y</sub> - a<sub>y</sub>b<sub>x</sub>).
+
+    The cross product of two vectors is a vector perpendicular to the two source vectors.
     Its magnitude will be the area of the parallelogram made by the two souce vectors.
     
-    It returns a float of the value ( y1*z2 - z1*y2, z1*x2 - x1*z2, x1*y2 - y1*x2 ).
     """
-    @spec cross( {float, float, float}, {float, float, float} ) :: { float, float, float }
+    @spec cross( vec3, vec3 ) :: vec3
     def cross( a, b ) do
         { x, y, z } = a
         { u, v, w } = b
@@ -115,52 +150,58 @@ defmodule Graphmath.Vec3 do
 
     
     @doc """
-    `length(a)` finds the length (L2 norm) of a vec3 (a).
+    `length(a)` finds the length (Eucldiean or L2 norm) of a `vec3`.
 
-    The length is the square root of the sum of the squares of the components.
+    `a` is the `vec3` to find the length of.
 
-    It returns a float of the value ( sqrt(ax*ax + ay*ay + az*az).
+    It returns a float of the value (sqrt( a<sub>x</sub><sup>2</sup> + a<sub>y</sub><sup>2</sup> + a<sub>z</sub><sup>2</sup>)).
     """
-    @spec length( {float, float, float} ) :: float
+    @spec length( vec3 ) :: float
     def length( a ) do
         { x, y, z } = a
         :math.sqrt( (x*x) + (y*y) + (z*z) )
     end
 
     @doc """
-    `length_squared(a)` finds the square of the length of a vec3 (a).
+    `length_squared(a)` finds the square of the length of a `vec3`.
 
-    In many cases, this is sufficient for comparisions and avaoids a sqrt.
+    `a` is the `vec3` to find the length squared of.
 
-    It returns a float of the value (ax*ax + ay*ay + az*az).
+    It returns a float of the value a<sub>x</sub><sup>2</sup> + a<sub>y</sub><sup>2</sup> + a<sub>z</sub><sup>2</sup>.
+    
+    In many cases, this is sufficient for comparisons and avoids a square root.
     """
-    @spec length_squared( {float, float, float} ) :: float
+    @spec length_squared( vec3 ) :: float
     def length_squared( a ) do
         { x, y, z } = a
         (x*x) + (y*y) + (z*z)
     end
 
     @doc """
-    `length_manhattan(a)` finds the Manhattan (L1 norm) length of a vec3 (a).
+    `length_manhattan(a)` finds the Manhattan (L1 norm) length of a `vec3`.
 
-    The Manhattan length is the sum of the components.
+    `a` is the `vec3` to find the Manhattan length of.
     
-    It returns a float of the value (ax + ay + az).
+    It returns a float of the value (a<sub>x</sub> + a<sub>y</sub> + a<sub>z</sub>).
+    
+    The Manhattan length is the sum of the components.
     """
-    @spec length_manhattan( {float, float, float} ) :: float
+    @spec length_manhattan( vec3 ) :: float
     def length_manhattan( a ) do
         { x, y, z } = a
         x + y + z
     end
 
     @doc """
-    `normalize(a)` finds the unit vector with the same direction as a vec3 (a).
+    `normalize(a)` finds the unit vector with the same direction as a `vec3`.
 
+    `a` is the `vec3` to be normalized.
+
+    It returns a `vec3` of the form `{normx, normy, normz}`.
+    
     This is done by dividing each component by the vector's magnitude.
-
-    It returns a list of the form [ normx, normy, normz ].
     """
-    @spec normalize( {float, float, float} ) :: {float, float, float}
+    @spec normalize( vec3 ) :: vec3
     def normalize( a ) do
         { x, y, z } = a
         imag = 1 / :math.sqrt( (x*x) + (y*y) + (z*z) )
@@ -168,11 +209,19 @@ defmodule Graphmath.Vec3 do
     end
     
     @doc """
-    `lerp(a,b,t)` linearly interpolates between one vec3 (a) and another vec3 (b) along an interpolant t.
+    `lerp(a,b,t)` linearly interpolates between one `vec3` and another `vec3` along an `interpolant`.
 
-    The interpolant `t`  is on the domain [0,1]. Behavior outside of that is undefined.
+    `a` is the starting `vec3`.
+
+    `b` is the ending `vec3`.
+
+    `t` is the interpolant float, on the domain [0,1].
+
+    It returns a `vec3` of the form (1-t)**a** - (t)**b**.
+
+    The interpolant `t` is on the domain [0,1]. Behavior outside of that is undefined.
     """
-    @spec lerp( {float, float, float}, {float, float, float}, float) :: {float, float, float}
+    @spec lerp( vec3, vec3, float) :: vec3
     def lerp( a, b, t ) do
         { x, y, z } = a
         { u, v, w } = b
@@ -180,9 +229,15 @@ defmodule Graphmath.Vec3 do
     end
 
     @doc """
-    `near(a,b, distance)` checks whether two vectors are within a length of each other.
+    `near(a,b, distance)` checks whether two `vec3`s are within a certain distance of each other.
+
+    `a` is the first `vec3`.
+
+    `b` is the second `vec3`.
+
+    `distance` is the distance between them as a float.
     """
-    @spec near( {float, float, float}, {float, float, float}, float) :: boolean
+    @spec near( vec3, vec3, float) :: boolean
     def near( a, b, distance) do
         { x, y, z } = a
         { u, v, w } = b
@@ -195,11 +250,17 @@ defmodule Graphmath.Vec3 do
     @doc """
     `rotate( v, k, theta)` rotates a vector (v) about a unit vector (k) by theta radians.
 
+    `v` is the `vec3` to be rotated.
+
+    `k` is the `vec3` axis of rotation. *It must be of unit length*.
+
+    `theta` is the angle in radians to rotate as a float.
+
     This uses the [Formula of Rodriguez](http://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula):
 
-    Vrot = V*cos(theta) + (K x V)*sin(theta) + K(K*V)(1-cos(theta))
+    **V**<sub>rot</sub> = **V**cos(theta) + (**K** x **V**)sin(theta) + **K**(**K** dot **V**)(1-cos(theta))
     """
-    @spec rotate( {float, float, float}, {float, float, float}, float) :: {float, float, float}
+    @spec rotate( vec3, vec3, float) :: vec3
     def rotate( v, k, theta) do
         { vx, vy, vz } = v
         { kx, ky, kz } = k
