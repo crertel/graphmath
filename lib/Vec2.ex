@@ -12,28 +12,39 @@ defmodule Graphmath.Vec2 do
     `create()` creates a zero vec2.
 
     It will return a tuple of the form {0.0,0.0}.
+    `create()` creates a zeroed `vec2`.
+
+    It takes no arguments.
+
+    It returns a `vec2` of the form `{ 0.0, 0.0 }`.
     """
-    @spec create() :: {float, float}
+    @spec create() :: vec2
     def create() do
         {0.0,0.0}
     end
 
     @doc"""
-    `create(x,y)` creates a vec2 of value (x,y).
+    `create(x,y)` creates a `vec2` of value (x,y).
 
-    It will return a tuple of the form {x,y}.
+    `x` is the first element of the `vec3` to be created.
+
+    `y` is the second element of the `vec3` to be created.
+
+    It returns a `vec2` of the form `{x,y}`.
     """
-    @spec create(float,float) :: {float,float}
+    @spec create(float,float) :: vec2
     def create(x,y) do
         {x,y}
     end
 
     @doc"""
-    `create(vec)` creates a vec2 of value (x,y) out of a list of 2 or more numbers.
+    `create(vec)` creates a `vec2` from a list of 2 or more floats.
 
-    It will return a tupleof the form {x,y}.
+    `vec` is a list of 2 or more floats.
+
+    It returns a `vec2` of the form `{x,y}`, where `x` and `y` are the first three elements in `vec`.
     """
-    @spec create([float]) :: {float,float}
+    @spec create([float]) :: vec2
     def create( vec ) do
         [x,y | _] = vec
         {x,y}
@@ -43,8 +54,16 @@ defmodule Graphmath.Vec2 do
     `add( a, b)` adds a vec2 (a) to a vec2 (b).
 
     It returns a tuple of the form { ax + bx, ay + by }.
+    
+    `add( a, b )` adds two `vec2`s.
+
+    `a` is the first `vec2`.
+
+    `b` is the second `vec2`.
+
+    It returns a `vec2` of the form { a<sub>x</sub> + b<sub>x</sub>, a<sub>y</sub> + b<sub>y</sub> }.
     """
-    @spec add( {float, float}, {float, float}) :: {float, float}
+    @spec add( vec2, vec2 ) :: vec2
     def add( a, b ) do
         { x,y } = a
         { u,v } = b
@@ -52,12 +71,18 @@ defmodule Graphmath.Vec2 do
     end
 
     @doc """
-    `subtract(a, b)` subtracts a vec2 (b) from a vec2 (a).
+    `subtract(a, b )` subtracts one `vec2` from another `vec2`.
 
-    It returns a tuple of the form { ax - bx, ay - by }.
+    `a` is the `vec2` minuend.
+
+    `b` is the `vec2` subtrahend.
+
+    It returns a `vec2` of the form { a<sub>x</sub> - b<sub>x</sub>, a<sub>y</sub> - b<sub>y</sub> }.
+
+    (the terminology was found [here](http://mathforum.org/library/drmath/view/58801.html)).
     """
-    @spec subtract( {float, float}, {float, float} ) :: {float, float}
-    def subtract( a, b) do
+    @spec subtract( vec2, vec2 ) :: vec2
+    def subtract( a, b ) do
         { x,y } = a
         { u,v } = b
         {x-u,y-v}
@@ -67,8 +92,15 @@ defmodule Graphmath.Vec2 do
     `multiply( a, b)` mulitplies element-wise a vec2 (a) by a vec2 (b).
 
     It returns a tuple of the form { ax*bx, ay*by }.
+    `multiply( a, b )` multiplies element-wise a `vec2` by another `vec2`.
+
+    `a` is the `vec2` multiplicand.
+
+    `b` is the `vec2` multiplier.
+
+    It returns a `vec2` of the form { a<sub>x</sub>b<sub>x</sub>, a<sub>y</sub>b<sub>y</sub> }.
     """
-    @spec multiply( {float, float}, {float, float} ) :: {float, float}
+    @spec multiply( vec2, vec2 ) :: vec2
     def multiply( a, b ) do
         { x,y } = a
         { u,v } = b
@@ -76,22 +108,30 @@ defmodule Graphmath.Vec2 do
     end
     
     @doc """
-    `scale( a, scale)` uniformly scales a vec2 (a) by an amount (x).
+    `scale( a, scale )` uniformly scales a `vec2`.
 
-    It returns a tuple of the form { ax*scale, ay*scale }.
+    `a` is the `vec2` to be scaled.
+
+    `scale` is the float to scale each element of `a` by.
+
+    It returns a tuple of the form { a<sub>x</sub>scale, a<sub>y</sub>scale }.
     """
-    @spec scale( {float, float}, float ) :: {float, float}
+    @spec scale( vec2, float ) :: vec2
     def scale( a, scale ) do
         { x,y } = a
         { x*scale, y*scale }
     end
 
     @doc """
-    `dot( a, b)` finds the dot (inner) product of a vec2 (a)  with another vec2 (b).
+    `dot( a, b )` finds the dot (inner) product of one `vec2` with another `vec2`.
 
-    It returns a float of the value (ax*bx + ay*by).
+    `a` is the first `vec2`.
+
+    `b` is the second `vec2`.
+
+    It returns a float of the value (a<sub>x</sub>b<sub>x</sub> + a<sub>y</sub>b<sub>y</sub> ).
     """
-    @spec dot( {float, float}, {float, float} ) :: float
+    @spec dot( vec2, vec2 ) :: float
     def dot( a, b) do
         { x,y } = a
         { u,v } = b
@@ -99,13 +139,17 @@ defmodule Graphmath.Vec2 do
     end
 
     @doc """
-    `perp_prod( a, b)` finds the perpindicular product of a vec2 (a) with another vec2 (b).
+    `perp_prod( a, b )` finds the perpindicular product of one `vec2` with another `vec2`.
+
+    `a` is the first `vec2`.
+
+    `b` is the second `vec2`.
 
     The perpindicular product is the magnitude of the cross-product between the two vectors.
     
-    It returns a float of the value (ax*by - bx*ay).
+    It returns a float of the value (a<sub>x</sub>b<sub>y</sub> - b<sub>x</sub>a<sub>y</sub>).
     """
-    @spec perp_prod( {float, float}, {float, float} ) :: float
+    @spec perp_prod( vec2, vec2 ) :: float
     def perp_prod( a, b ) do
          { x,y } = a
          { u,v } = b
@@ -113,13 +157,13 @@ defmodule Graphmath.Vec2 do
     end
 
     @doc """
-    `length(a)` finds the length (L2 norm) of a vec2 (a).
+    `length(a)` finds the length (Eucldiean or L2 norm) of a `vec2`.
 
-    The length is the square root of the sum of the squares of the components.
+    `a` is the `vec2` to find the length of.
 
-    It returns a float of the value ( sqrt(ax*ax + ay*ay).
+    It returns a float of the value (sqrt( a<sub>x</sub><sup>2</sup> + a<sub>y</sub><sup>2</sup>)).
     """
-    @spec length( {float, float} ) :: float
+    @spec length( vec2 ) :: float
     def length( a ) do
         { x,y } = a
         :math.sqrt( (x*x) + (y*y) )
@@ -131,34 +175,45 @@ defmodule Graphmath.Vec2 do
     In many cases, this is sufficient for comparisions and avaoids a sqrt.
 
     It returns a float of the value (ax*ax + ay*ay).
+    `length_squared(a)` finds the square of the length of a `vec2`.
+
+    `a` is the `vec2` to find the length squared of.
+
+    It returns a float of the value a<sub>x</sub><sup>2</sup> + a<sub>y</sub><sup>2</sup>.
+    
+    In many cases, this is sufficient for comparisons and avoids a square root.
     """
-    @spec length_squared( {float, float} ) :: float
+    @spec length_squared( vec2 ) :: float
     def length_squared( a ) do
         { x,y } = a
         (x*x) + (y*y)
     end
 
     @doc """
-    `length_manhattan(a)` finds the Manhattan (L1 norm) length of a vec2 (a).
+    `length_manhattan(a)` finds the Manhattan (L1 norm) length of a `vec2`.
 
-    The Manhattan length is the sum of the components.
+    `a` is the `vec2` to find the Manhattan length of.
     
-    It returns a float of the value (ax + ay).
+    It returns a float of the value (a<sub>x</sub> + a<sub>y</sub>).
+    
+    The Manhattan length is the sum of the components.
     """
-    @spec length_manhattan( {float, float} ) :: float
+    @spec length_manhattan( vec2 ) :: float
     def length_manhattan( a ) do
         { x,y } = a
         x + y
     end
 
     @doc """
-    `normalize(a)` finds the unit vector with the same direction as a vec2 (a).
+    `normalize(a)` finds the unit vector with the same direction as a `vec2`.
 
+    `a` is the `vec2` to be normalized.
+
+    It returns a `vec2` of the form `{normx, normy}`.
+    
     This is done by dividing each component by the vector's magnitude.
-
-    It returns a tuple of the form { normx, normy }.
     """
-    @spec normalize( {float, float} ) :: {float, float}
+    @spec normalize( vec2 ) :: vec2
     def normalize( a ) do
         { x,y } = a
         invmag = 1 / :math.sqrt( (x*x) + (y*y) )
@@ -169,8 +224,19 @@ defmodule Graphmath.Vec2 do
     `lerp(a,b,t)` is used to linearly interpolate between two given vectors a and b along an interpolant t.
 
     The interpolant `t`  is on the domain [0,1]. Behavior outside of that is undefined.
+    `lerp(a,b,t)` linearly interpolates between one `vec2` and another `vec2` along an interpolant.
+
+    `a` is the starting `vec2`.
+
+    `b` is the ending `vec2`.
+
+    `t` is the interpolant float, on the domain [0,1].
+
+    It returns a `vec2` of the form (1-t)**a** - (t)**b**.
+
+    The interpolant `t` is on the domain [0,1]. Behavior outside of that is undefined.
     """
-    @spec lerp( {float, float}, {float, float}, float) :: {float, float}
+    @spec lerp( vec2, vec2, float) :: vec2
     def lerp( a, b, t ) do
         { x,y } = a
         { u,v } = b
@@ -178,9 +244,15 @@ defmodule Graphmath.Vec2 do
     end
 
     @doc """
-    `rotate(a,theta)` rotates a vec2 (a) CCW about the +Z axis `theta` radians.
+    `rotate(a,theta)` rotates a `vec2` CCW about the +Z axis.
+
+    `a` is the `vec2` to rotate.
+
+    `theta` is the number of radians to rotate by as a float.
+
+    This returns a `vec2`.
     """
-    @spec rotate( {float, float}, float) :: {float, float}
+    @spec rotate( vec2, float) :: vec2
     def rotate( a, theta) do
         { x,y } = a
         ct = :math.cos(theta)
@@ -189,9 +261,15 @@ defmodule Graphmath.Vec2 do
     end
 
     @doc """
-    `near(a,b, distance)` checks whether two vectors are within a length of each other.
+    `near(a,b, distance)` checks whether two `vec2`s are within a certain distance of each other.
+
+    `a` is the first `vec2`.
+
+    `b` is the second `vec2`.
+
+    `distance` is the distance between them as a float.
     """
-    @spec near( {float, float}, {float, float}, float) :: boolean
+    @spec near( vec2, vec2, float) :: boolean
     def near( a, b, distance) do
         { x,y } = a
         { u,v } = b
@@ -201,9 +279,15 @@ defmodule Graphmath.Vec2 do
     end
 
     @doc """
-    `project(a,b)` projects one vector onto another, and returns the resulting image.
+    `project(a,b)` projects one `vec2` onto another `vec2`.
+
+    `a` is the first `vec2`.
+
+    `b` is the second `vec2`.
+
+    This returns a `vec2` representing the image of `a` in the direction of `b`.
     """
-    @spec project( {float, float}, {float, float}) :: {float, float}
+    @spec project( vec2, vec2 ) :: vec2
     def project( a,b ) do
         { x,y } = a
         { u,v } = b
@@ -213,6 +297,10 @@ defmodule Graphmath.Vec2 do
 
     @doc """
     `perp(a)` creates a vector perpendicular to another vector `a`.
+
+    `a` is the `vec2` to be perpindicular to.
+
+    This returns a `vec2` perpindicular to `a`, to the right of the original `a`.
     """
     @spec perp( vec2 ) :: vec2
     def perp(a) do

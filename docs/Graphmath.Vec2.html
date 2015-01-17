@@ -71,35 +71,35 @@
 <tr>
   <td class="summary_signature"><a href="#create/1">create(vec)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">create(vec)</code> creates a vec2 of value (x,y) out of a list of 2 or more numbers</p>
+    <td class="summary_synopsis"><p><code class="inline">create(vec)</code> creates a <code class="inline">vec2</code> from a list of 2 or more floats</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#create/2">create(x, y)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">create(x,y)</code> creates a vec2 of value (x,y)</p>
+    <td class="summary_synopsis"><p><code class="inline">create(x,y)</code> creates a <code class="inline">vec2</code> of value (x,y)</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#dot/2">dot(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">dot( a, b)</code> finds the dot (inner) product of a vec2 (a)  with another vec2 (b)</p>
+    <td class="summary_synopsis"><p><code class="inline">dot( a, b )</code> finds the dot (inner) product of one <code class="inline">vec2</code> with another <code class="inline">vec2</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#length/1">length(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">length(a)</code> finds the length (L2 norm) of a vec2 (a)</p>
+    <td class="summary_synopsis"><p><code class="inline">length(a)</code> finds the length (Eucldiean or L2 norm) of a <code class="inline">vec2</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#length_manhattan/1">length_manhattan(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">length_manhattan(a)</code> finds the Manhattan (L1 norm) length of a vec2 (a)</p>
+    <td class="summary_synopsis"><p><code class="inline">length_manhattan(a)</code> finds the Manhattan (L1 norm) length of a <code class="inline">vec2</code></p>
 </td>
   
 </tr>
@@ -127,14 +127,14 @@
 <tr>
   <td class="summary_signature"><a href="#near/3">near(a, b, distance)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">near(a,b, distance)</code> checks whether two vectors are within a length of each other</p>
+    <td class="summary_synopsis"><p><code class="inline">near(a,b, distance)</code> checks whether two <code class="inline">vec2</code>s are within a certain distance of each other</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#normalize/1">normalize(a)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a vec2 (a)</p>
+    <td class="summary_synopsis"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a <code class="inline">vec2</code></p>
 </td>
   
 </tr>
@@ -148,35 +148,35 @@
 <tr>
   <td class="summary_signature"><a href="#perp_prod/2">perp_prod(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">perp_prod( a, b)</code> finds the perpindicular product of a vec2 (a) with another vec2 (b)</p>
+    <td class="summary_synopsis"><p><code class="inline">perp_prod( a, b )</code> finds the perpindicular product of one <code class="inline">vec2</code> with another <code class="inline">vec2</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#project/2">project(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">project(a,b)</code> projects one vector onto another, and returns the resulting image</p>
+    <td class="summary_synopsis"><p><code class="inline">project(a,b)</code> projects one <code class="inline">vec2</code> onto another <code class="inline">vec2</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#rotate/2">rotate(a, theta)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">rotate(a,theta)</code> rotates a vec2 (a) CCW about the +Z axis <code class="inline">theta</code> radians</p>
+    <td class="summary_synopsis"><p><code class="inline">rotate(a,theta)</code> rotates a <code class="inline">vec2</code> CCW about the +Z axis</p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#scale/2">scale(a, scale)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">scale( a, scale)</code> uniformly scales a vec2 (a) by an amount (x)</p>
+    <td class="summary_synopsis"><p><code class="inline">scale( a, scale )</code> uniformly scales a <code class="inline">vec2</code></p>
 </td>
   
 </tr>
 <tr>
   <td class="summary_signature"><a href="#subtract/2">subtract(a, b)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">subtract(a, b)</code> subtracts a vec2 (b) from a vec2 (a)</p>
+    <td class="summary_synopsis"><p><code class="inline">subtract(a, b )</code> subtracts one <code class="inline">vec2</code> from another <code class="inline">vec2</code></p>
 </td>
   
 </tr>
@@ -213,12 +213,16 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>add({float, float}, {float, float}) :: {float, float}</li>
+        <li>add(<a href="#t:vec2/0">vec2</a>, <a href="#t:vec2/0">vec2</a>) :: <a href="#t:vec2/0">vec2</a></li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">add( a, b)</code> adds a vec2 (a) to a vec2 (b).</p>
 <p>It returns a tuple of the form { ax + bx, ay + by }.</p>
+<p><code class="inline">add( a, b )</code> adds two <code class="inline">vec2</code>s.</p>
+<p><code class="inline">a</code> is the first <code class="inline">vec2</code>.</p>
+<p><code class="inline">b</code> is the second <code class="inline">vec2</code>.</p>
+<p>It returns a <code class="inline">vec2</code> of the form { a<sub>x</sub> + b<sub>x</sub>, a<sub>y</sub> + b<sub>y</sub> }.</p>
 </div>
   
 </div>
@@ -235,12 +239,15 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create :: {float, float}</li>
+        <li>create :: <a href="#t:vec2/0">vec2</a></li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">create()</code> creates a zero vec2.</p>
-<p>It will return a tuple of the form {0.0,0.0}.</p>
+<p>It will return a tuple of the form {0.0,0.0}.
+<code class="inline">create()</code> creates a zeroed <code class="inline">vec2</code>.</p>
+<p>It takes no arguments.</p>
+<p>It returns a <code class="inline">vec2</code> of the form <code class="inline">{ 0.0, 0.0 }</code>.</p>
 </div>
   
 </div>
@@ -257,12 +264,13 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create([float]) :: {float, float}</li>
+        <li>create([float]) :: <a href="#t:vec2/0">vec2</a></li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">create(vec)</code> creates a vec2 of value (x,y) out of a list of 2 or more numbers.</p>
-<p>It will return a tupleof the form {x,y}.</p>
+  <div class="docstring"><p><code class="inline">create(vec)</code> creates a <code class="inline">vec2</code> from a list of 2 or more floats.</p>
+<p><code class="inline">vec</code> is a list of 2 or more floats.</p>
+<p>It returns a <code class="inline">vec2</code> of the form <code class="inline">{x,y}</code>, where <code class="inline">x</code> and <code class="inline">y</code> are the first three elements in <code class="inline">vec</code>.</p>
 </div>
   
 </div>
@@ -279,12 +287,14 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>create(float, float) :: {float, float}</li>
+        <li>create(float, float) :: <a href="#t:vec2/0">vec2</a></li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">create(x,y)</code> creates a vec2 of value (x,y).</p>
-<p>It will return a tuple of the form {x,y}.</p>
+  <div class="docstring"><p><code class="inline">create(x,y)</code> creates a <code class="inline">vec2</code> of value (x,y).</p>
+<p><code class="inline">x</code> is the first element of the <code class="inline">vec3</code> to be created.</p>
+<p><code class="inline">y</code> is the second element of the <code class="inline">vec3</code> to be created.</p>
+<p>It returns a <code class="inline">vec2</code> of the form <code class="inline">{x,y}</code>.</p>
 </div>
   
 </div>
@@ -301,12 +311,14 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>dot({float, float}, {float, float}) :: float</li>
+        <li>dot(<a href="#t:vec2/0">vec2</a>, <a href="#t:vec2/0">vec2</a>) :: float</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">dot( a, b)</code> finds the dot (inner) product of a vec2 (a)  with another vec2 (b).</p>
-<p>It returns a float of the value (ax<em>bx + ay</em>by).</p>
+  <div class="docstring"><p><code class="inline">dot( a, b )</code> finds the dot (inner) product of one <code class="inline">vec2</code> with another <code class="inline">vec2</code>.</p>
+<p><code class="inline">a</code> is the first <code class="inline">vec2</code>.</p>
+<p><code class="inline">b</code> is the second <code class="inline">vec2</code>.</p>
+<p>It returns a float of the value (a<sub>x</sub>b<sub>x</sub> + a<sub>y</sub>b<sub>y</sub> ).</p>
 </div>
   
 </div>
@@ -323,13 +335,13 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length({float, float}) :: float</li>
+        <li>length(<a href="#t:vec2/0">vec2</a>) :: float</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">length(a)</code> finds the length (L2 norm) of a vec2 (a).</p>
-<p>The length is the square root of the sum of the squares of the components.</p>
-<p>It returns a float of the value ( sqrt(ax<em>ax + ay</em>ay).</p>
+  <div class="docstring"><p><code class="inline">length(a)</code> finds the length (Eucldiean or L2 norm) of a <code class="inline">vec2</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">vec2</code> to find the length of.</p>
+<p>It returns a float of the value (sqrt( a<sub>x</sub><sup>2</sup> + a<sub>y</sub><sup>2</sup>)).</p>
 </div>
   
 </div>
@@ -346,13 +358,14 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length_manhattan({float, float}) :: float</li>
+        <li>length_manhattan(<a href="#t:vec2/0">vec2</a>) :: float</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">length_manhattan(a)</code> finds the Manhattan (L1 norm) length of a vec2 (a).</p>
+  <div class="docstring"><p><code class="inline">length_manhattan(a)</code> finds the Manhattan (L1 norm) length of a <code class="inline">vec2</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">vec2</code> to find the Manhattan length of.</p>
+<p>It returns a float of the value (a<sub>x</sub> + a<sub>y</sub>).</p>
 <p>The Manhattan length is the sum of the components.</p>
-<p>It returns a float of the value (ax + ay).</p>
 </div>
   
 </div>
@@ -369,13 +382,17 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>length_squared({float, float}) :: float</li>
+        <li>length_squared(<a href="#t:vec2/0">vec2</a>) :: float</li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">length_squared(a)</code> finds the square of the length of a vec2 (a).</p>
 <p>In many cases, this is sufficient for comparisions and avaoids a sqrt.</p>
-<p>It returns a float of the value (ax<em>ax + ay</em>ay).</p>
+<p>It returns a float of the value (ax<em>ax + ay</em>ay).
+<code class="inline">length_squared(a)</code> finds the square of the length of a <code class="inline">vec2</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">vec2</code> to find the length squared of.</p>
+<p>It returns a float of the value a<sub>x</sub><sup>2</sup> + a<sub>y</sub><sup>2</sup>.</p>
+<p>In many cases, this is sufficient for comparisons and avoids a square root.</p>
 </div>
   
 </div>
@@ -392,12 +409,18 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>lerp({float, float}, {float, float}, float) :: {float, float}</li>
+        <li>lerp(<a href="#t:vec2/0">vec2</a>, <a href="#t:vec2/0">vec2</a>, float) :: <a href="#t:vec2/0">vec2</a></li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">lerp(a,b,t)</code> is used to linearly interpolate between two given vectors a and b along an interpolant t.</p>
-<p>The interpolant <code class="inline">t</code>  is on the domain [0,1]. Behavior outside of that is undefined.</p>
+<p>The interpolant <code class="inline">t</code>  is on the domain [0,1]. Behavior outside of that is undefined.
+<code class="inline">lerp(a,b,t)</code> linearly interpolates between one <code class="inline">vec2</code> and another <code class="inline">vec2</code> along an interpolant.</p>
+<p><code class="inline">a</code> is the starting <code class="inline">vec2</code>.</p>
+<p><code class="inline">b</code> is the ending <code class="inline">vec2</code>.</p>
+<p><code class="inline">t</code> is the interpolant float, on the domain [0,1].</p>
+<p>It returns a <code class="inline">vec2</code> of the form (1-t)<strong>a</strong> - (t)<strong>b</strong>.</p>
+<p>The interpolant <code class="inline">t</code> is on the domain [0,1]. Behavior outside of that is undefined.</p>
 </div>
   
 </div>
@@ -414,12 +437,16 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>multiply({float, float}, {float, float}) :: {float, float}</li>
+        <li>multiply(<a href="#t:vec2/0">vec2</a>, <a href="#t:vec2/0">vec2</a>) :: <a href="#t:vec2/0">vec2</a></li>
       
     </ul>
   
   <div class="docstring"><p><code class="inline">multiply( a, b)</code> mulitplies element-wise a vec2 (a) by a vec2 (b).</p>
-<p>It returns a tuple of the form { ax<em>bx, ay</em>by }.</p>
+<p>It returns a tuple of the form { ax<em>bx, ay</em>by }.
+<code class="inline">multiply( a, b )</code> multiplies element-wise a <code class="inline">vec2</code> by another <code class="inline">vec2</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">vec2</code> multiplicand.</p>
+<p><code class="inline">b</code> is the <code class="inline">vec2</code> multiplier.</p>
+<p>It returns a <code class="inline">vec2</code> of the form { a<sub>x</sub>b<sub>x</sub>, a<sub>y</sub>b<sub>y</sub> }.</p>
 </div>
   
 </div>
@@ -436,11 +463,14 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>near({float, float}, {float, float}, float) :: boolean</li>
+        <li>near(<a href="#t:vec2/0">vec2</a>, <a href="#t:vec2/0">vec2</a>, float) :: boolean</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">near(a,b, distance)</code> checks whether two vectors are within a length of each other.</p>
+  <div class="docstring"><p><code class="inline">near(a,b, distance)</code> checks whether two <code class="inline">vec2</code>s are within a certain distance of each other.</p>
+<p><code class="inline">a</code> is the first <code class="inline">vec2</code>.</p>
+<p><code class="inline">b</code> is the second <code class="inline">vec2</code>.</p>
+<p><code class="inline">distance</code> is the distance between them as a float.</p>
 </div>
   
 </div>
@@ -457,13 +487,14 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>normalize({float, float}) :: {float, float}</li>
+        <li>normalize(<a href="#t:vec2/0">vec2</a>) :: <a href="#t:vec2/0">vec2</a></li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a vec2 (a).</p>
+  <div class="docstring"><p><code class="inline">normalize(a)</code> finds the unit vector with the same direction as a <code class="inline">vec2</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">vec2</code> to be normalized.</p>
+<p>It returns a <code class="inline">vec2</code> of the form <code class="inline">{normx, normy}</code>.</p>
 <p>This is done by dividing each component by the vector’s magnitude.</p>
-<p>It returns a tuple of the form { normx, normy }.</p>
 </div>
   
 </div>
@@ -485,6 +516,8 @@
     </ul>
   
   <div class="docstring"><p><code class="inline">perp(a)</code> creates a vector perpendicular to another vector <code class="inline">a</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">vec2</code> to be perpindicular to.</p>
+<p>This returns a <code class="inline">vec2</code> perpindicular to <code class="inline">a</code>, to the right of the original <code class="inline">a</code>.</p>
 </div>
   
 </div>
@@ -501,13 +534,15 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>perp_prod({float, float}, {float, float}) :: float</li>
+        <li>perp_prod(<a href="#t:vec2/0">vec2</a>, <a href="#t:vec2/0">vec2</a>) :: float</li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">perp_prod( a, b)</code> finds the perpindicular product of a vec2 (a) with another vec2 (b).</p>
+  <div class="docstring"><p><code class="inline">perp_prod( a, b )</code> finds the perpindicular product of one <code class="inline">vec2</code> with another <code class="inline">vec2</code>.</p>
+<p><code class="inline">a</code> is the first <code class="inline">vec2</code>.</p>
+<p><code class="inline">b</code> is the second <code class="inline">vec2</code>.</p>
 <p>The perpindicular product is the magnitude of the cross-product between the two vectors.</p>
-<p>It returns a float of the value (ax<em>by - bx</em>ay).</p>
+<p>It returns a float of the value (a<sub>x</sub>b<sub>y</sub> - b<sub>x</sub>a<sub>y</sub>).</p>
 </div>
   
 </div>
@@ -524,11 +559,14 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>project({float, float}, {float, float}) :: {float, float}</li>
+        <li>project(<a href="#t:vec2/0">vec2</a>, <a href="#t:vec2/0">vec2</a>) :: <a href="#t:vec2/0">vec2</a></li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">project(a,b)</code> projects one vector onto another, and returns the resulting image.</p>
+  <div class="docstring"><p><code class="inline">project(a,b)</code> projects one <code class="inline">vec2</code> onto another <code class="inline">vec2</code>.</p>
+<p><code class="inline">a</code> is the first <code class="inline">vec2</code>.</p>
+<p><code class="inline">b</code> is the second <code class="inline">vec2</code>.</p>
+<p>This returns a <code class="inline">vec2</code> representing the image of <code class="inline">a</code> in the direction of <code class="inline">b</code>.</p>
 </div>
   
 </div>
@@ -545,11 +583,14 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>rotate({float, float}, float) :: {float, float}</li>
+        <li>rotate(<a href="#t:vec2/0">vec2</a>, float) :: <a href="#t:vec2/0">vec2</a></li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">rotate(a,theta)</code> rotates a vec2 (a) CCW about the +Z axis <code class="inline">theta</code> radians.</p>
+  <div class="docstring"><p><code class="inline">rotate(a,theta)</code> rotates a <code class="inline">vec2</code> CCW about the +Z axis.</p>
+<p><code class="inline">a</code> is the <code class="inline">vec2</code> to rotate.</p>
+<p><code class="inline">theta</code> is the number of radians to rotate by as a float.</p>
+<p>This returns a <code class="inline">vec2</code>.</p>
 </div>
   
 </div>
@@ -566,12 +607,14 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>scale({float, float}, float) :: {float, float}</li>
+        <li>scale(<a href="#t:vec2/0">vec2</a>, float) :: <a href="#t:vec2/0">vec2</a></li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">scale( a, scale)</code> uniformly scales a vec2 (a) by an amount (x).</p>
-<p>It returns a tuple of the form { ax<em>scale, ay</em>scale }.</p>
+  <div class="docstring"><p><code class="inline">scale( a, scale )</code> uniformly scales a <code class="inline">vec2</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">vec2</code> to be scaled.</p>
+<p><code class="inline">scale</code> is the float to scale each element of <code class="inline">a</code> by.</p>
+<p>It returns a tuple of the form { a<sub>x</sub>scale, a<sub>y</sub>scale }.</p>
 </div>
   
 </div>
@@ -588,12 +631,15 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>subtract({float, float}, {float, float}) :: {float, float}</li>
+        <li>subtract(<a href="#t:vec2/0">vec2</a>, <a href="#t:vec2/0">vec2</a>) :: <a href="#t:vec2/0">vec2</a></li>
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">subtract(a, b)</code> subtracts a vec2 (b) from a vec2 (a).</p>
-<p>It returns a tuple of the form { ax - bx, ay - by }.</p>
+  <div class="docstring"><p><code class="inline">subtract(a, b )</code> subtracts one <code class="inline">vec2</code> from another <code class="inline">vec2</code>.</p>
+<p><code class="inline">a</code> is the <code class="inline">vec2</code> minuend.</p>
+<p><code class="inline">b</code> is the <code class="inline">vec2</code> subtrahend.</p>
+<p>It returns a <code class="inline">vec2</code> of the form { a<sub>x</sub> - b<sub>x</sub>, a<sub>y</sub> - b<sub>y</sub> }.</p>
+<p>(the terminology was found <a href="http://mathforum.org/library/drmath/view/58801.html">here</a>).</p>
 </div>
   
 </div>

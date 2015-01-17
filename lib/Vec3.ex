@@ -13,18 +13,20 @@ defmodule Graphmath.Vec3 do
 
     It takes no arguments.
 
-    It returns a `vec3` of the form `{0,0,0}`.
+    It returns a `vec3` of the form `{ 0.0, 0.0, 0.0 }`.
     """
     @spec create() :: vec3
     def create() do
-        {0,0,0}
+        {0.0, 0.0, 0.0}
     end
     
     @doc"""
     `create(x,y,z)` creates a `vec3` of value (x,y,z).
 
     `x` is the first element of the `vec3` to be created.
+    
     `y` is the second element of the `vec3` to be created.
+    
     `z` is the third element of the `vec3` to be created.
 
     It returns a `vec3` of the form `{x,y,z}`.
@@ -209,7 +211,7 @@ defmodule Graphmath.Vec3 do
     end
     
     @doc """
-    `lerp(a,b,t)` linearly interpolates between one `vec3` and another `vec3` along an `interpolant`.
+    `lerp(a,b,t)` linearly interpolates between one `vec3` and another `vec3` along an interpolant.
 
     `a` is the starting `vec3`.
 
