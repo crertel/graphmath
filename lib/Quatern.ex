@@ -32,7 +32,7 @@ defmodule Graphmath.Quatern do
     @doc"""
     `create(w,x,y,z)` creates a `quatern` of value (w,x,y,z).
     
-    `w` is the rotation arround the axis.
+    `w` is the rotation arround the axis in Radians.
 
     `x` is the first element of the `vec3` representing the axis to be created.
     
@@ -63,7 +63,7 @@ defmodule Graphmath.Quatern do
     @doc"""
     `create(w,vec3)` creates a `quatern` from a angle and a axis.
     
-    `w` is the angle
+    `w` is the angle in Radians
     
     `vec3` is the axis, a tuple {x,y,z}
     
@@ -80,7 +80,7 @@ defmodule Graphmath.Quatern do
     
     `quat` is the quatern
     
-    It returns a `float` representing the roll of the quaternion.
+    It returns a `float` representing the roll of the quaternion in Radians.
     """
     @spec get_roll(quatern) :: float
     def get_roll(quat) do
@@ -101,7 +101,7 @@ defmodule Graphmath.Quatern do
     
     `quat` is the quatern
     
-    It returns a `float` representing the pitch of the quaternion.
+    It returns a `float` representing the pitch of the quaternion in Radians.
     """
     @spec get_pitch(quatern) :: float
     def get_pitch(quat) do
@@ -122,7 +122,7 @@ defmodule Graphmath.Quatern do
     
     `quat` is the quatern
     
-    It returns a `float` representing the yaw of the quaternion.
+    It returns a `float` representing the yaw of the quaternion in Radians.
     """
     @spec get_yaw(quatern) :: float
     def get_yaw(quat) do
