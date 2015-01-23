@@ -76,27 +76,6 @@ defmodule Graphmath.Quatern do
     end
 
     @doc"""
-    `roll(quat)` Calculate the local roll element of a quaternion.
-    
-    `quat` is the quatern
-    
-    It returns a `float` representing the roll of the quaternion in Radians.
-    """
-    @spec get_roll(quatern) :: float
-    def get_roll(quat) do
-        {w,x,y,z} = quat
-
-        fTy  = 2.0*y
-        fTz  = 2.0*z
-        fTwz = fTz*w
-        fTxy = fTy*x
-        fTyy = fTy*y
-        fTzz = fTz*z
-
-        :math.atan2(fTxy+fTwz, 1.0-(fTyy+fTzz))
-    end 
-
-    @doc"""
     `add(lhs, rhs)` add two quaternions.
     
     `lhs` is the first `quatern`
@@ -169,6 +148,27 @@ defmodule Graphmath.Quatern do
 
         {w*scalar,x*scalar,y*scalar,z*scalar}
     end
+
+    @doc"""
+    `roll(quat)` Calculate the local roll element of a quaternion.
+    
+    `quat` is the quatern
+    
+    It returns a `float` representing the roll of the quaternion in Radians.
+    """
+    @spec get_roll(quatern) :: float
+    def get_roll(quat) do
+        {w,x,y,z} = quat
+
+        fTy  = 2.0*y
+        fTz  = 2.0*z
+        fTwz = fTz*w
+        fTxy = fTy*x
+        fTyy = fTy*y
+        fTzz = fTz*z
+
+        :math.atan2(fTxy+fTwz, 1.0-(fTyy+fTzz))
+    end 
 
     @doc"""
     `pitch(quat)` Calculate the local pitch element of a quaternion.
