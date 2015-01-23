@@ -97,6 +97,80 @@ defmodule Graphmath.Quatern do
     end 
 
     @doc"""
+    `add(lhs, rhs)` add two quaternions.
+    
+    `lhs` is the first `quatern`
+
+    `rhs` is the second `quatern`
+    
+    It returns a `quatern` of the form 
+        { lhs<sub>w</sub> + rhs<sub>w</sub>, lhs<sub>x</sub> + rhs<sub>x</sub>, lhs<sub>y</sub> + rhs<sub>y</sub>, lhs<sub>z</sub> + rhs<sub>z</sub> }.
+    """
+    @spec add(quatern, quatern) :: quatern
+    def add(lhs, rhs) do
+        {w,x,y,z} = lhs
+        {a,b,c,d} = rhs
+
+        {w+a, x+b, y+c, z+d}
+    end
+
+    @doc"""
+    `subtract(lhs, rhs)` subtract two quaternions.
+    
+     `lhs` is the first `quatern`
+
+     `rhs` is the second `quatern`
+    
+     It returns a `quatern` of the form 
+        { lhs<sub>w</sub> - rhs<sub>w</sub>, lhs<sub>x</sub> - rhs<sub>x</sub>, lhs<sub>y</sub> - rhs<sub>y</sub>, lhs<sub>z</sub> - rhs<sub>z</sub> }.
+    """
+    @spec subtract(quatern, quatern) :: quatern
+    def subtract(lhs, rhs) do
+        {w,x,y,z} = lhs
+        {a,b,c,d} = rhs
+
+        {w-a, x-b, y-c, z-d}
+    end
+
+    @doc"""
+    `multiply(lhs, rhs)` multiply two quaternions.
+    
+     `lhs` is the first `quatern`
+
+     `rhs` is the second `quatern`
+    
+     It returns a `quatern` resultant of the multiplication
+     NOTE: Multiplication is not generally commutative, so in most cases p*q != q*p.
+    """
+    @spec multiply(quatern, quatern) :: quatern
+    def multiply(lhs, rhs) do
+        {w,x,y,z} = lhs
+        {a,b,c,d} = rhs
+
+        { w * a - x * b - y * c - z * d,
+          w * b + x * a + y * d - z * c,
+          w * c + y * a + z * b - x * d,
+          w * d + z * a + x * c - y * b }
+    end
+
+   @doc"""
+    `scale(quat, scalar)` multiply a `quatern` for a scalar.
+    
+     `quat` is the `quatern`
+
+     `scalar` is the scalar
+    
+     It returns a `quatern` of the form 
+        { a<sub>w</sub> * scalar, a<sub>x</sub> * scalar, a<sub>y</sub> * scalar, a<sub>z</sub> * scalar}.
+    """
+    @spec scale(quatern, float) :: quatern
+    def scale(quat, scalar) do
+        {w,x,y,z} = quat
+
+        {w*scalar,x*scalar,y*scalar,z*scalar}
+    end
+
+    @doc"""
     `pitch(quat)` Calculate the local pitch element of a quaternion.
     
     `quat` is the quatern
