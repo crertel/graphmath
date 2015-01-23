@@ -7,7 +7,7 @@ defmodule Graphmath.Quatern do
     This submodule handles  Quaternion using tuples of floats.
     i.e. a rotation around an axis.
     
-    Consider the `quatern` format: `{ w, x, y, z }` where `w` is the angle, 
+    Consider the `quatern` format: `{ w, x, y, z }` where `w` is the angle in Radians, 
     and `x` `y` `z` are the axis coordinates
     """
     
@@ -74,8 +74,73 @@ defmodule Graphmath.Quatern do
         {x,y,z} = vec
         {w,x,y,z}
     end
+
+    @doc"""
+    `roll(quat)` Calculate the local roll element of a quaternion.
     
-    @doc """
+    `quat` is the quatern
+    
+    It returns a `float` representing the roll of the quaternion.
+    """
+    @spec get_roll(quatern) :: float
+    def get_roll(quat) do
+        {w,x,y,z} = quat
+
+        fTy  = 2.0*y
+        fTz  = 2.0*z
+        fTwz = fTz*w
+        fTxy = fTy*x
+        fTyy = fTy*y
+        fTzz = fTz*z
+
+        :math.atan2(fTxy+fTwz, 1.0-(fTyy+fTzz))
+    end 
+
+    @doc"""
+    `pitch(quat)` Calculate the local pitch element of a quaternion.
+    
+    `quat` is the quatern
+    
+    It returns a `float` representing the pitch of the quaternion.
+    """
+    @spec get_pitch(quatern) :: float
+    def get_pitch(quat) do
+        {w,x,y,z} = quat
+
+        fTx  = 2.0*x
+        fTz  = 2.0*z
+        fTwx = fTx*w
+        fTxx = fTx*x
+        fTyz = fTz*y
+        fTzz = fTz*z
+
+        :math.atan2(fTyz+fTwx, 1.0-(fTxx+fTzz))
+    end 
+
+    @doc"""
+    `yaw(quat)` Calculate the local yaw element of a quaternion.
+    
+    `quat` is the quatern
+    
+    It returns a `float` representing the yaw of the quaternion.
+    """
+    @spec get_yaw(quatern) :: float
+    def get_yaw(quat) do
+        {w,x,y,z} = quat
+
+        fTx  = 2.0*x
+        fTy  = 2.0*y
+        fTz  = 2.0*z
+        fTwy = fTy*w
+        fTxx = fTx*x
+        fTxz = fTz*x
+        fTyy = fTy*y
+
+
+        :math.atan2(fTxz+fTwy, 1.0-(fTxx+fTyy))
+    end 
+    
+    @doc"""
     `from_rotation_matrix(mat)` creates a `quatern` from a rotation matrix.
     
     `mat` is the matrix
@@ -118,7 +183,7 @@ defmodule Graphmath.Quatern do
     end
     
     
-    @doc """
+    @doc"""
     `to_rotation_matrix(quat)` creates a `mat33` from a quatern.
     
     `quat` is the quatern
@@ -156,7 +221,7 @@ defmodule Graphmath.Quatern do
           a31, a32, a33 }
     end
     
-    @doc """
+    @doc"""
     `dot(lhs, rhs)` returns a `float` resultant of the dot product bectween two quaterns.
     
     `lhs` is a quatern
@@ -173,7 +238,7 @@ defmodule Graphmath.Quatern do
         w*a + x*b + y*c + z*d
     end
     
-    @doc """
+    @doc"""
     `norm(quat)` Returns the normal length of the quaternion.
     
     `quat` is the quatern
@@ -186,7 +251,7 @@ defmodule Graphmath.Quatern do
         w*w + x*x + y*y + z*z
     end
     
-    @doc """
+    @doc"""
     `inverse(quat)` Returns the inverse of the quaternion.
     
     `quat` is the quatern
@@ -209,7 +274,7 @@ defmodule Graphmath.Quatern do
         end
     end
     
-    @doc """
+    @doc"""
     `unit_inverse(quat)` Returns the inverse of a unit quaternion.
     
     `quat` is the unit quatern
