@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.5.0 &rarr; <a href="overview.html">Overview</a> &rarr; Graphmath &rarr; <a href="Graphmath.Quatern.html">Quatern</a></div>
+      <div class="breadcrumbs">graphmath v0.5.1 &rarr; <a href="overview.html">Overview</a> &rarr; Graphmath &rarr; <a href="Graphmath.Quatern.html">Quatern</a></div>
 
       <h1>
         Graphmath.Quatern
@@ -61,6 +61,13 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
   <td class="summary_signature"><a href="#add/2">add(lhs, rhs)</a></td>
   
     <td class="summary_synopsis"><p><code class="inline">add(lhs, rhs)</code> add two quaternions</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#conjugate/1">conjugate(quat)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">conjugate(quat)</code> returns the conjugate of a quaternion</p>
 </td>
   
 </tr>
@@ -130,7 +137,7 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
 <tr>
   <td class="summary_signature"><a href="#inverse/1">inverse(quat)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">inverse(quat)</code> Returns the inverse of the quaternion</p>
+    <td class="summary_synopsis"><p><code class="inline">inverse(quat)</code> returns the inverse of a quaternion</p>
 </td>
   
 </tr>
@@ -144,7 +151,7 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
 <tr>
   <td class="summary_signature"><a href="#norm/1">norm(quat)</a></td>
   
-    <td class="summary_synopsis"><p><code class="inline">norm(quat)</code> Returns the normal length of the quaternion</p>
+    <td class="summary_synopsis"><p><code class="inline">norm(quat)</code> Returns the L2 norm of a quaternion</p>
 </td>
   
 </tr>
@@ -166,13 +173,6 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
   <td class="summary_signature"><a href="#to_rotation_matrix/1">to_rotation_matrix(quat)</a></td>
   
     <td class="summary_synopsis"><p><code class="inline">to_rotation_matrix(quat)</code> creates a <code class="inline">mat33</code> from a quatern</p>
-</td>
-  
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#unit_inverse/1">unit_inverse(quat)</a></td>
-  
-    <td class="summary_synopsis"><p><code class="inline">unit_inverse(quat)</code> Returns the inverse of a unit quaternion</p>
 </td>
   
 </tr>
@@ -230,6 +230,30 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
 <p><code class="inline">rhs</code> is the second <code class="inline">quatern</code></p>
 <p>It returns a <code class="inline">quatern</code> of the form </p>
 <pre><code>{ lhs&lt;sub&gt;w&lt;/sub&gt; + rhs&lt;sub&gt;w&lt;/sub&gt;, lhs&lt;sub&gt;x&lt;/sub&gt; + rhs&lt;sub&gt;x&lt;/sub&gt;, lhs&lt;sub&gt;y&lt;/sub&gt; + rhs&lt;sub&gt;y&lt;/sub&gt;, lhs&lt;sub&gt;z&lt;/sub&gt; + rhs&lt;sub&gt;z&lt;/sub&gt; }.</code></pre>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="conjugate/1">
+    <span class="signature"><strong>conjugate(quat)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#conjugate/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>conjugate(<a href="#t:quatern/0">quatern</a>) :: <a href="#t:quatern/0">quatern</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">conjugate(quat)</code> returns the conjugate of a quaternion.</p>
+<p><code class="inline">quat</code> is the quaternion to get the conjugate of.</p>
+<p>It returns a <code class="inline">quatern</code> representing the inverse of the unit quatern.</p>
+<p>Note that the conjugate of a unit quaternion is its inverse.</p>
 </div>
   
 </div>
@@ -462,10 +486,10 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">inverse(quat)</code> Returns the inverse of the quaternion.</p>
-<p><code class="inline">quat</code> is the quatern</p>
-<p>It returns a <code class="inline">quatern</code> representing the inverse of the parameter quatern.</p>
-<p>If the <code class="inline">quat</code>is less than zero, the quatern retorned is a zero quatern.</p>
+  <div class="docstring"><p><code class="inline">inverse(quat)</code> returns the inverse of a quaternion.</p>
+<p><code class="inline">quat</code> is the quaternion</p>
+<p>It returns a <code class="inline">quatern</code> representing the inverse of the parameter quaternion.</p>
+<p>If the <code class="inline">quat</code>is less than zero, the quaternion returned is a zero quaternion.</p>
 </div>
   
 </div>
@@ -511,9 +535,9 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
       
     </ul>
   
-  <div class="docstring"><p><code class="inline">norm(quat)</code> Returns the normal length of the quaternion.</p>
-<p><code class="inline">quat</code> is the quatern</p>
-<p>It returns a <code class="inline">float</code> representing the normal.</p>
+  <div class="docstring"><p><code class="inline">norm(quat)</code> Returns the L2 norm of a quaternion.</p>
+<p><code class="inline">quat</code> is a <code class="inline">quatern</code> to find the norm of.</p>
+<p>It returns a <code class="inline">float</code> representing the L2 norm.</p>
 </div>
   
 </div>
@@ -587,29 +611,6 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
   <div class="docstring"><p><code class="inline">to_rotation_matrix(quat)</code> creates a <code class="inline">mat33</code> from a quatern.</p>
 <p><code class="inline">quat</code> is the quatern</p>
 <p>It returns a <code class="inline">mat33</code> representing a rotation.</p>
-</div>
-  
-</div>
-<div class="detail">
-  <div class="detail_header" id="unit_inverse/1">
-    <span class="signature"><strong>unit_inverse(quat)</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#unit_inverse/1" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
-  </div>
-  
-    <p>Specs:</p>
-    <ul class="spec">
-      
-        <li>unit_inverse(<a href="#t:quatern/0">quatern</a>) :: <a href="#t:quatern/0">quatern</a></li>
-      
-    </ul>
-  
-  <div class="docstring"><p><code class="inline">unit_inverse(quat)</code> Returns the inverse of a unit quaternion.</p>
-<p><code class="inline">quat</code> is the unit quatern</p>
-<p>It returns a <code class="inline">quatern</code> representing the inverse of the unit quatern.</p>
 </div>
   
 </div>

@@ -324,6 +324,20 @@ defmodule Graphmath.Quatern do
         {w,x,y,z} = quat
         :math.sqrt( w*w + x*x + y*y + z*z )
     end
+
+    @doc"""
+    `normalize(q) returns a normalized verison of a quaternion.
+
+    `q` is the `quatern` to be normalized.
+
+    This returns a `quatern` of unit length in the same direction as `q`.
+    """
+    @spec normalize(quatern) :: quatern
+    def normalize(quat) do
+        {w,x,y,z} = quat
+        invmag = 1.0 / :math.sqrt( w*w + x*x + y*y + z*z )
+        { w * invmag, x * invmag, y * invmag, z * invmag }
+    end
     
     @doc"""
     `inverse(quat)` returns the inverse of a quaternion.
