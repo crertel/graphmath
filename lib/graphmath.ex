@@ -1,2 +1,0 @@
-defmodule Graphmath do
-end
