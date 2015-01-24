@@ -6,17 +6,17 @@ defmodule Graphmath.Quatern do
 
     This submodule handles  Quaternion using tuples of floats.
     i.e. a rotation around an axis.
-    
-    Consider the `quatern` format: `{ w, x, y, z }` where `w` is the angle in Radians, 
+
+    Consider the `quatern` format: `{ w, x, y, z }` where `w` is the angle in Radians,
     and `x` `y` `z` are the axis coordinates
     """
-    
+
     @type quatern :: {float, float, float, float}
     @type vec3 :: { float, float, float }
     @type mat33 :: { float, float, float,
                      float, float, float,
                      float, float, float }
-    
+
     @doc"""
     `create()` creates a zeroed `quatern`.
 
@@ -28,16 +28,16 @@ defmodule Graphmath.Quatern do
     def create() do
         {0.0, 0.0, 0.0, 0.0}
     end
-    
+
     @doc"""
     `create(w,x,y,z)` creates a `quatern` of value (w,x,y,z).
-    
+
     `w` is the rotation arround the axis in Radians.
 
     `x` is the first element of the `vec3` representing the axis to be created.
-    
+
     `y` is the second element of the `vec3` representing the axis to be created.
-    
+
     `z` is the third element of the `vec3` representing the axis to be created.
 
     It returns a `quatern` of the form `{w,x,y,z}`.
@@ -46,7 +46,7 @@ defmodule Graphmath.Quatern do
     def create( w, x, y, z) do
         {w,x,y,z}
     end
-    
+
     @doc"""
     `create(quatern)` creates a `quatern` from a list of 4 or more floats.
 
@@ -59,14 +59,14 @@ defmodule Graphmath.Quatern do
         [w,x,y,z | _] = quatern
         {w,x,y,z}
     end
-    
+
     @doc"""
     `create(w, vec)` creates a `quatern` from an angle and an axis.
-    
+
     `w` is the angle in radians.
-    
+
     `vec` is the axis, a tuple {x,y,z}
-    
+
     It returns a `quatern` of the form `{w,x,y,z}`.
     """
     @spec create(float, vec3) :: quatern
@@ -77,12 +77,12 @@ defmodule Graphmath.Quatern do
 
     @doc"""
     `add(lhs, rhs)` add two quaternions.
-    
+
     `lhs` is the first `quatern`
 
     `rhs` is the second `quatern`
-    
-    It returns a `quatern` of the form 
+
+    It returns a `quatern` of the form
         { lhs<sub>w</sub> + rhs<sub>w</sub>, lhs<sub>x</sub> + rhs<sub>x</sub>, lhs<sub>y</sub> + rhs<sub>y</sub>, lhs<sub>z</sub> + rhs<sub>z</sub> }.
     """
     @spec add(quatern, quatern) :: quatern
@@ -95,12 +95,12 @@ defmodule Graphmath.Quatern do
 
     @doc"""
     `subtract(lhs, rhs)` subtract two quaternions.
-    
+
      `lhs` is the first `quatern`
 
      `rhs` is the second `quatern`
-    
-     It returns a `quatern` of the form 
+
+     It returns a `quatern` of the form
         { lhs<sub>w</sub> - rhs<sub>w</sub>, lhs<sub>x</sub> - rhs<sub>x</sub>, lhs<sub>y</sub> - rhs<sub>y</sub>, lhs<sub>z</sub> - rhs<sub>z</sub> }.
     """
     @spec subtract(quatern, quatern) :: quatern
@@ -113,11 +113,11 @@ defmodule Graphmath.Quatern do
 
     @doc"""
     `multiply(lhs, rhs)` multiply two quaternions.
-    
+
      `lhs` is the first `quatern`
 
      `rhs` is the second `quatern`
-    
+
      It returns a `quatern` resultant of the multiplication
      NOTE: Multiplication is not generally commutative, so in most cases p*q != q*p.
     """
@@ -134,12 +134,12 @@ defmodule Graphmath.Quatern do
 
    @doc"""
     `scale(quat, scalar)` multiply a `quatern` for a scalar.
-    
+
      `quat` is the `quatern`
 
      `scalar` is the scalar
-    
-     It returns a `quatern` of the form 
+
+     It returns a `quatern` of the form
         { a<sub>w</sub> * scalar, a<sub>x</sub> * scalar, a<sub>y</sub> * scalar, a<sub>z</sub> * scalar}.
     """
     @spec scale(quatern, float) :: quatern
@@ -151,9 +151,9 @@ defmodule Graphmath.Quatern do
 
     @doc"""
     `roll(quat)` Calculate the local roll element of a quaternion.
-    
+
     `quat` is the quatern
-    
+
     It returns a `float` representing the roll of the quaternion in Radians.
     """
     @spec get_roll(quatern) :: float
@@ -168,13 +168,13 @@ defmodule Graphmath.Quatern do
         fTzz = fTz*z
 
         :math.atan2(fTxy+fTwz, 1.0-(fTyy+fTzz))
-    end 
+    end
 
     @doc"""
     `pitch(quat)` Calculate the local pitch element of a quaternion.
-    
+
     `quat` is the quatern
-    
+
     It returns a `float` representing the pitch of the quaternion in Radians.
     """
     @spec get_pitch(quatern) :: float
@@ -189,13 +189,13 @@ defmodule Graphmath.Quatern do
         fTzz = fTz*z
 
         :math.atan2(fTyz+fTwx, 1.0-(fTxx+fTzz))
-    end 
+    end
 
     @doc"""
     `yaw(quat)` Calculate the local yaw element of a quaternion.
-    
+
     `quat` is the quatern
-    
+
     It returns a `float` representing the yaw of the quaternion in Radians.
     """
     @spec get_yaw(quatern) :: float
@@ -212,13 +212,13 @@ defmodule Graphmath.Quatern do
 
 
         :math.atan2(fTxz+fTwy, 1.0-(fTxx+fTyy))
-    end 
-    
+    end
+
     @doc"""
     `from_rotation_matrix(mat)` creates a `quatern` from a rotation matrix.
-    
+
     `mat` is the matrix
-    
+
     It returns a `quatern` of the form `{w,x,y,z}`.
     """
     @spec from_rotation_matrix(mat33) :: quatern
@@ -226,7 +226,7 @@ defmodule Graphmath.Quatern do
         { a11, a12, a13,
           a21, a22, a23,
           a31, a32, a33 } = mat
-          
+
         fTrace = a11 + a22 + a33;
 
         if ( fTrace > 0.0 ) do
@@ -239,7 +239,7 @@ defmodule Graphmath.Quatern do
             i = 0
             if a22 > a11 do i = 1 end
             if a33 > Mat33.at(mat,i,i) do i = 2 end
-                
+
             j = elem(iNext,i)
             k = elem(iNext,j)
 
@@ -249,19 +249,19 @@ defmodule Graphmath.Quatern do
             fRoot = 0.5/fRoot;
             apkQuat = put_elem(apkQuat, j, (Mat33.at(mat,j,i)+Mat33.at(mat,i,j)) * fRoot)
             apkQuat = put_elem(apkQuat, k, (Mat33.at(mat,k,i)+Mat33.at(mat,i,k)) * fRoot)
-            
+
             {x,y,z} = apkQuat
-            
+
             {(Mat33.at(mat,k,j)-Mat33.at(mat,j,k))*fRoot , x, y, z}
         end
     end
-    
-    
+
+
     @doc"""
     `to_rotation_matrix(quat)` creates a `mat33` from a quatern.
-    
+
     `quat` is the quatern
-    
+
     It returns a `mat33` representing a rotation.
     """
     @spec to_rotation_matrix(quatern) :: mat33
@@ -289,34 +289,34 @@ defmodule Graphmath.Quatern do
         a31 = fTxz-fTwy
         a32 = fTyz+fTwx
         a33 = 1.0-(fTxx+fTyy)
-        
+
         { a11, a12, a13,
           a21, a22, a23,
           a31, a32, a33 }
     end
-    
+
     @doc"""
     `dot(lhs, rhs)` returns a `float` resultant of the dot product bectween two quaterns.
-    
+
     `lhs` is a quatern
-    
+
     `rhs` is a quatern
-    
+
     It returns a `float` representing the dot product.
     """
     @spec dot(quatern, quatern) :: float
     def dot(lhs, rhs) do
         {w,x,y,z} = lhs
         {a,b,c,d} = rhs
-        
+
         w*a + x*b + y*c + z*d
     end
-    
+
     @doc"""
     `norm(quat)` Returns the L2 norm of a quaternion.
-    
+
     `quat` is a `quatern` to find the norm of.
-    
+
     It returns a `float` representing the L2 norm.
     """
     @spec norm(quatern) :: float
@@ -338,20 +338,20 @@ defmodule Graphmath.Quatern do
         invmag = 1.0 / :math.sqrt( w*w + x*x + y*y + z*z )
         { w * invmag, x * invmag, y * invmag, z * invmag }
     end
-    
+
     @doc"""
     `inverse(quat)` returns the inverse of a quaternion.
-    
+
     `quat` is the quaternion
-    
+
     It returns a `quatern` representing the inverse of the parameter quaternion.
-    
+
     If the `quat`is less than zero, the quaternion returned is a zero quaternion.
     """
     @spec inverse(quatern) :: quatern
     def inverse(quat) do
         {w,x,y,z} = quat
-        
+
         fNorm = w*w+x*x+y*y+z*z
         if ( fNorm > 0.0 ) do
             fInvNorm = 1.0/fNorm
@@ -361,12 +361,12 @@ defmodule Graphmath.Quatern do
             create
         end
     end
-    
+
     @doc"""
     `conjugate(quat)` returns the conjugate of a quaternion.
-    
+
     `quat` is the quaternion to get the conjugate of.
-    
+
     It returns a `quatern` representing the inverse of the unit quatern.
 
     Note that the conjugate of a unit quaternion is its inverse.
@@ -375,5 +375,46 @@ defmodule Graphmath.Quatern do
     def conjugate(quat) do
         {w,x,y,z} = quat
         {w,-x,-y,-z}
+    end
+
+    @doc"""
+    `slerp(lhs, rhs, t)` Performs Spherical linear interpolation between two quaternions, and returns the result.
+
+    `lhs` is the first `quatern`
+
+    `rhs` is the second `quatern`
+
+    `t` is the interpolation parameter that will interpolate to `lhs` when `t = 0` and to `rhs` when `t = 1`.
+
+    It returns a `quatern` representing the normalized interpolation point.
+
+    Note: `slerp` has the proprieties of performing the interpolation at constant velocity However, it's NOT commutative, which means
+    `slerp( A, B, 0.75 ) != slerp( B, A, 0.25 )`
+    therefore be careful if your code relies in the order of the operands.
+    This is specially important in IK animation.
+    """
+    @spec slerp(quatern, quatern, float) :: quatern
+    def slerp(lhs, rhs, t) do
+        fCos = dot(lhs, rhs)
+
+        #There are two situations:
+        # 1. "rhs" and "lhs" are very close (fCos ~= +1), so we can do a linear
+        #    interpolation safely.
+        # 2. "rhs" and "lhs" are almost inverse of each other (fCos ~= -1), there
+        #    are an infinite number of possibilities interpolation. but we haven't
+        #    have method to fix this case, so just use linear interpolation here.
+
+        if (abs(fCos) < 1 - 1.0e-03) do
+            fSin = :math.sqrt(1 - fCos*fCos)
+            fAngle = :math.atan2(fSin, fCos)
+            fInvSin = 1.0 / fSin
+            fCoeff0 = :math.sin((1.0 - t) * fAngle) * fInvSin
+            fCoeff1 = :math.sin(t * fAngle) * fInvSin
+            normalize(add(scale(lhs,fCoeff0), scale(rhs, fCoeff1)))
+        else
+            r = add(scale(lhs, 1.0 - t), scale(rhs, t))
+            # taking the complement requires renormalisation
+            normalize(r)
+        end
     end
 end
