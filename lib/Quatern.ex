@@ -61,11 +61,11 @@ defmodule Graphmath.Quatern do
     end
     
     @doc"""
-    `create(w,vec3)` creates a `quatern` from a angle and a axis.
+    `create(w, vec)` creates a `quatern` from an angle and an axis.
     
-    `w` is the angle in Radians
+    `w` is the angle in radians.
     
-    `vec3` is the axis, a tuple {x,y,z}
+    `vec` is the axis, a tuple {x,y,z}
     
     It returns a `quatern` of the form `{w,x,y,z}`.
     """
