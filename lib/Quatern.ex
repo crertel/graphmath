@@ -313,26 +313,26 @@ defmodule Graphmath.Quatern do
     end
     
     @doc"""
-    `norm(quat)` Returns the normal length of the quaternion.
+    `norm(quat)` Returns the L2 norm of a quaternion.
     
-    `quat` is the quatern
+    `quat` is a `quatern` to find the norm of.
     
-    It returns a `float` representing the normal.
+    It returns a `float` representing the L2 norm.
     """
     @spec norm(quatern) :: float
     def norm(quat) do
         {w,x,y,z} = quat
-        w*w + x*x + y*y + z*z
+        :math.sqrt( w*w + x*x + y*y + z*z )
     end
     
     @doc"""
-    `inverse(quat)` Returns the inverse of the quaternion.
+    `inverse(quat)` returns the inverse of a quaternion.
     
-    `quat` is the quatern
+    `quat` is the quaternion
     
-    It returns a `quatern` representing the inverse of the parameter quatern.
+    It returns a `quatern` representing the inverse of the parameter quaternion.
     
-    If the `quat`is less than zero, the quatern retorned is a zero quatern.
+    If the `quat`is less than zero, the quaternion returned is a zero quaternion.
     """
     @spec inverse(quatern) :: quatern
     def inverse(quat) do
@@ -349,14 +349,16 @@ defmodule Graphmath.Quatern do
     end
     
     @doc"""
-    `unit_inverse(quat)` Returns the inverse of a unit quaternion.
+    `conjugate(quat)` returns the conjugate of a quaternion.
     
-    `quat` is the unit quatern
+    `quat` is the quaternion to get the conjugate of.
     
     It returns a `quatern` representing the inverse of the unit quatern.
+
+    Note that the conjugate of a unit quaternion is its inverse.
     """
-    @spec unit_inverse(quatern) :: quatern
-    def unit_inverse(quat) do
+    @spec conjugate(quatern) :: quatern
+    def conjugate(quat) do
         {w,x,y,z} = quat
         {w,-x,-y,-z}
     end
