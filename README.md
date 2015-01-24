@@ -100,3 +100,8 @@ If you can't use that, consider it under the WTFPL.
 
 If you can't use *that*, fine--use the new BSD license.
 
+Contributors
+=============
+* Chris Ertel
+* Ivan Miranda
+
