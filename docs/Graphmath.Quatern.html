@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.5.1 &rarr; <a href="overview.html">Overview</a> &rarr; Graphmath &rarr; <a href="Graphmath.Quatern.html">Quatern</a></div>
+      <div class="breadcrumbs">graphmath v0.5.2 &rarr; <a href="overview.html">Overview</a> &rarr; Graphmath &rarr; <a href="Graphmath.Quatern.html">Quatern</a></div>
 
       <h1>
         Graphmath.Quatern
@@ -152,6 +152,13 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
   <td class="summary_signature"><a href="#norm/1">norm(quat)</a></td>
   
     <td class="summary_synopsis"><p><code class="inline">norm(quat)</code> Returns the L2 norm of a quaternion</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#normalize/1">normalize(quat)</a></td>
+  
+    <td class="summary_synopsis"><p>`normalize(q) returns a normalized verison of a quaternion</p>
 </td>
   
 </tr>
@@ -538,6 +545,29 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
   <div class="docstring"><p><code class="inline">norm(quat)</code> Returns the L2 norm of a quaternion.</p>
 <p><code class="inline">quat</code> is a <code class="inline">quatern</code> to find the norm of.</p>
 <p>It returns a <code class="inline">float</code> representing the L2 norm.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="normalize/1">
+    <span class="signature"><strong>normalize(quat)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#normalize/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>normalize(<a href="#t:quatern/0">quatern</a>) :: <a href="#t:quatern/0">quatern</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p>`normalize(q) returns a normalized verison of a quaternion.</p>
+<p><code class="inline">q</code> is the <code class="inline">quatern</code> to be normalized.</p>
+<p>This returns a <code class="inline">quatern</code> of unit length in the same direction as <code class="inline">q</code>.</p>
 </div>
   
 </div>

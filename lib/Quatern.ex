@@ -65,7 +65,7 @@ defmodule Graphmath.Quatern do
 
     `w` is the angle in radians.
 
-    `vec` is the axis, a tuple {x,y,z}
+    `vec` is the axis `vec3` of the form {x,y,z}.
 
     It returns a `quatern` of the form `{w,x,y,z}`.
     """
@@ -333,8 +333,8 @@ defmodule Graphmath.Quatern do
     This returns a `quatern` of unit length in the same direction as `q`.
     """
     @spec normalize(quatern) :: quatern
-    def normalize(quat) do
-        {w,x,y,z} = quat
+    def normalize(q) do
+        {w,x,y,z} = q
         invmag = 1.0 / :math.sqrt( w*w + x*x + y*y + z*z )
         { w * invmag, x * invmag, y * invmag, z * invmag }
     end
