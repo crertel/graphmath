@@ -701,6 +701,8 @@ defmodule Graphmath.Mat44 do
     `a` is a `mat44` to be inverted
 
     Returs a `mat44` representing `a`<sup>-1</sup>
+
+    Raises an error when you try to calculate inverse of a matrix whose determinant is `zero`
     """
     @spec inverse(mat44) :: mat44
     def inverse(a) do
