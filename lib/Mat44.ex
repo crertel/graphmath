@@ -721,7 +721,11 @@ defmodule Graphmath.Mat44 do
         t20 = + (v4 * m10 - v2 * m11 + v0 * m13)
         t30 = - (v3 * m10 - v1 * m11 + v0 * m12)
 
-        invDet = 1 / (t00 * m00 + t10 * m01 + t20 * m02 + t30 * m03)
+        fDet = t00 * m00 + t10 * m01 + t20 * m02 + t30 * m03
+
+        if fDet == 0, do: raise "Matrices with determinant equal to zero does not have inverse"
+
+        invDet = 1 / fDet
 
         d00 = t00 * invDet
         d10 = t10 * invDet
