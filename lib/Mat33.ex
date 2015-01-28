@@ -42,7 +42,7 @@ defmodule Graphmath.Mat33 do
     `a` is the first `mat33`.
 
     `b` is the second `mat33`.
-    
+
     This returns a `mat33` which is the element-wise sum of `a` and `b`.
     """
     @spec add( mat33, mat33) :: mat33
@@ -59,7 +59,7 @@ defmodule Graphmath.Mat33 do
           a21 + b21, a22 + b22, a23 + b23,
           a31 + b31, a32 + b32, a33 + b33 }
     end
-    
+
     @doc"""
     `subtract(a,b)` subtracts one `mat33` from another `mat33`.
 
@@ -103,7 +103,7 @@ defmodule Graphmath.Mat33 do
           a21 * k, a22 * k, a23 * k,
           a31 * k, a32 * k, a33 * k }
     end
-    
+
     @doc"""
     `make_scale( k )` creates a `mat33` that uniformly scales.
 
@@ -117,7 +117,7 @@ defmodule Graphmath.Mat33 do
           0, k, 0,
           0, 0, k }
     end
-    
+
     @doc"""
     `make_scale( sx, sy, sz )` creates a `mat33` that scales each axis independently.
 
@@ -144,7 +144,7 @@ defmodule Graphmath.Mat33 do
     `tx` is a float for translating along the x-axis.
 
     `ty` is a float for translating along the y-axis.
-    
+
     This returns a `mat33` which translates by a `vec2` `{ tx, ty }`.
     """
     @spec make_translate( float, float ) :: mat33
@@ -190,11 +190,11 @@ defmodule Graphmath.Mat33 do
             Float.round( 1.0*a11, sigfigs),
             Float.round( 1.0*a12, sigfigs),
             Float.round( 1.0*a13, sigfigs),
-            
+
             Float.round( 1.0*a21, sigfigs),
             Float.round( 1.0*a22, sigfigs),
             Float.round( 1.0*a23, sigfigs),
-            
+
             Float.round( 1.0*a31, sigfigs),
             Float.round( 1.0*a32, sigfigs),
             Float.round( 1.0*a33, sigfigs)
@@ -238,7 +238,7 @@ defmodule Graphmath.Mat33 do
 
     @doc"""
     `multiply_transpose( a, b )` multiply two matrices a and b<sup>T</sup> together.
-    
+
     `a` is the `mat33` multiplicand.
 
     `b` is the `mat33` multiplier.
@@ -254,7 +254,7 @@ defmodule Graphmath.Mat33 do
         { b11, b21, b31,
           b12, b22, b32,
           b13, b23, b33 } = b
-        
+
         {
             (a11*b11) + (a12*b21) + (a13*b31),
             (a11*b12) + (a12*b22) + (a13*b32),
@@ -269,7 +269,7 @@ defmodule Graphmath.Mat33 do
             (a31*b13) + (a32*b23) + (a33*b33)
         }
     end
-    
+
     @doc"""
     `column0( a )` selects the first column of a `mat33`.
 
@@ -282,13 +282,13 @@ defmodule Graphmath.Mat33 do
         { a11, _, _,
           a21, _, _,
           a31, _, _ } = a
-        
+
         {a11,a21,a31}
     end
-    
+
     @doc"""
     `column1( a )` selects the second column of a `mat33`.
-    
+
     `a` is the `mat33` to take the second column of.
 
     This returns a `vec3` representing the second column of `a`.
@@ -298,13 +298,13 @@ defmodule Graphmath.Mat33 do
         { _, a12, _,
           _, a22, _,
           _, a32, _ } = a
-        
+
         {a12,a22,a32}
     end
-    
+
     @doc"""
     `column2( a )` selects the third column of a `mat33`.
-    
+
     `a` is the `mat33` to take the third column of.
 
     This returns a `vec3` representing the third column of `a`.
@@ -314,13 +314,13 @@ defmodule Graphmath.Mat33 do
         { _, _, a13,
           _, _, a23,
           _, _, a33 } = a
-        
+
         {a13,a23,a33}
     end
-    
+
     @doc"""
     `row0( a )` selects the first row of a `mat33`.
-    
+
     `a` is the `mat33` to take the first row of.
 
     This returns a `vec3` representing the first row of `a`.
@@ -330,13 +330,13 @@ defmodule Graphmath.Mat33 do
         { a11, a12, a13,
           _, _, _,
           _, _, _ } = a
-        
+
         {a11,a12,a13}
     end
 
     @doc"""
     `row1( a )` selects the second row of a `mat33`.
-    
+
     `a` is the `mat33` to take the second row of.
 
     This returns a `vec3` representing the second row of `a`.
@@ -346,13 +346,13 @@ defmodule Graphmath.Mat33 do
         { _, _, _,
           a21, a22, a23,
           _, _, _ } = a
-        
+
         {a21,a22,a23}
     end
-    
+
     @doc"""
     `row2( a )` selects the third row of a `mat33`.
-    
+
     `a` is the `mat33` to take the third row of.
 
     This returns a `vec3` representing the third row of `a`.
@@ -362,13 +362,13 @@ defmodule Graphmath.Mat33 do
         { _, _, _,
           _, _, _,
           a31, a32, a33 } = a
-        
+
         {a31,a32,a33}
     end
-    
+
     @doc"""
     `diag( a )` selects the diagonal of a `mat33`.
-    
+
     `a` is the `mat33` to take the diagonal of.
 
     This returns a `vec3` representing the diagonal of `a`.
@@ -378,7 +378,7 @@ defmodule Graphmath.Mat33 do
         { a11, _, _,
           _, a22, _,
           _, _, a33 } = a
-        
+
         {a11,a22,a33}
     end
 
@@ -386,7 +386,7 @@ defmodule Graphmath.Mat33 do
     `at( a, i, j)` selects an element of a `mat33`.
 
     `a` is the `mat33` to index.
-    
+
     `i` is the row integer index [0,2].
 
     `j` is the column integer index [0,2].
@@ -423,16 +423,16 @@ defmodule Graphmath.Mat33 do
             (a31*x)+(a32*y)+(a33*z)
         }
     end
-    
+
     @doc"""
     `apply_transpose( a, v )` transforms a `vec3` by a a transposed `mat33`.
-    
+
     `a` is the `mat33` to transform by.
 
     `v` is the `vec3` to be transformed.
 
     This returns a `vec3` representing **A**<sup>T</sup>**v**.
-    
+
     This is the "full" application of a matrix, and uses all elements.
     """
     @spec apply_transpose( mat33, vec3 ) :: vec3
@@ -449,7 +449,7 @@ defmodule Graphmath.Mat33 do
             (a31*x)+(a32*y)+(a33*z)
         }
     end
-    
+
     @doc"""
     `apply_left( v, a )` transforms a `vec3` by a `mat33`, applied on the left.
 
@@ -478,13 +478,13 @@ defmodule Graphmath.Mat33 do
 
     @doc"""
     `apply_left_transpose( v, a )` transforms a `vec3` by a transposed `mat33`, applied on the left.
-    
+
     `a` is the `mat33` to transform by.
 
     `v` is the `vec3` to be transformed.
 
     This returns a `vec3` representing **v****A**<sup>T</sup>.
-    
+
     This is the "full" application of a matrix, and uses all elements.
     """
     @spec apply_left_transpose( vec3, mat33 ) :: vec3
@@ -528,7 +528,7 @@ defmodule Graphmath.Mat33 do
             (a21*x)+(a22*y) + (a23)
         }
     end
-    
+
     @doc"""
     `transform_vector( a, v )` transforms a `vec2` vector by a `mat33`.
 
@@ -554,5 +554,41 @@ defmodule Graphmath.Mat33 do
             (a11*x)+(a12*y),
             (a21*x)+(a22*y)
         }
+    end
+
+    @doc"""
+    `inverse(a)` calculates the inverse matrix
+
+    `a` is a `mat33` to be inverted
+
+    Returs a `mat33` representing `a`<sup>-1</sup>
+
+    Raises an error when you try to calculate inverse of a matrix whose determinant is `zero`
+    """
+    @spec inverse(mat33) :: mat33
+    def inverse(a) do
+        {a00, a01, a02,
+         a10, a11, a12,
+         a20, a21, a22} = a
+
+        v00 = a11*a22 - a12*a21
+        v01 = a02*a21 - a01*a22
+        v02 = a01*a12 - a02*a11
+        v10 = a12*a20 - a10*a22
+        v11 = a00*a22 - a02*a20
+        v12 = a02*a10 - a00*a12
+        v20 = a10*a21 - a11*a20
+        v21 = a01*a20 - a00*a21
+        v22 = a00*a11 - a01*a10
+
+        fDet = a00*v00 + a01*v10 + a02*v20
+
+        if fDet == 0, do: raise "Matrices with determinant equal to zero does not have inverse"
+
+        fInvDet = 1.0/fDet
+
+        {v00*fInvDet, v01*fInvDet, v02*fInvDet,
+         v10*fInvDet, v11*fInvDet, v12*fInvDet,
+         v20*fInvDet, v21*fInvDet, v22*fInvDet}
     end
 end
