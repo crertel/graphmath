@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.5.2 &rarr; <a href="overview.html">Overview</a> &rarr; Graphmath &rarr; <a href="Graphmath.Quatern.html">Quatern</a></div>
+      <div class="breadcrumbs">graphmath v0.5.3 &rarr; <a href="overview.html">Overview</a> &rarr; Graphmath &rarr; <a href="Graphmath.Quatern.html">Quatern</a></div>
 
       <h1>
         Graphmath.Quatern
@@ -46,7 +46,7 @@
           <p>This is the 3D mathematics library for graphmath.</p>
 <p>This submodule handles  Quaternion using tuples of floats.
 i.e. a rotation around an axis.</p>
-<p>Consider the <code class="inline">quatern</code> format: <code class="inline">{ w, x, y, z }</code> where <code class="inline">w</code> is the angle in Radians, 
+<p>Consider the <code class="inline">quatern</code> format: <code class="inline">{ w, x, y, z }</code> where <code class="inline">w</code> is the angle in Radians,
 and <code class="inline">x</code> <code class="inline">y</code> <code class="inline">z</code> are the axis coordinates</p>
 
         </div>
@@ -156,7 +156,7 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#normalize/1">normalize(quat)</a></td>
+  <td class="summary_signature"><a href="#normalize/1">normalize(q)</a></td>
   
     <td class="summary_synopsis"><p>`normalize(q) returns a normalized verison of a quaternion</p>
 </td>
@@ -166,6 +166,13 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
   <td class="summary_signature"><a href="#scale/2">scale(quat, scalar)</a></td>
   
     <td class="summary_synopsis"><p><code class="inline">scale(quat, scalar)</code> multiply a <code class="inline">quatern</code> for a scalar</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#slerp/3">slerp(lhs, rhs, t)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">slerp(lhs, rhs, t)</code> Performs Spherical linear interpolation between two quaternions, and returns the result</p>
 </td>
   
 </tr>
@@ -235,7 +242,7 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
   <div class="docstring"><p><code class="inline">add(lhs, rhs)</code> add two quaternions.</p>
 <p><code class="inline">lhs</code> is the first <code class="inline">quatern</code></p>
 <p><code class="inline">rhs</code> is the second <code class="inline">quatern</code></p>
-<p>It returns a <code class="inline">quatern</code> of the form </p>
+<p>It returns a <code class="inline">quatern</code> of the form</p>
 <pre><code>{ lhs&lt;sub&gt;w&lt;/sub&gt; + rhs&lt;sub&gt;w&lt;/sub&gt;, lhs&lt;sub&gt;x&lt;/sub&gt; + rhs&lt;sub&gt;x&lt;/sub&gt;, lhs&lt;sub&gt;y&lt;/sub&gt; + rhs&lt;sub&gt;y&lt;/sub&gt;, lhs&lt;sub&gt;z&lt;/sub&gt; + rhs&lt;sub&gt;z&lt;/sub&gt; }.</code></pre>
 </div>
   
@@ -329,7 +336,7 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
   
   <div class="docstring"><p><code class="inline">create(w, vec)</code> creates a <code class="inline">quatern</code> from an angle and an axis.</p>
 <p><code class="inline">w</code> is the angle in radians.</p>
-<p><code class="inline">vec</code> is the axis, a tuple {x,y,z}</p>
+<p><code class="inline">vec</code> is the axis <code class="inline">vec3</code> of the form {x,y,z}.</p>
 <p>It returns a <code class="inline">quatern</code> of the form <code class="inline">{w,x,y,z}</code>.</p>
 </div>
   
@@ -550,7 +557,7 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
 </div>
 <div class="detail">
   <div class="detail_header" id="normalize/1">
-    <span class="signature"><strong>normalize(quat)</strong></span>
+    <span class="signature"><strong>normalize(q)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#normalize/1" class="detail_link" title="Link to this function">#</a>
@@ -591,8 +598,37 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
   <div class="docstring"><p><code class="inline">scale(quat, scalar)</code> multiply a <code class="inline">quatern</code> for a scalar.</p>
 <p> <code class="inline">quat</code> is the <code class="inline">quatern</code></p>
 <p> <code class="inline">scalar</code> is the scalar</p>
-<p> It returns a <code class="inline">quatern</code> of the form </p>
+<p> It returns a <code class="inline">quatern</code> of the form</p>
 <pre><code>{ a&lt;sub&gt;w&lt;/sub&gt; * scalar, a&lt;sub&gt;x&lt;/sub&gt; * scalar, a&lt;sub&gt;y&lt;/sub&gt; * scalar, a&lt;sub&gt;z&lt;/sub&gt; * scalar}.</code></pre>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="slerp/3">
+    <span class="signature"><strong>slerp(lhs, rhs, t)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#slerp/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>slerp(<a href="#t:quatern/0">quatern</a>, <a href="#t:quatern/0">quatern</a>, float) :: <a href="#t:quatern/0">quatern</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">slerp(lhs, rhs, t)</code> Performs Spherical linear interpolation between two quaternions, and returns the result.</p>
+<p><code class="inline">lhs</code> is the first <code class="inline">quatern</code></p>
+<p><code class="inline">rhs</code> is the second <code class="inline">quatern</code></p>
+<p><code class="inline">t</code> is the interpolation parameter that will interpolate to <code class="inline">lhs</code> when <code class="inline">t = 0</code> and to <code class="inline">rhs</code> when <code class="inline">t = 1</code>.</p>
+<p>It returns a <code class="inline">quatern</code> representing the normalized interpolation point.</p>
+<p>Note: <code class="inline">slerp</code> has the proprieties of performing the interpolation at constant velocity However, it’s NOT commutative, which means
+<code class="inline">slerp( A, B, 0.75 ) != slerp( B, A, 0.25 )</code>
+therefore be careful if your code relies in the order of the operands.
+This is specially important in IK animation.</p>
 </div>
   
 </div>
@@ -616,7 +652,7 @@ and <code class="inline">x</code> <code class="inline">y</code> <code class="inl
   <div class="docstring"><p><code class="inline">subtract(lhs, rhs)</code> subtract two quaternions.</p>
 <p> <code class="inline">lhs</code> is the first <code class="inline">quatern</code></p>
 <p> <code class="inline">rhs</code> is the second <code class="inline">quatern</code></p>
-<p> It returns a <code class="inline">quatern</code> of the form </p>
+<p> It returns a <code class="inline">quatern</code> of the form</p>
 <pre><code>{ lhs&lt;sub&gt;w&lt;/sub&gt; - rhs&lt;sub&gt;w&lt;/sub&gt;, lhs&lt;sub&gt;x&lt;/sub&gt; - rhs&lt;sub&gt;x&lt;/sub&gt;, lhs&lt;sub&gt;y&lt;/sub&gt; - rhs&lt;sub&gt;y&lt;/sub&gt;, lhs&lt;sub&gt;z&lt;/sub&gt; - rhs&lt;sub&gt;z&lt;/sub&gt; }.</code></pre>
 </div>
   
