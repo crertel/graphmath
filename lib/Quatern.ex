@@ -82,8 +82,7 @@ defmodule Graphmath.Quatern do
 
     `rhs` is the second `quatern`
 
-    It returns a `quatern` of the form
-        { lhs<sub>w</sub> + rhs<sub>w</sub>, lhs<sub>x</sub> + rhs<sub>x</sub>, lhs<sub>y</sub> + rhs<sub>y</sub>, lhs<sub>z</sub> + rhs<sub>z</sub> }.
+    It returns a `quatern` of the form { lhs<sub>w</sub> + rhs<sub>w</sub>, lhs<sub>x</sub> + rhs<sub>x</sub>, lhs<sub>y</sub> + rhs<sub>y</sub>, lhs<sub>z</sub> + rhs<sub>z</sub> }.
     """
     @spec add(quatern, quatern) :: quatern
     def add(lhs, rhs) do
@@ -100,8 +99,7 @@ defmodule Graphmath.Quatern do
 
      `rhs` is the second `quatern`
 
-     It returns a `quatern` of the form
-        { lhs<sub>w</sub> - rhs<sub>w</sub>, lhs<sub>x</sub> - rhs<sub>x</sub>, lhs<sub>y</sub> - rhs<sub>y</sub>, lhs<sub>z</sub> - rhs<sub>z</sub> }.
+     It returns a `quatern` of the form { lhs<sub>w</sub> - rhs<sub>w</sub>, lhs<sub>x</sub> - rhs<sub>x</sub>, lhs<sub>y</sub> - rhs<sub>y</sub>, lhs<sub>z</sub> - rhs<sub>z</sub> }.
     """
     @spec subtract(quatern, quatern) :: quatern
     def subtract(lhs, rhs) do
