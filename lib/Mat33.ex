@@ -583,7 +583,7 @@ defmodule Graphmath.Mat33 do
 
         fDet = a00*v00 + a01*v10 + a02*v20
 
-        if fDet == 0, do: raise "Matrices with determinant equal to zero does not have inverse"
+#        if fDet == 0, do: raise "Matrices with determinant equal to zero does not have inverse"
 
         fInvDet = 1.0/fDet
 

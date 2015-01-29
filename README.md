@@ -14,6 +14,9 @@ It's designed to be comfortable to use, reasonably fast, and something which wil
 Features
 ========
 
+* Support for vectors in R2 and R3.
+* Support for 3x3 and 4x4 matrices.
+* Support for quaternions
 * Addition, subtraction
 * Element-wise multiplication
 * Scalar multiplication
@@ -24,7 +27,8 @@ Features
 * Comparison
 * Rotation
 * Linear interpolation
-* Tuples are used to represent vectors and matrices (faster than lists, better for ffi later)
+* Matrix inversion
+* Tuples are used to represent vectors and matrices (faster than lists or structs)
 
 Installation
 ============
@@ -82,8 +86,6 @@ Contributing
 
 Wishlist
 ========
-
-* Proper support for 4x4 rigid-body transofrms and mass-point math.
 
 * C/SIMD native extensions (probably want to live in a different, API-compatible library).
 

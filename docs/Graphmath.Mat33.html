@@ -20,7 +20,7 @@
     </script>
 
     <div id="content">
-      <div class="breadcrumbs">graphmath v0.5.3 &rarr; <a href="overview.html">Overview</a> &rarr; Graphmath &rarr; <a href="Graphmath.Mat33.html">Mat33</a></div>
+      <div class="breadcrumbs">graphmath v0.9.0 &rarr; <a href="overview.html">Overview</a> &rarr; Graphmath &rarr; <a href="Graphmath.Mat33.html">Mat33</a></div>
 
       <h1>
         Graphmath.Mat33
@@ -128,6 +128,13 @@
   <td class="summary_signature"><a href="#identity/0">identity()</a></td>
   
     <td class="summary_synopsis"><p><code class="inline">identity()</code> creates an identity <code class="inline">mat33</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#inverse/1">inverse(a)</a></td>
+  
+    <td class="summary_synopsis"><p><code class="inline">inverse(a)</code> calculates the inverse matrix</p>
 </td>
   
 </tr>
@@ -528,6 +535,30 @@
   
   <div class="docstring"><p><code class="inline">identity()</code> creates an identity <code class="inline">mat33</code>.</p>
 <p>This returns an identity <code class="inline">mat33</code>.</p>
+</div>
+  
+</div>
+<div class="detail">
+  <div class="detail_header" id="inverse/1">
+    <span class="signature"><strong>inverse(a)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#inverse/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>inverse(<a href="#t:mat33/0">mat33</a>) :: <a href="#t:mat33/0">mat33</a></li>
+      
+    </ul>
+  
+  <div class="docstring"><p><code class="inline">inverse(a)</code> calculates the inverse matrix</p>
+<p><code class="inline">a</code> is a <code class="inline">mat33</code> to be inverted</p>
+<p>Returs a <code class="inline">mat33</code> representing <code class="inline">a</code><sup>-1</sup></p>
+<p>Raises an error when you try to calculate inverse of a matrix whose determinant is <code class="inline">zero</code></p>
 </div>
   
 </div>
