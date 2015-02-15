@@ -225,6 +225,8 @@ defmodule Graphmath.Quatern do
           a21, a22, a23,
           a31, a32, a33 } = mat
 
+        # Why does the trace matter? Consult here:
+        # http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
         fTrace = a11 + a22 + a33;
 
         if ( fTrace > 0.0 ) do
@@ -250,7 +252,7 @@ defmodule Graphmath.Quatern do
 
             {x,y,z} = apkQuat
 
-            {(Mat33.at(mat,k,j)-Mat33.at(mat,j,k))*fRoot , x, y, z}
+            {x,y,z,(Mat33.at(mat,k,j)-Mat33.at(mat,j,k))*fRoot}
         end
     end
 
