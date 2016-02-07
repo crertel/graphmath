@@ -46,7 +46,7 @@ Just add it to your `mix.exs` file like so:
      package: ...,
      deps: [
         ...,
-        {:grapmath, "~> 0.1.0" },
+        {:graphmath, "~> 1.0.1" },
         ...
         ] ]
   end
