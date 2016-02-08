@@ -3,7 +3,7 @@ defmodule Graphmath.Mixfile do
 
   def project do
     [app: :graphmath,
-     version: "1.0.1",
+     version: "1.0.2",
      elixir: "~> 1.0",
      description: description,
      package: package,
@@ -32,7 +32,7 @@ defmodule Graphmath.Mixfile do
 
   defp package do
     [
-      contributors: ["Chris Ertel", "Ivan Miranda"],
+      maintainers: ["Chris Ertel", "Ivan Miranda", "Matthew Philyaw"],
       licenses: ["Public Domain (unlicense)", "WTFPL", "New BSD"],
       links: %{"GitHub" => "https://github.com/crertel/graphmath"}
     ]

@@ -46,7 +46,7 @@ Just add it to your `mix.exs` file like so:
      package: ...,
      deps: [
         ...,
-        {:graphmath, "~> 1.0.1" },
+        {:graphmath, "~> 1.0.2" },
         ...
         ] ]
   end
@@ -106,4 +106,4 @@ Contributors
 =============
 * Chris Ertel
 * Ivan Miranda
-
+* Matthew Philyaw
