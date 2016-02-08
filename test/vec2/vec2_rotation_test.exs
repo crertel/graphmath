@@ -34,4 +34,46 @@ defmodule Graphmath.Vec2.Rotate_Vec2 do
     {x,y} = Graphmath.Vec2.rotate( {1,0}, :math.pi)
     assert {-1,0} == { Float.round(x,6), Float.round(y,6)}
   end
+
+  @tag :vec2
+  @tag :rotate
+  test "rotate( {0,1}, :math.pi) returns {0,-1}" do
+    {x,y} = Graphmath.Vec2.rotate({0,1}, :math.pi)
+    assert {0,-1} == { Float.round(x,6), Float.round(y,6)}
+  end
+
+  @tag :vec2
+  @tag :rotate
+  test "rotate( {0,-1}, :math.pi) returns {0,1}" do
+    {x,y} = Graphmath.Vec2.rotate({0,-1}, :math.pi)
+    assert {0,1} == { Float.round(x,6), Float.round(y,6)}
+  end
+
+  @tag :vec2
+  @tag :rotate
+  test "rotate( {0,1}, :math.pi//2) returns {-1,0}" do
+    {x,y} = Graphmath.Vec2.rotate({0,1}, :math.pi/2)
+    assert {-1,0} == { Float.round(x,6), Float.round(y,6)}
+  end
+
+  @tag :vec2
+  @tag :rotate
+  test "rotate( {0,-1}, :math.pi//2) returns {1,0}" do
+    {x,y} = Graphmath.Vec2.rotate({0,-1}, :math.pi/2)
+    assert {1,0} == { Float.round(x,6), Float.round(y,6)}
+  end
+
+  @tag :vec2
+  @tag :rotate
+  test "rotate( {0,1}, -(:math.pi//2)) returns {1,0}" do
+    {x,y} = Graphmath.Vec2.rotate({0,1}, -:math.pi/2)
+    assert {1,0} == { Float.round(x,6), Float.round(y,6)}
+  end
+
+  @tag :vec2
+  @tag :rotate
+  test "rotate( {0,-1}, -(:math.pi//2)) returns {-1,0}" do
+    {x,y} = Graphmath.Vec2.rotate({0,-1}, -:math.pi/2)
+    assert {-1,0} == { Float.round(x,6), Float.round(y,6)}
+  end
 end
