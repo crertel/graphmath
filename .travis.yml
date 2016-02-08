@@ -1,11 +1,10 @@
-language: erlang
+language: elixir
+elixir:
+  - 1.2.2
 otp_release:
-  - 17.1
+  - 18.2.1
 before_install:
-  - git clone https://github.com/elixir-lang/elixir
-  - cd elixir && make && cd ..
 before_script:
-  - export PATH=`pwd`/elixir/bin:$PATH
   - mix local.hex --force
   - mix deps.get --only test
 script: mix test
