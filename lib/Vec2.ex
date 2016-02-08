@@ -257,7 +257,7 @@ defmodule Graphmath.Vec2 do
         { x,y } = a
         ct = :math.cos(theta)
         st = :math.sin(theta)
-        { x*ct + y*st, x*st - y*ct }
+        { x*ct - y*st, x*st + y*ct }
     end
 
     @doc """
