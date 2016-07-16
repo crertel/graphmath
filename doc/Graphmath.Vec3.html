@@ -4,24 +4,25 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.11.4">
+    <meta name="generator" content="ExDoc v0.13.0-dev">
     <title>Graphmath.Vec3 – graphmath v1.0.2</title>
-    <link rel="stylesheet" href="dist/app-1e374caa3d.css" />
+    <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
+    
+      <link rel="canonical" href="https://hexdocs.pm/graphmath/Graphmath.Vec3.html" />
+    
     <script src="dist/sidebar_items.js"></script>
   </head>
   <body data-type="modules">
+    <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
 
     <div class="main">
 <button class="sidebar-toggle">
   <i class="icon-menu"></i>
 </button>
 <section class="sidebar">
-  <button class="sidebar-toggle">
-    <i class="icon-menu"></i>
-  </button>
 
   
-  <a href="overview.html" class="sidebar-projectLink">
+  <a href="api-reference.html" class="sidebar-projectLink">
     <div class="sidebar-projectDetails">
       <h1 class="sidebar-projectName">
         graphmath
@@ -55,7 +56,8 @@
 </section>
 
 <section class="content">
-  <div id="content" class="content-inner">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
 
 
       <h1>
@@ -288,7 +290,8 @@
       <i class="icon-link"></i>
     </a>
     <span class="signature">add(a, b)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -314,7 +317,8 @@
       <i class="icon-link"></i>
     </a>
     <span class="signature">create()</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -339,7 +343,8 @@
       <i class="icon-link"></i>
     </a>
     <span class="signature">create(vec)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -364,7 +369,8 @@
       <i class="icon-link"></i>
     </a>
     <span class="signature">create(x, y, z)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -391,7 +397,8 @@
       <i class="icon-link"></i>
     </a>
     <span class="signature">cross(a, b)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -419,7 +426,8 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <i class="icon-link"></i>
     </a>
     <span class="signature">dot(a, b)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -445,7 +453,8 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <i class="icon-link"></i>
     </a>
     <span class="signature">length(a)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -470,7 +479,8 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <i class="icon-link"></i>
     </a>
     <span class="signature">length_manhattan(a)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -496,7 +506,8 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <i class="icon-link"></i>
     </a>
     <span class="signature">length_squared(a)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -522,7 +533,8 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <i class="icon-link"></i>
     </a>
     <span class="signature">lerp(a, b, t)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -550,7 +562,8 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <i class="icon-link"></i>
     </a>
     <span class="signature">multiply(a, b)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -576,7 +589,8 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <i class="icon-link"></i>
     </a>
     <span class="signature">near(a, b, distance)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -602,7 +616,8 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <i class="icon-link"></i>
     </a>
     <span class="signature">normalize(a)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -628,7 +643,8 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <i class="icon-link"></i>
     </a>
     <span class="signature">rotate(v, k, theta)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -656,7 +672,8 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <i class="icon-link"></i>
     </a>
     <span class="signature">scale(a, scale)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -682,7 +699,8 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       <i class="icon-link"></i>
     </a>
     <span class="signature">subtract(a, b)</span>
-      
+    
+    
   </div>
   
     <div class="specs">
@@ -699,7 +717,7 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
 <p><code class="inline">a</code> is the <code class="inline">vec3</code> minuend.</p>
 <p><code class="inline">b</code> is the <code class="inline">vec3</code> subtrahend.</p>
 <p>It returns a <code class="inline">vec3</code> of the form { a<sub>x</sub> - b<sub>x</sub>, a<sub>y</sub> - b<sub>y</sub>, a<sub>z</sub> - b<sub>z</sub> }.</p>
-<p>(the terminology was found <a href="http://mathforum.org/library/drmath/view/58801.html">here</a>).</p>
+<p>(the terminology was found <a href="http://mathforum.org/library/drmath/view/58801.html)">here</a>.</p>
 
   </section>
 </div>
@@ -710,23 +728,24 @@ Its magnitude will be the area of the parallelogram made by the two souce vector
       
 
       
-        <footer class="footer">
-      <p>
-        <span class="line">
-          Built using
-          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.11.4),
-        </span>
-        <span class="line">
-          designed by
-          <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.13.0-dev),
           </span>
-      </p>
-      <button class="night-mode-toggle" />
-    </footer>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle" />
+      </footer>
+    </div>
   </div>
 </section>
 </div>
-  <script src="dist/app-6d2e071366.js"></script>
+  <script src="dist/app-21f1a20b9e.js"></script>
   </body>
 </html>
 

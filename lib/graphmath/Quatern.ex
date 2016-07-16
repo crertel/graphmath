@@ -326,7 +326,7 @@ defmodule Graphmath.Quatern do
     end
 
     @doc"""
-    `normalize(q) returns a normalized verison of a quaternion.
+    `normalize(q)` returns a normalized verison of a quaternion.
 
     `q` is the `quatern` to be normalized.
 
