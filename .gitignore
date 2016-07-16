@@ -5,4 +5,4 @@ erl_crash.dump
 *.swp
 .mix_tasks
 *.beam
-doc/
+/doc
