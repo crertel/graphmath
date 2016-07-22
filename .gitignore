@@ -3,3 +3,6 @@
 erl_crash.dump
 *.ez
 *.swp
+.mix_tasks
+*.beam
+doc/**/*
