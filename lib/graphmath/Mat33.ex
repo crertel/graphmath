@@ -16,7 +16,7 @@ defmodule Graphmath.Mat33 do
   """
   @spec identity() :: mat33
   def identity() do
-    {1, 0, 0, 0, 1, 0, 0, 0, 1}
+    {1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -26,7 +26,7 @@ defmodule Graphmath.Mat33 do
   """
   @spec zero() :: mat33
   def zero() do
-    {0, 0, 0, 0, 0, 0, 0, 0, 0}
+    {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
   end
 
   @doc """
@@ -92,7 +92,7 @@ defmodule Graphmath.Mat33 do
   """
   @spec make_scale(float) :: mat33
   def make_scale(k) do
-    {k, 0, 0, 0, k, 0, 0, 0, k}
+    {k, 0.0, 0.0, 0.0, k, 0.0, 0.0, 0.0, k}
   end
 
   @doc """
@@ -110,7 +110,7 @@ defmodule Graphmath.Mat33 do
   """
   @spec make_scale(float, float, float) :: mat33
   def make_scale(sx, sy, sz) do
-    {sx, 0, 0, 0, sy, 0, 0, 0, sz}
+    {sx, 0.0, 0.0, 0.0, sy, 0.0, 0.0, 0.0, sz}
   end
 
   @doc """
@@ -124,7 +124,7 @@ defmodule Graphmath.Mat33 do
   """
   @spec make_translate(float, float) :: mat33
   def make_translate(tx, ty) do
-    {1, 0, 0, 0, 1, 0, tx, ty, 1}
+    {1.0, 0.0, 0.0, 0.0, 1.0, 0.0, tx, ty, 1.0}
   end
 
   @doc """
@@ -139,7 +139,7 @@ defmodule Graphmath.Mat33 do
     st = :math.sin(theta)
     ct = :math.cos(theta)
 
-    {ct, st, 0, -st, ct, 0, 0, 0, 1}
+    {ct, st, 0.0, -st, ct, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -333,7 +333,7 @@ defmodule Graphmath.Mat33 do
 
   This returns a float from the matrix at row `i` and column `j`.
   """
-  @spec at(mat33, Integer, Integer) :: float
+  @spec at(mat33, non_neg_integer, non_neg_integer) :: float
   def at(a, i, j) do
     elem(a, 3 * i + j)
   end
