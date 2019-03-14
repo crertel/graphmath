@@ -230,11 +230,12 @@ defmodule Graphmath.Quatern do
     else
       i_next = {1, 2, 0}
 
-      i = cond do
-        a22 > a11 and a33 > Mat33.at(mat, 1, 1) -> 2
-        a33 > Mat33.at(mat, 0, 0) -> 2
-        true -> 0
-      end
+      i =
+        cond do
+          a22 > a11 and a33 > Mat33.at(mat, 1, 1) -> 2
+          a33 > Mat33.at(mat, 0, 0) -> 2
+          true -> 0
+        end
 
       j = elem(i_next, i)
       k = elem(i_next, j)

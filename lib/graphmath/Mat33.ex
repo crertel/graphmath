@@ -513,8 +513,7 @@ defmodule Graphmath.Mat33 do
 
     f_inv_det = 1.0 / f_det
 
-    {v00 * f_inv_det, v01 * f_inv_det, v02 * f_inv_det,
-     v10 * f_inv_det, v11 * f_inv_det, v12 * f_inv_det,
-     v20 * f_inv_det, v21 * f_inv_det, v22 * f_inv_det}
+    {v00 * f_inv_det, v01 * f_inv_det, v02 * f_inv_det, v10 * f_inv_det, v11 * f_inv_det,
+     v12 * f_inv_det, v20 * f_inv_det, v21 * f_inv_det, v22 * f_inv_det}
   end
 end
