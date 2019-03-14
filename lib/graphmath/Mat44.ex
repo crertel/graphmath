@@ -18,7 +18,7 @@ defmodule Graphmath.Mat44 do
   """
   @spec identity() :: mat44
   def identity() do
-    {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
+    {1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -28,7 +28,7 @@ defmodule Graphmath.Mat44 do
   """
   @spec zero() :: mat44
   def zero() do
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
   end
 
   @doc """
@@ -95,7 +95,7 @@ defmodule Graphmath.Mat44 do
   """
   @spec make_scale(float) :: mat44
   def make_scale(k) do
-    {k, 0, 0, 0, 0, k, 0, 0, 0, 0, k, 0, 0, 0, 0, k}
+    {k, 0.0, 0.0, 0.0, 0.0, k, 0.0, 0.0, 0.0, 0.0, k, 0.0, 0.0, 0.0, 0.0, k}
   end
 
   @doc """
@@ -115,7 +115,7 @@ defmodule Graphmath.Mat44 do
   """
   @spec make_scale(float, float, float, float) :: mat44
   def make_scale(sx, sy, sz, sw) do
-    {sx, 0, 0, 0, 0, sy, 0, 0, 0, 0, sz, 0, 0, 0, 0, sw}
+    {sx, 0.0, 0.0, 0.0, 0.0, sy, 0.0, 0.0, 0.0, 0.0, sz, 0.0, 0.0, 0.0, 0.0, sw}
   end
 
   @doc """
@@ -133,7 +133,7 @@ defmodule Graphmath.Mat44 do
   """
   @spec make_translate(float, float, float) :: mat44
   def make_translate(tx, ty, tz) do
-    {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, tx, ty, tz, 1}
+    {1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, tx, ty, tz, 1.0}
   end
 
   @doc """
@@ -148,7 +148,7 @@ defmodule Graphmath.Mat44 do
     st = :math.sin(theta)
     ct = :math.cos(theta)
 
-    {1, 0, 0, 0, 0, ct, st, 0, 0, -st, ct, 0, 0, 0, 0, 1}
+    {1.0, 0.0, 0.0, 0.0, 0.0, ct, st, 0.0, 0.0, -st, ct, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -163,7 +163,7 @@ defmodule Graphmath.Mat44 do
     st = :math.sin(theta)
     ct = :math.cos(theta)
 
-    {ct, 0, st, 0, 0, 1, 0, 0, -st, 0, ct, 0, 0, 0, 0, 1}
+    {ct, 0.0, st, 0.0, 0.0, 1.0, 0.0, 0.0, -st, 0.0, ct, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -178,7 +178,7 @@ defmodule Graphmath.Mat44 do
     st = :math.sin(theta)
     ct = :math.cos(theta)
 
-    {ct, st, 0, 0, -st, ct, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
+    {ct, st, 0.0, 0.0, -st, ct, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -421,7 +421,7 @@ defmodule Graphmath.Mat44 do
 
   This returns a float from the matrix at row `i` and column `j`.
   """
-  @spec at(mat44, Integer, Integer) :: float
+  @spec at(mat44, non_neg_integer, non_neg_integer) :: float
   def at(a, i, j) do
     elem(a, 4 * i + j)
   end
@@ -605,9 +605,9 @@ defmodule Graphmath.Mat44 do
 
     f_det = t00 * m00 + t10 * m01 + t20 * m02 + t30 * m03
 
-    if f_det == 0, do: raise("Matrices with determinant equal to zero does not have inverse")
+    if f_det == 0.0, do: raise("Matrices with determinant equal to zero does not have inverse")
 
-    inv_det = 1 / f_det
+    inv_det = 1.0 / f_det
 
     d00 = t00 * inv_det
     d10 = t10 * inv_det
