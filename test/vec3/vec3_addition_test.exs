@@ -4,6 +4,6 @@ defmodule GraphmathTest.Vec3.Add_Vec3 do
   @tag :vec3
   @tag :add
   test "add({1,2,3},{7,8,9}) returns {8,10,12}" do
-    assert {8,10,12} == Graphmath.Vec3.add({1,2,3},{7,8,9})
+    assert {8, 10, 12} == Graphmath.Vec3.add({1, 2, 3}, {7, 8, 9})
   end
 end

@@ -4,6 +4,6 @@ defmodule Graphmath.Vec2.Multiply_Vec2 do
   @tag :vec2
   @tag :multiply
   test "multiply({3,4},{5,6}) return {15,24}" do
-    assert {15,24} == Graphmath.Vec2.multiply({3,4},{5,6})
+    assert {15, 24} == Graphmath.Vec2.multiply({3, 4}, {5, 6})
   end
 end

@@ -4,6 +4,6 @@ defmodule GraphmathTest.Quatern.Dot_Quatern do
   @tag :quatern
   @tag :dot
   test "dot({1,2,3,4},{5,6,7,8}) returns 70" do
-    assert 70 == Graphmath.Quatern.dot({1,2,3,4},{5,6,7,8})
+    assert 70 == Graphmath.Quatern.dot({1, 2, 3, 4}, {5, 6, 7, 8})
   end
 end

@@ -4,19 +4,12 @@ defmodule Graphmath.Mat44.Create_Mat44 do
   @tag :mat44
   @tag :identity
   test "identity returns {1,0,0,0, 0,1,0,0, 0,0,1,0 0,0,0,1}" do
-    assert {1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1} == Graphmath.Mat44.identity()
+    assert {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1} == Graphmath.Mat44.identity()
   end
 
   @tag :mat44
   @tag :zero
   test "zero returns {0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0}" do
-    assert {0, 0, 0, 0,
-            0, 0, 0, 0,
-            0, 0, 0, 0,
-            0, 0, 0, 0} == Graphmath.Mat44.zero()
+    assert {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} == Graphmath.Mat44.zero()
   end
-
 end

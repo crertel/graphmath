@@ -2,15 +2,16 @@ defmodule Graphmath.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :graphmath,
-     version: "1.0.4",
-     elixir: "~> 1.0",
-     description: description,
-     package: package,
-     docs: &docs/0,
-     deps: deps,
-     test_coverage: [tool: ExCoveralls]
-     ]
+    [
+      app: :graphmath,
+      version: "1.0.4",
+      elixir: "~> 1.0",
+      description: description(),
+      package: package(),
+      docs: &docs/0,
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls]
+    ]
   end
 
   def application, do: []
@@ -23,9 +24,10 @@ defmodule Graphmath.Mixfile do
 
   defp deps do
     [
-        {:ex_doc, "~> 0.19.3", only: :dev},
-        {:excoveralls, "~> 0.3", only: :dev},
-        {:inch_ex, "~> 2.0.0",  only: :docs}
+      {:credo, "~> 1.0.3", only: :dev},
+      {:ex_doc, "~> 0.19.3", only: :dev},
+      {:excoveralls, "~> 0.3", only: :dev},
+      {:inch_ex, "~> 2.0.0", only: :docs}
     ]
   end
 
@@ -39,9 +41,6 @@ defmodule Graphmath.Mixfile do
 
   defp docs do
     {ref, 0} = System.cmd("git", ["rev-parse", "--verify", "--quiet", "HEAD"])
-    [ source_ref: ref,
-     main: "api-reference"]
+    [source_ref: ref, main: "api-reference"]
   end
-
 end
-
