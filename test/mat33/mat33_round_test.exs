@@ -1,6 +1,6 @@
 defmodule Graphmath.Mat33.Round_Mat33 do
   use ExUnit.Case
-  
+
   @tag :mat33
   @tag :round
   test "round with 0 sigfigs" do
@@ -15,7 +15,7 @@ defmodule Graphmath.Mat33.Round_Mat33 do
   @tag :round
   test "round with 2 sigfigs" do
     assert { 1.1, 2.1, 3.1,
-             4.6, 5.7, 6.8,
+             4.5, 5.7, 6.8,
              7.0, 8.4, 10.0 } == Graphmath.Mat33.round( { 1.14, 2.14, 3.14,
                                                    4.55, 5.66, 6.77,
                                                    7.03, 8.36, 9.99}, 1 )
