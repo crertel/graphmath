@@ -1,5 +1,5 @@
 defmodule Graphmath do
-  @moduldoc """
+  @moduledoc """
   This goes into `doc/index.html`
   """
 end

@@ -507,13 +507,14 @@ defmodule Graphmath.Mat33 do
     v21 = a01 * a20 - a00 * a21
     v22 = a00 * a11 - a01 * a10
 
-    fDet = a00 * v00 + a01 * v10 + a02 * v20
+    f_det = a00 * v00 + a01 * v10 + a02 * v20
 
     #        if fDet == 0, do: raise "Matrices with determinant equal to zero does not have inverse"
 
-    fInvDet = 1.0 / fDet
+    f_inv_det = 1.0 / f_det
 
-    {v00 * fInvDet, v01 * fInvDet, v02 * fInvDet, v10 * fInvDet, v11 * fInvDet, v12 * fInvDet,
-     v20 * fInvDet, v21 * fInvDet, v22 * fInvDet}
+    {v00 * f_inv_det, v01 * f_inv_det, v02 * f_inv_det,
+     v10 * f_inv_det, v11 * f_inv_det, v12 * f_inv_det,
+     v20 * f_inv_det, v21 * f_inv_det, v22 * f_inv_det}
   end
 end

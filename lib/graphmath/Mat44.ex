@@ -603,21 +603,21 @@ defmodule Graphmath.Mat44 do
     t20 = +(v4 * m10 - v2 * m11 + v0 * m13)
     t30 = -(v3 * m10 - v1 * m11 + v0 * m12)
 
-    fDet = t00 * m00 + t10 * m01 + t20 * m02 + t30 * m03
+    f_det = t00 * m00 + t10 * m01 + t20 * m02 + t30 * m03
 
-    if fDet == 0, do: raise("Matrices with determinant equal to zero does not have inverse")
+    if f_det == 0, do: raise("Matrices with determinant equal to zero does not have inverse")
 
-    invDet = 1 / fDet
+    inv_det = 1 / f_det
 
-    d00 = t00 * invDet
-    d10 = t10 * invDet
-    d20 = t20 * invDet
-    d30 = t30 * invDet
+    d00 = t00 * inv_det
+    d10 = t10 * inv_det
+    d20 = t20 * inv_det
+    d30 = t30 * inv_det
 
-    d01 = -(v5 * m01 - v4 * m02 + v3 * m03) * invDet
-    d11 = +(v5 * m00 - v2 * m02 + v1 * m03) * invDet
-    d21 = -(v4 * m00 - v2 * m01 + v0 * m03) * invDet
-    d31 = +(v3 * m00 - v1 * m01 + v0 * m02) * invDet
+    d01 = -(v5 * m01 - v4 * m02 + v3 * m03) * inv_det
+    d11 = +(v5 * m00 - v2 * m02 + v1 * m03) * inv_det
+    d21 = -(v4 * m00 - v2 * m01 + v0 * m03) * inv_det
+    d31 = +(v3 * m00 - v1 * m01 + v0 * m02) * inv_det
 
     v0 = m10 * m31 - m11 * m30
     v1 = m10 * m32 - m12 * m30
@@ -626,10 +626,10 @@ defmodule Graphmath.Mat44 do
     v4 = m11 * m33 - m13 * m31
     v5 = m12 * m33 - m13 * m32
 
-    d02 = +(v5 * m01 - v4 * m02 + v3 * m03) * invDet
-    d12 = -(v5 * m00 - v2 * m02 + v1 * m03) * invDet
-    d22 = +(v4 * m00 - v2 * m01 + v0 * m03) * invDet
-    d32 = -(v3 * m00 - v1 * m01 + v0 * m02) * invDet
+    d02 = +(v5 * m01 - v4 * m02 + v3 * m03) * inv_det
+    d12 = -(v5 * m00 - v2 * m02 + v1 * m03) * inv_det
+    d22 = +(v4 * m00 - v2 * m01 + v0 * m03) * inv_det
+    d32 = -(v3 * m00 - v1 * m01 + v0 * m02) * inv_det
 
     v0 = m21 * m10 - m20 * m11
     v1 = m22 * m10 - m20 * m12
@@ -638,10 +638,10 @@ defmodule Graphmath.Mat44 do
     v4 = m23 * m11 - m21 * m13
     v5 = m23 * m12 - m22 * m13
 
-    d03 = -(v5 * m01 - v4 * m02 + v3 * m03) * invDet
-    d13 = +(v5 * m00 - v2 * m02 + v1 * m03) * invDet
-    d23 = -(v4 * m00 - v2 * m01 + v0 * m03) * invDet
-    d33 = +(v3 * m00 - v1 * m01 + v0 * m02) * invDet
+    d03 = -(v5 * m01 - v4 * m02 + v3 * m03) * inv_det
+    d13 = +(v5 * m00 - v2 * m02 + v1 * m03) * inv_det
+    d23 = -(v4 * m00 - v2 * m01 + v0 * m03) * inv_det
+    d33 = +(v3 * m00 - v1 * m01 + v0 * m02) * inv_det
 
     {d00, d01, d02, d03, d10, d11, d12, d13, d20, d21, d22, d23, d30, d31, d32, d33}
   end
