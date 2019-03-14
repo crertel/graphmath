@@ -1,4 +1,4 @@
-defmodule Graphmath.Mat33.Transform_Point_Mat33 do
+defmodule Graphmath.Mat33.TransformPointMat33 do
   use ExUnit.Case
 
   @tag :mat33

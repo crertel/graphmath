@@ -1,4 +1,4 @@
-defmodule Graphmath.Mat33.Inverse_Mat33 do
+defmodule Graphmath.Mat33.InverseMat33 do
   use ExUnit.Case
 
   @tag :Mat33

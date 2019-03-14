@@ -1,4 +1,4 @@
-defmodule Graphmath.Mat33.Make_Scale do
+defmodule Graphmath.Mat33.MakeScale do
   use ExUnit.Case
 
   @tag :mat33

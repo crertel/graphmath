@@ -1,4 +1,4 @@
-defmodule GraphmathTest.Quatern.Yaw_Quatern do
+defmodule GraphmathTest.Quatern.YawQuatern do
   use ExUnit.Case
 
   @tag :quatern

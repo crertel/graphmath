@@ -1,4 +1,4 @@
-defmodule Graphmath.Mat44.Transform_Vector_Mat44 do
+defmodule Graphmath.Mat44.TransformVectorMat44 do
   use ExUnit.Case
 
   @tag :mat44

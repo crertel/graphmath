@@ -1,4 +1,4 @@
-defmodule Graphmath.Mat44.Round_Mat44 do
+defmodule Graphmath.Mat44.RoundMat44 do
   use ExUnit.Case
 
   @tag :mat44

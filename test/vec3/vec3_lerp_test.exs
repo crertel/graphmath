@@ -1,4 +1,4 @@
-defmodule GraphmathTest.Vec3.Lerp_Vec3 do
+defmodule GraphmathTest.Vec3.LerpVec3 do
   use ExUnit.Case
 
   @tag :vec3

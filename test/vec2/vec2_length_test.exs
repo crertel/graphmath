@@ -1,4 +1,4 @@
-defmodule Graphmath.Vec2.Length_Vec2 do
+defmodule Graphmath.Vec2.LengthVec2 do
   use ExUnit.Case
 
   @tag :vec2

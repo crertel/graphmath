@@ -1,4 +1,4 @@
-defmodule GraphmathTest.Vec3.Scale_Vec3 do
+defmodule GraphmathTest.Vec3.ScaleVec3 do
   use ExUnit.Case
 
   @tag :vec3

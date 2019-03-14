@@ -1,4 +1,4 @@
-defmodule GraphmathTest.Vec3.Near_Vec3 do
+defmodule GraphmathTest.Vec3.NearVec3 do
   use ExUnit.Case
 
   @tag :vec3

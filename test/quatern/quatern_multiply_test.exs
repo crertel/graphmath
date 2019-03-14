@@ -1,4 +1,4 @@
-defmodule GraphmathTest.Quatern.Multiply_Quatern do
+defmodule GraphmathTest.Quatern.MultiplyQuatern do
   use ExUnit.Case
 
   @tag :quatern

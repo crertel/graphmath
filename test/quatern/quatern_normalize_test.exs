@@ -1,4 +1,4 @@
-defmodule GraphmathTest.Quatern.Normalize_Quatern do
+defmodule GraphmathTest.Quatern.NormalizeQuatern do
   use ExUnit.Case
 
   @tag :quatern

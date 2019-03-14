@@ -1,4 +1,4 @@
-defmodule Graphmath.Mat44.Apply_Mat44 do
+defmodule Graphmath.Mat44.ApplyMat44 do
   use ExUnit.Case
 
   @tag :mat44

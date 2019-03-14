@@ -1,4 +1,4 @@
-defmodule GraphmathTest.Vec3.Normalize_Vec3 do
+defmodule GraphmathTest.Vec3.NormalizeVec3 do
   use ExUnit.Case
 
   @tag :vec3

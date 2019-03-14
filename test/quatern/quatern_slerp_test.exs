@@ -1,4 +1,4 @@
-defmodule GraphmathTest.Quatern.Slerp_Quatern do
+defmodule GraphmathTest.Quatern.SlerpQuatern do
   use ExUnit.Case
 
   @tag :quatern
