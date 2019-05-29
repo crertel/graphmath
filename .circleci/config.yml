@@ -12,8 +12,11 @@ jobs:  # basic units of work in a run
     steps:  # commands that comprise the `build` job
       - checkout  # check out source code to working directory
 
-      - run: mix local.hex --force  # install Hex locally (without prompt)
-      - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
+      - run: 
+          name: Setup hex and rebar
+          command: |
+            mix local.hex --force  # install Hex locally (without prompt)
+            mix local.rebar --force  # fetch a copy of rebar (without prompt)
 
       - restore_cache:  # restores saved mix cache
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
@@ -25,7 +28,9 @@ jobs:  # basic units of work in a run
           keys:
             - v1-build-cache-{{ .Branch }}
             - v1-build-cache
-      - run: mix do deps.get, compile  # get updated dependencies & compile them
+      - run:
+          name: Get deps and compile
+          command: mix do deps.get, compile  # get updated dependencies & compile them
       - save_cache:  # generate and store mix cache
           key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
           paths: "deps"
@@ -42,10 +47,16 @@ jobs:  # basic units of work in a run
           key: v1-build-cache
           paths: "_build"
 
-      - run: mix test  # run all tests in project
+      - run: 
+          name: Run tests
+          command: mix test  # run all tests in project
 
       - store_test_results:  # upload junit test results for display in Test Summary
           # Read more: https://circleci.com/docs/2.0/collect-test-data/
           path: _build/test/lib/graphmath # Replace with the name of your :app
 
-      - run: export T_COMMIT_MESSAGE="`git log --pretty=format:%s -1`"; MIX_ENV=dev mix coveralls.post --branch "$CIRCLE_BRANCH" --sha "$CIRCLE_SHA1" --message "$T_COMMIT_MESSAGE" --name "circleci"
+      - run: 
+          name: Post test coverage
+          command: |
+            export T_COMMIT_MESSAGE="`git log --pretty=format:%s -1`"
+            MIX_ENV=dev mix coveralls.post --branch "$CIRCLE_BRANCH" --sha "$CIRCLE_SHA1" --message "$T_COMMIT_MESSAGE"
