@@ -12,5 +12,8 @@ after_script:
   - MIX_ENV=docs mix deps.get
   - MIX_ENV=docs mix inch.report
 after_success:
+  - export T_COMMIT_MESSAGE="`git log --pretty=format:%s -1`"
+  - export T_COMMIT_BRANCH="`git branch | grep \* | cut -d ' ' -f2`"
+  - export T_COMMIT_SHA="`git rev-parse HEAD`"
   - MIX_ENV=dev mix deps.get
-  - MIX_ENV=dev mix coveralls.post --branch `git branch | grep \* | cut -d ' ' -f2` --sha `git rev-parse HEAD` --message `git log --pretty=format:%s -1`
+  - MIX_ENV=dev mix coveralls.post --branch "$T_COMMIT_BRANCH"  --sha "$T_COMMIT_SHA" --message "$T_COMMIT_MESSAGE"
