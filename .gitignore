@@ -8,3 +8,4 @@ erl_crash.dump
 doc/**/*
 graphmath.code-workspace
 .elixir_ls
+.vscode
