@@ -13,4 +13,4 @@ after_script:
   - MIX_ENV=docs mix inch.report
 after_success:
   - MIX_ENV=dev mix deps.get
-  - MIX_ENV=dev mix coveralls.post
+  - MIX_ENV=dev mix coveralls.post --branch "`git branch | grep \* | cut -d ' ' -f2`" --sha "`git rev-parse HEAD`"
