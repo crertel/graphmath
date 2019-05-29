@@ -47,3 +47,6 @@ jobs:  # basic units of work in a run
       - store_test_results:  # upload junit test results for display in Test Summary
           # Read more: https://circleci.com/docs/2.0/collect-test-data/
           path: _build/test/lib/graphmath # Replace with the name of your :app
+
+      - run: export T_COMMIT_MESSAGE="`git log --pretty=format:%s -1`"
+      - run: MIX_ENV=dev mix coveralls.post --branch "$CIRCLE_BRANCH"  --sha "$CIRCLE_SHA1" --message "$T_COMMIT_MESSAGE"
