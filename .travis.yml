@@ -13,4 +13,4 @@ after_script:
   - MIX_ENV=docs mix inch.report
 after_success:
   - MIX_ENV=dev mix deps.get
-  - MIX_ENV=dev mix coveralls.travis
+  - MIX_ENV=dev mix coveralls.post
