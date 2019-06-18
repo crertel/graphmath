@@ -1,15 +1,15 @@
 defmodule Graphmath.Quatern do
-  alias Graphmath.Mat33, as: Mat33
-
   @moduledoc """
   This is the 3D mathematics library for graphmath.
 
-  This submodule handles  Quaternion using tuples of floats.
+  This submodule handles Quaternion using tuples of floats.
   i.e. a rotation around an axis.
 
   Consider the `quatern` format: `{ w, x, y, z }` where `w` is the angle in Radians,
   and `x` `y` `z` are the axis coordinates
   """
+
+  alias Graphmath.Mat33, as: Mat33
 
   @type quatern :: {float, float, float, float}
   @type vec3 :: {float, float, float}
@@ -320,17 +320,39 @@ defmodule Graphmath.Quatern do
   end
 
   @doc """
+  `normalize_strict(q)` returns a normalized verison of a quaternion.
+
+  `q` is the `quatern` to be normalized.
+
+  This returns a `quatern` of unit length in the same direction as `q`.
+
+  If the magnitude of the quaternion is 0, it will explode.
+  """
+  @spec normalize_strict(quatern) :: quatern
+  def normalize_strict({w, x, y, z} = _q) do
+    inv_mag = 1.0 / :math.sqrt(w * w + x * x + y * y + z * z)
+    {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
+  end
+
+
+  @doc """
   `normalize(q)` returns a normalized verison of a quaternion.
 
   `q` is the `quatern` to be normalized.
 
   This returns a `quatern` of unit length in the same direction as `q`.
+
+  If the magnitude of the quaternion is 0, it will return the zero quaternion.
   """
   @spec normalize(quatern) :: quatern
-  def normalize(q) do
-    {w, x, y, z} = q
-    inv_mag = 1.0 / :math.sqrt(w * w + x * x + y * y + z * z)
-    {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
+  def normalize({w, x, y, z} = _q) do
+    mag = :math.sqrt(w * w + x * x + y * y + z * z)
+    if mag > 0 do
+      inv_mag = 1.0 / :math.sqrt(w * w + x * x + y * y + z * z)
+      {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
+    else
+      {0.0, 0.0, 0.0, 0.0}
+    end
   end
 
   @doc """
