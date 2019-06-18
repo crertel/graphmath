@@ -62,11 +62,11 @@ All operations are accompanied by tests and documentation.
 Contributing
 ============
 
-###Issues###
+### Issues
 
 1. Open an issue on Github.
 
-###For developers###
+### For developers
 
 1. Fork this project on Github.
 
@@ -80,7 +80,7 @@ Contributing
 
 6. Bask in the glory of having helped create content on one of the best platforms ever devised.
 
-###For non-developers###
+### For non-developers
 
 1. Buy me a beer if you see me at ElixirConf.
 
