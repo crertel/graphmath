@@ -53,8 +53,8 @@ defmodule Graphmath.Quatern do
   In such cases, prefer the `equal/2` function.
   """
   @spec equal_elements(quatern, quatern) :: boolean()
-  def equal_elements({ aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b) do
-    (aw == bw) and (ax == bx) and (ay == by) and (az == bz)
+  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b) do
+    aw == bw and ax == bx and ay == by and az == bz
   end
 
   @doc """
@@ -75,11 +75,11 @@ defmodule Graphmath.Quatern do
   In such cases, prefer the `equal/3` function.
   """
   @spec equal_elements(quatern, quatern, float) :: boolean()
-  def equal_elements({ aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b, eps) do
-    ( abs(aw - bw) <= eps) and
-    ( abs(ax - bx) <= eps) and
-    ( abs(ay - by) <= eps) and
-    ( abs(az - bz) <= eps)
+  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b, eps) do
+    abs(aw - bw) <= eps and
+      abs(ax - bx) <= eps and
+      abs(ay - by) <= eps and
+      abs(az - bz) <= eps
   end
 
   @doc """
@@ -97,7 +97,7 @@ defmodule Graphmath.Quatern do
   """
   @spec equal(quatern, quatern) :: boolean()
   def equal(a, b) do
-    abs( dot(a,b) ) >= 1.0
+    abs(dot(a, b)) >= 1.0
   end
 
   @doc """
@@ -117,7 +117,7 @@ defmodule Graphmath.Quatern do
   """
   @spec equal(quatern, quatern, float) :: boolean()
   def equal(a, b, eps) do
-    abs( dot(a,b) ) >= (1.0 - eps)
+    abs(dot(a, b)) >= 1.0 - eps
   end
 
   @doc """
@@ -146,7 +146,7 @@ defmodule Graphmath.Quatern do
   It returns a `quatern` of the form `{w,x,y,z}`, where `w`, `x`, `y`, and `z` are the first four elements in `quatern`.
   """
   @spec from_list([float]) :: quatern
-  def from_list([w,x,y,z]),  do: {w, x, y, z}
+  def from_list([w, x, y, z]), do: {w, x, y, z}
 
   @doc """
   `create(w, vec)` creates a `quatern` from an angle and an axis.
@@ -159,10 +159,10 @@ defmodule Graphmath.Quatern do
   """
   @spec from_axis_angle(float, vec3) :: quatern
   def from_axis_angle(theta, {x, y, z}) do
-    half_theta = theta/2.0
+    half_theta = theta / 2.0
     ct = :math.cos(half_theta)
     st = :math.sin(half_theta)
-    {ct, st*x, st*y, st*z}
+    {ct, st * x, st * y, st * z}
   end
 
   @doc """
@@ -414,10 +414,7 @@ defmodule Graphmath.Quatern do
     a32 = f_t_yz + f_t_wx
     a33 = 1.0 - (f_t_xx + f_t_yy)
 
-    {a11, a12, a13, 0.0,
-     a21, a22, a23, 0.0,
-     a31, a32, a33, 0.0,
-    0.0, 0.0, 0.0, 1.0}
+    {a11, a12, a13, 0.0, a21, a22, a23, 0.0, a31, a32, a33, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -465,7 +462,6 @@ defmodule Graphmath.Quatern do
     {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
   end
 
-
   @doc """
   `normalize(q)` returns a normalized verison of a quaternion.
 
@@ -478,6 +474,7 @@ defmodule Graphmath.Quatern do
   @spec normalize(quatern) :: quatern
   def normalize({w, x, y, z} = _q) do
     mag = :math.sqrt(w * w + x * x + y * y + z * z)
+
     if mag > 0 do
       inv_mag = 1.0 / :math.sqrt(w * w + x * x + y * y + z * z)
       {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
