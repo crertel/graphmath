@@ -3,10 +3,9 @@ defmodule Graphmath.Quatern do
   This is the 3D mathematics library for graphmath.
 
   This submodule handles Quaternion using tuples of floats.
-  i.e. a rotation around an axis.
 
-  Consider the `quatern` format: `{ w, x, y, z }` where `w` is the angle in Radians,
-  and `x` `y` `z` are the axis coordinates
+  Quaternions represent an angle of theta around a unit axis vector {nx, ny, nz} as `{ cos(theta/2), nx * sin(theta/2), ny * sin(theta/2), nz * sin(theta/2) }`.
+
   """
 
   alias Graphmath.Mat33, as: Mat33
