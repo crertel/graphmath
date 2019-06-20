@@ -38,18 +38,6 @@ defmodule Graphmath.Quatern do
   def zero(), do: {0.0, 0.0, 0.0, 0.0}
 
   @doc """
-  `create()` creates a zeroed `quatern`.
-
-  It takes no arguments.
-
-  It returns a `quatern` of the form `{ 0.0, 0.0, 0.0, 0.0  }`.
-  """
-  @spec create() :: quatern
-  def create() do
-    {0.0, 0.0, 0.0, 0.0}
-  end
-
-  @doc """
   `create(w,x,y,z)` creates a `quatern` of value (w,x,y,z).
 
   `w` is the rotation arround the axis in Radians.
@@ -384,7 +372,7 @@ defmodule Graphmath.Quatern do
 
   It returns a `quatern` representing the inverse of the parameter quaternion.
 
-  If the `quat`is less than zero, the quaternion returned is a zero quaternion.
+  If the `quat` is less than or equal to zero, the quaternion returned is a zero quaternion.
   """
   @spec inverse(quatern) :: quatern
   def inverse(quat) do
@@ -396,8 +384,7 @@ defmodule Graphmath.Quatern do
       f_inv_norm = 1.0 / f_norm
       {w * f_inv_norm, -x * f_inv_norm, -y * f_inv_norm, -z * f_inv_norm}
     else
-      # return an invalid result to flag the error
-      create()
+      {0.0, 0.0, 0.0, 0.0}
     end
   end
 
