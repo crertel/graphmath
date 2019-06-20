@@ -346,14 +346,14 @@ defmodule Graphmath.Quatern do
   end
 
   @doc """
-  `to_rotation_matrix(quat)` creates a `mat33` from a quatern.
+  `to_rotation_matrix_33(quat)` creates a `mat33` from a quatern.
 
   `quat` is the quatern
 
   It returns a `mat33` representing a rotation.
   """
-  @spec to_rotation_matrix(quatern) :: mat33
-  def to_rotation_matrix(quat) do
+  @spec to_rotation_matrix_33(quatern) :: mat33
+  def to_rotation_matrix_33(quat) do
     {w, x, y, z} = quat
     f_tx = x + x
     f_ty = y + y
@@ -379,6 +379,45 @@ defmodule Graphmath.Quatern do
     a33 = 1.0 - (f_t_xx + f_t_yy)
 
     {a11, a12, a13, a21, a22, a23, a31, a32, a33}
+  end
+
+  @doc """
+  `to_rotation_matrix_44(quat)` creates a `mat44` from a quatern.
+
+  `quat` is the quatern
+
+  It returns a `mat44` representing a rotation.
+  """
+  @spec to_rotation_matrix_44(quatern) :: mat33
+  def to_rotation_matrix_44(quat) do
+    {w, x, y, z} = quat
+    f_tx = x + x
+    f_ty = y + y
+    f_tz = z + z
+    f_t_wx = f_tx * w
+    f_t_wy = f_ty * w
+    f_t_wz = f_tz * w
+    f_t_xx = f_tx * x
+    f_t_xy = f_ty * x
+    f_t_xz = f_tz * x
+    f_t_yy = f_ty * y
+    f_t_yz = f_tz * y
+    f_t_zz = f_tz * z
+
+    a11 = 1.0 - (f_t_yy + f_t_zz)
+    a12 = f_t_xy - f_t_wz
+    a13 = f_t_xz + f_t_wy
+    a21 = f_t_xy + f_t_wz
+    a22 = 1.0 - (f_t_xx + f_t_zz)
+    a23 = f_t_yz - f_t_wx
+    a31 = f_t_xz - f_t_wy
+    a32 = f_t_yz + f_t_wx
+    a33 = 1.0 - (f_t_xx + f_t_yy)
+
+    {a11, a12, a13, 0.0,
+     a21, a22, a23, 0.0,
+     a31, a32, a33, 0.0,
+    0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
