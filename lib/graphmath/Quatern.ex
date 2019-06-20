@@ -14,6 +14,14 @@ defmodule Graphmath.Quatern do
   @type quatern :: {float, float, float, float}
   @type vec3 :: {float, float, float}
   @type mat33 :: {float, float, float, float, float, float, float, float, float}
+  @type mat44 :: {float, float, float, float,
+                  float, float, float, float,
+                  float, float, float, float,
+                  float, float, float, float}
+
+  # https://en.wikipedia.org/wiki/Machine_epsilon
+  # note that BEAM uses doubles internally, so this is a bit of a cludge
+  @machine_small_float 5.96e-08
 
   @doc """
   `identity()` creates the identity `quatern`.
@@ -53,8 +61,8 @@ defmodule Graphmath.Quatern do
   In such cases, prefer the `equal/2` function.
   """
   @spec equal_elements(quatern, quatern) :: boolean()
-  def equal_elements({ aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b) do
-    (aw == bw) and (ax == bx) and (ay == by) and (az == bz)
+  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b) do
+    aw == bw and ax == bx and ay == by and az == bz
   end
 
   @doc """
@@ -75,11 +83,11 @@ defmodule Graphmath.Quatern do
   In such cases, prefer the `equal/3` function.
   """
   @spec equal_elements(quatern, quatern, float) :: boolean()
-  def equal_elements({ aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b, eps) do
-    ( abs(aw - bw) <= eps) and
-    ( abs(ax - bx) <= eps) and
-    ( abs(ay - by) <= eps) and
-    ( abs(az - bz) <= eps)
+  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b, eps) do
+    abs(aw - bw) <= eps and
+      abs(ax - bx) <= eps and
+      abs(ay - by) <= eps and
+      abs(az - bz) <= eps
   end
 
   @doc """
@@ -97,7 +105,7 @@ defmodule Graphmath.Quatern do
   """
   @spec equal(quatern, quatern) :: boolean()
   def equal(a, b) do
-    abs( dot(a,b) ) >= 1.0
+    abs(dot(a, b)) >= 1.0
   end
 
   @doc """
@@ -117,7 +125,7 @@ defmodule Graphmath.Quatern do
   """
   @spec equal(quatern, quatern, float) :: boolean()
   def equal(a, b, eps) do
-    abs( dot(a,b) ) >= (1.0 - eps)
+    abs(dot(a, b)) >= 1.0 - eps
   end
 
   @doc """
@@ -146,7 +154,7 @@ defmodule Graphmath.Quatern do
   It returns a `quatern` of the form `{w,x,y,z}`, where `w`, `x`, `y`, and `z` are the first four elements in `quatern`.
   """
   @spec from_list([float]) :: quatern
-  def from_list([w,x,y,z]),  do: {w, x, y, z}
+  def from_list([w, x, y, z]), do: {w, x, y, z}
 
   @doc """
   `create(w, vec)` creates a `quatern` from an angle and an axis.
@@ -159,10 +167,10 @@ defmodule Graphmath.Quatern do
   """
   @spec from_axis_angle(float, vec3) :: quatern
   def from_axis_angle(theta, {x, y, z}) do
-    half_theta = theta/2.0
+    half_theta = theta / 2.0
     ct = :math.cos(half_theta)
     st = :math.sin(half_theta)
-    {ct, st*x, st*y, st*z}
+    {ct, st * x, st * y, st * z}
   end
 
   @doc """
@@ -388,7 +396,7 @@ defmodule Graphmath.Quatern do
 
   It returns a `mat44` representing a rotation.
   """
-  @spec to_rotation_matrix_44(quatern) :: mat33
+  @spec to_rotation_matrix_44(quatern) :: mat44
   def to_rotation_matrix_44(quat) do
     {w, x, y, z} = quat
     f_tx = x + x
@@ -414,10 +422,7 @@ defmodule Graphmath.Quatern do
     a32 = f_t_yz + f_t_wx
     a33 = 1.0 - (f_t_xx + f_t_yy)
 
-    {a11, a12, a13, 0.0,
-     a21, a22, a23, 0.0,
-     a31, a32, a33, 0.0,
-    0.0, 0.0, 0.0, 1.0}
+    {a11, a12, a13, 0.0, a21, a22, a23, 0.0, a31, a32, a33, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -465,7 +470,6 @@ defmodule Graphmath.Quatern do
     {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
   end
 
-
   @doc """
   `normalize(q)` returns a normalized verison of a quaternion.
 
@@ -478,6 +482,7 @@ defmodule Graphmath.Quatern do
   @spec normalize(quatern) :: quatern
   def normalize({w, x, y, z} = _q) do
     mag = :math.sqrt(w * w + x * x + y * y + z * z)
+
     if mag > 0 do
       inv_mag = 1.0 / :math.sqrt(w * w + x * x + y * y + z * z)
       {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
@@ -563,5 +568,38 @@ defmodule Graphmath.Quatern do
       # taking the complement requires renormalisation
       normalize(r)
     end
+  end
+
+  @doc """
+  `integrate(q, omega, dt)` integrates the angular velocty omega over a timestep dt with intial orientation q.
+
+  `q` is an orientation quaternion to use as the initial orientation.
+
+  `omega` is a `vec3` whose direction is the axis of rotation and whose magnitude is the velocity about that axis.
+
+  `dt` is the timestep over which to apply the angular velocity.
+
+  It returns an orientation `quatern`.
+  """
+  def integrate(q, omega, dt) do
+    # this routine inspired and adapted from http://physicsforgames.blogspot.com/2010/02/quaternions.html
+    # this explains a similar routine in cannon.js
+
+    # get convert angular velocity vector to actual angular displacement by integrating time
+    {theta_x, theta_y, theta_z} = theta = Graphmath.Vec3.scale(omega, 0.5 * dt)
+    theta_magnitude_squared = Graphmath.Vec3.length_squared(theta)
+
+    # use small-angle approximation for sin/cos if the magnitude is too small
+    {delta_Q_w, s} = if (theta_magnitude_squared* theta_magnitude_squared / 24.0 < @machine_small_float) do
+      # use the more stable Taylor series for low-angle appromixations to sin/cos
+      {1.0 - ( theta_magnitude_squared / 2.0), 1.0 - theta_magnitude_squared / 6.0}
+    else
+      # we're not too small! use real sin/cos
+      theta_magnitude = :math.sqrt(theta_magnitude_squared)
+      { :math.cos(theta_magnitude), :math.sin(theta_magnitude) / theta_magnitude}
+    end
+
+    multiply({delta_Q_w, theta_x * s, theta_y * s, theta_z * s}, q)
+    |> normalize()
   end
 end

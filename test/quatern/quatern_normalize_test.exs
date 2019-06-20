@@ -14,7 +14,7 @@ defmodule GraphmathTest.Quatern.NormalizeQuatern do
   @tag :normalize_strict
   test "normalize_strict({0,0,0,0}) returns {0, 0, 0, 0}" do
     assert_raise ArithmeticError, fn ->
-      _ = Graphmath.Quatern.normalize_strict({0,0,0,0})
+      _ = Graphmath.Quatern.normalize_strict({0, 0, 0, 0})
     end
   end
 
@@ -30,7 +30,7 @@ defmodule GraphmathTest.Quatern.NormalizeQuatern do
   @tag :quatern
   @tag :normalize
   test "normalize({0,0,0,0}) returns {0, 0, 0, 0}" do
-    {w, x, y, z} = Graphmath.Quatern.normalize({0,0,0,0})
+    {w, x, y, z} = Graphmath.Quatern.normalize({0, 0, 0, 0})
 
     assert {0, 0, 0, 0} ==
              {Float.round(w, 6), Float.round(x, 6), Float.round(y, 6), Float.round(z, 6)}
