@@ -145,11 +145,8 @@ defmodule Graphmath.Quatern do
 
   It returns a `quatern` of the form `{w,x,y,z}`, where `w`, `x`, `y`, and `z` are the first four elements in `quatern`.
   """
-  @spec create([float]) :: quatern
-  def create(quatern) do
-    [w, x, y, z | _] = quatern
-    {w, x, y, z}
-  end
+  @spec from_list([float]) :: quatern
+  def from_list([w,x,y,z]),  do: {w, x, y, z}
 
   @doc """
   `create(w, vec)` creates a `quatern` from an angle and an axis.
@@ -160,10 +157,12 @@ defmodule Graphmath.Quatern do
 
   It returns a `quatern` of the form `{w,x,y,z}`.
   """
-  @spec create(float, vec3) :: quatern
-  def create(w, vec) do
-    {x, y, z} = vec
-    {w, x, y, z}
+  @spec from_axis_angle(float, vec3) :: quatern
+  def from_axis_angle(theta, {x, y, z}) do
+    half_theta = theta/2.0
+    ct = :math.cos(half_theta)
+    st = :math.sin(half_theta)
+    {ct, st*x, st*y, st*z}
   end
 
   @doc """
