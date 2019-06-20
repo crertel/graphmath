@@ -14,6 +14,14 @@ defmodule Graphmath.Quatern do
   @type quatern :: {float, float, float, float}
   @type vec3 :: {float, float, float}
   @type mat33 :: {float, float, float, float, float, float, float, float, float}
+  @type mat44 :: {float, float, float, float,
+                  float, float, float, float,
+                  float, float, float, float,
+                  float, float, float, float}
+
+  # https://en.wikipedia.org/wiki/Machine_epsilon
+  # note that BEAM uses doubles internally, so this is a bit of a cludge
+  @machine_small_float 5.96e-08
 
   @doc """
   `identity()` creates the identity `quatern`.
@@ -388,7 +396,7 @@ defmodule Graphmath.Quatern do
 
   It returns a `mat44` representing a rotation.
   """
-  @spec to_rotation_matrix_44(quatern) :: mat33
+  @spec to_rotation_matrix_44(quatern) :: mat44
   def to_rotation_matrix_44(quat) do
     {w, x, y, z} = quat
     f_tx = x + x
@@ -560,5 +568,38 @@ defmodule Graphmath.Quatern do
       # taking the complement requires renormalisation
       normalize(r)
     end
+  end
+
+  @doc """
+  `integrate(q, omega, dt)` integrates the angular velocty omega over a timestep dt with intial orientation q.
+
+  `q` is an orientation quaternion to use as the initial orientation.
+
+  `omega` is a `vec3` whose direction is the axis of rotation and whose magnitude is the velocity about that axis.
+
+  `dt` is the timestep over which to apply the angular velocity.
+
+  It returns an orientation `quatern`.
+  """
+  def integrate(q, omega, dt) do
+    # this routine inspired and adapted from http://physicsforgames.blogspot.com/2010/02/quaternions.html
+    # this explains a similar routine in cannon.js
+
+    # get convert angular velocity vector to actual angular displacement by integrating time
+    {theta_x, theta_y, theta_z} = theta = Graphmath.Vec3.scale(omega, 0.5 * dt)
+    theta_magnitude_squared = Graphmath.Vec3.length_squared(theta)
+
+    # use small-angle approximation for sin/cos if the magnitude is too small
+    {delta_Q_w, s} = if (theta_magnitude_squared* theta_magnitude_squared / 24.0 < @machine_small_float) do
+      # use the more stable Taylor series for low-angle appromixations to sin/cos
+      {1.0 - ( theta_magnitude_squared / 2.0), 1.0 - theta_magnitude_squared / 6.0}
+    else
+      # we're not too small! use real sin/cos
+      theta_magnitude = :math.sqrt(theta_magnitude_squared)
+      { :math.cos(theta_magnitude), :math.sin(theta_magnitude) / theta_magnitude}
+    end
+
+    multiply({delta_Q_w, theta_x * s, theta_y * s, theta_z * s}, q)
+    |> normalize()
   end
 end

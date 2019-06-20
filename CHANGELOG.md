@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `Quatern.equal_elements/2` to compare two quaternions for element-wise equality.
 - Add `Quatern.equal_elements/3` to compare two quaternions for element-wise equality with a threshold.
 - Add `Quatern.to_rotation_matrix_44/1`.
+- Add `Quatern.integrate/3`.
 
 ### Changed
 - Old `Quatern.normalize/1` has become `Quatern.normalize_strict/1`.
