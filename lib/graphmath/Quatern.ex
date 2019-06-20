@@ -38,9 +38,92 @@ defmodule Graphmath.Quatern do
   def zero(), do: {0.0, 0.0, 0.0, 0.0}
 
   @doc """
+  `equal(a,b)` checks to see if two quaternions a and b are element-wise equal.
+
+  `a` is the first quaternion.
+
+  `b` is the second quaternion.
+
+  It returns true if the quaternions have the same elements, false otherwise.
+
+  **This function does not require normalized quaternions.**
+
+  Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
+
+  In such cases, prefer the `orientation_equal/2` function.
+  """
+  @spec equal(quatern, quatern) :: boolean()
+  def equal({ aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b) do
+    (aw == bw) and (ax == bx) and (ay == by) and (az == bz)
+  end
+
+  @doc """
+  `equal(a,b, eps)` checks to see if two quaternions a and b are element-wise equal to some epsilon
+
+  `a` is the first quaternion.
+
+  `b` is the second quaternion.
+
+  `eps` is the float of the epsilon for comparison.
+
+  It returns true if the quaternions have the same element-wise values up to and including some epsilon.
+
+  **This function does not require normalized quaternions.**
+
+  Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
+
+  In such cases, prefer the `orientation_equal/2` function.
+  """
+  @spec equal(quatern, quatern, float) :: boolean()
+  def equal({ aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b, eps) do
+    ( abs(aw - bw) <= eps) and
+    ( abs(ax - bx) <= eps) and
+    ( abs(ay - by) <= eps) and
+    ( abs(az - bz) <= eps)
+  end
+
+  @doc """
+  `orientation_equal(a,b)` checks to see if two orientation quaternions a and b are equivalent.
+
+  `a` is the first quaternion.
+
+  `b` is the second quaternion.
+
+  It returns true if the quaternions represent the same orientation.
+
+  **This function expects normalized quaternions.**
+
+  Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
+  """
+  @spec orientation_equal(quatern, quatern) :: boolean()
+  def orientation_equal(a, b) do
+    abs( dot(a,b) ) >= 1.0
+  end
+
+  @doc """
+  `orientation_equal(a,b,eps)` checks to see if two orientation quaternions a and b are equivalent up to some epsilon
+
+  `a` is the first quaternion.
+
+  `b` is the second quaternion.
+
+  `eps` is the epsilon, on the interval [0,1].
+
+  It returns true if the quaternions represent the same orientation.
+
+  **This function expects normalized quaternions.**
+
+  Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
+  """
+  @spec orientation_equal(quatern, quatern, float) :: boolean()
+  def orientation_equal(a, b, eps) do
+    abs( dot(a,b) ) >= (1.0 - eps)
+  end
+
+  @doc """
   `create(w,x,y,z)` creates a `quatern` of value (w,x,y,z).
 
-  `w` is the rotation arround the axis in Radians.
+  `w` is the rotation around the axis in radians.
 
   `x` is the first element of the `vec3` representing the axis to be created.
 
