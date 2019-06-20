@@ -9,9 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added changelog! Finally!
 - Non-crashing `Quatern.normalize/1` which can deal with zero-magnitude quaternions.
 - Add `Quatern.identity/0` to make identity quaternions.
-- Add `Quatern.equals/2` to compare two quaternions for equality.
+- Add `Quatern.equal/2` to compare two unit quaternions for orientation equality.
+- Add `Quatern.equal/3` to compare two unit quaternions for orientation equality with a threshold.
+- Add `Quatern.equal_elements/2` to compare two quaternions for element-wise equality.
+- Add `Quatern.equal_elements/3` to compare two quaternions for element-wise equality with a threshold.
 - Add `Quatern.to_rotation_matrix_44/1`.
-- Add `Quatern.from_axis_angle_packed/1`.
 
 ### Changed
 - Old `Quatern.normalize/1` has become `Quatern.normalize_strict/1`.
@@ -30,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Formatting fixes to readme.
+- Fixed logic insinde `Quatern.from_axis_angle/2`.
 
 ## [1.0.7] - 2019-05-29
 ### Removed

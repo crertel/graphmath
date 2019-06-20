@@ -3,33 +3,33 @@ defmodule GraphmathTest.Quatern.Equality do
 
   @tag :quatern
   @tag :equality
-  test "equal({0.0,0.0,0.0,0.0}, {1.0, 0.0, 0.0, 0.0}) is false" do
-    refute Graphmath.Quatern.equal( {0.0, 0.0, 0.0, 0.0}, {1.0,0.0,0.0,0.0})
+  test "equal_elements({0.0,0.0,0.0,0.0}, {1.0, 0.0, 0.0, 0.0}) is false" do
+    refute Graphmath.Quatern.equal_elements( {0.0, 0.0, 0.0, 0.0}, {1.0,0.0,0.0,0.0})
   end
 
   @tag :quatern
   @tag :equality
-  test "equal({1.0,0.0,0.0,0.0}, {1.0, 0.0, 0.0, 0.0}) is true" do
-    assert Graphmath.Quatern.equal( {1.0, 0.0, 0.0, 0.0}, {1.0,0.0,0.0,0.0})
+  test "equal_elements({1.0,0.0,0.0,0.0}, {1.0, 0.0, 0.0, 0.0}) is true" do
+    assert Graphmath.Quatern.equal_elements( {1.0, 0.0, 0.0, 0.0}, {1.0,0.0,0.0,0.0})
   end
 
   @tag :quatern
   @tag :equality
-  test "equal({0.0,0.0,0.0,0.0}, {1.0, 0.0, 0.0, 0.0},2.0) is true" do
-    assert Graphmath.Quatern.equal( {0.0, 0.0, 0.0, 0.0}, {1.0,0.0,0.0,0.0},2.0)
+  test "equal_elements({0.0,0.0,0.0,0.0}, {1.0, 0.0, 0.0, 0.0},2.0) is true" do
+    assert Graphmath.Quatern.equal_elements( {0.0, 0.0, 0.0, 0.0}, {1.0,0.0,0.0,0.0},2.0)
   end
 
   @tag :quatern
   @tag :equality
-  test "orientation_equal({1.0, 0.0, 0.0, 0.0},{1.0, 0.0, 0.0, 0.0}) is true" do
-    assert Graphmath.Quatern.orientation_equal({1.0, 0.0, 0.0, 0.0}, {1.0, 0.0, 0.0, 0.0})
-    assert Graphmath.Quatern.orientation_equal({-1.0, 0.0, 0.0, 0.0}, {1.0, 0.0, 0.0, 0.0})
+  test "equal({1.0, 0.0, 0.0, 0.0},{1.0, 0.0, 0.0, 0.0}) is true" do
+    assert Graphmath.Quatern.equal({1.0, 0.0, 0.0, 0.0}, {1.0, 0.0, 0.0, 0.0})
+    assert Graphmath.Quatern.equal({-1.0, 0.0, 0.0, 0.0}, {1.0, 0.0, 0.0, 0.0})
   end
 
   @tag :quatern
   @tag :equality
-  test "orientation_equal({1.0, 0.0, 0.0, 0.0},{1.0, 0.0, 0.0, 0.0}, 0) is true" do
-    assert Graphmath.Quatern.orientation_equal({1.0, 0.0, 0.0, 0.0}, {1.0, 0.0, 0.0, 0.0}, 0.0)
-    assert Graphmath.Quatern.orientation_equal({-1.0, 0.0, 0.0, 0.0}, {1.0, 0.0, 0.0, 0.0}, 0.0)
+  test "equal({1.0, 0.0, 0.0, 0.0},{1.0, 0.0, 0.0, 0.0}, 0) is true" do
+    assert Graphmath.Quatern.equal({1.0, 0.0, 0.0, 0.0}, {1.0, 0.0, 0.0, 0.0}, 0.0)
+    assert Graphmath.Quatern.equal({-1.0, 0.0, 0.0, 0.0}, {1.0, 0.0, 0.0, 0.0}, 0.0)
   end
 end

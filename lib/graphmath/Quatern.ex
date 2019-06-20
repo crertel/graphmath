@@ -38,7 +38,7 @@ defmodule Graphmath.Quatern do
   def zero(), do: {0.0, 0.0, 0.0, 0.0}
 
   @doc """
-  `equal(a,b)` checks to see if two quaternions a and b are element-wise equal.
+  `equal_elements(a,b)` checks to see if two quaternions a and b are element-wise equal.
 
   `a` is the first quaternion.
 
@@ -50,15 +50,15 @@ defmodule Graphmath.Quatern do
 
   Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
 
-  In such cases, prefer the `orientation_equal/2` function.
+  In such cases, prefer the `equal/2` function.
   """
-  @spec equal(quatern, quatern) :: boolean()
-  def equal({ aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b) do
+  @spec equal_elements(quatern, quatern) :: boolean()
+  def equal_elements({ aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b) do
     (aw == bw) and (ax == bx) and (ay == by) and (az == bz)
   end
 
   @doc """
-  `equal(a,b, eps)` checks to see if two quaternions a and b are element-wise equal to some epsilon
+  `equal_elements(a,b, eps)` checks to see if two quaternions a and b are element-wise equal to some epsilon
 
   `a` is the first quaternion.
 
@@ -72,10 +72,10 @@ defmodule Graphmath.Quatern do
 
   Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
 
-  In such cases, prefer the `orientation_equal/2` function.
+  In such cases, prefer the `equal/3` function.
   """
-  @spec equal(quatern, quatern, float) :: boolean()
-  def equal({ aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b, eps) do
+  @spec equal_elements(quatern, quatern, float) :: boolean()
+  def equal_elements({ aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b, eps) do
     ( abs(aw - bw) <= eps) and
     ( abs(ax - bx) <= eps) and
     ( abs(ay - by) <= eps) and
@@ -83,7 +83,7 @@ defmodule Graphmath.Quatern do
   end
 
   @doc """
-  `orientation_equal(a,b)` checks to see if two orientation quaternions a and b are equivalent.
+  `equal(a,b)` checks to see if two orientation quaternions a and b are equivalent.
 
   `a` is the first quaternion.
 
@@ -95,13 +95,13 @@ defmodule Graphmath.Quatern do
 
   Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
   """
-  @spec orientation_equal(quatern, quatern) :: boolean()
-  def orientation_equal(a, b) do
+  @spec equal(quatern, quatern) :: boolean()
+  def equal(a, b) do
     abs( dot(a,b) ) >= 1.0
   end
 
   @doc """
-  `orientation_equal(a,b,eps)` checks to see if two orientation quaternions a and b are equivalent up to some epsilon
+  `equal(a,b,eps)` checks to see if two orientation quaternions a and b are equivalent up to some epsilon
 
   `a` is the first quaternion.
 
@@ -115,8 +115,8 @@ defmodule Graphmath.Quatern do
 
   Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
   """
-  @spec orientation_equal(quatern, quatern, float) :: boolean()
-  def orientation_equal(a, b, eps) do
+  @spec equal(quatern, quatern, float) :: boolean()
+  def equal(a, b, eps) do
     abs( dot(a,b) ) >= (1.0 - eps)
   end
 
