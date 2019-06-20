@@ -3,12 +3,6 @@ defmodule GraphmathTest.Quatern.CreateQuatern do
 
   @tag :quatern
   @tag :create
-  test "create returns {0,0,0}" do
-    assert {0, 0, 0, 0} == Graphmath.Quatern.create()
-  end
-
-  @tag :quatern
-  @tag :create
   test "create returns {w,x,y,z} given (w,x,y,z)" do
     assert {3, 4, 5, 6} == Graphmath.Quatern.create(3, 4, 5, 6)
   end
