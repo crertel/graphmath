@@ -16,6 +16,28 @@ defmodule Graphmath.Quatern do
   @type mat33 :: {float, float, float, float, float, float, float, float, float}
 
   @doc """
+  `identity()` creates the identity `quatern`.
+
+  It takes no arguments.
+
+  It returns a `quatern` of the form `{1.0, 0.0, 0.0, 0.0}`.
+  """
+  @spec identity() :: quatern
+  def identity(), do: {1.0, 0.0, 0.0, 0.0}
+
+  @doc """
+  `zero()` creates a zero `quatern`.
+
+  It takes no arguments.
+
+  It returns a `quatern` of the form `{0.0, 0.0, 0.0, 0.0}`.
+
+  Note that the zero quaternion is almost definetely not something you ever use.
+  """
+  @spec zero() :: quatern
+  def zero(), do: {0.0, 0.0, 0.0, 0.0}
+
+  @doc """
   `create()` creates a zeroed `quatern`.
 
   It takes no arguments.
