@@ -274,4 +274,38 @@ defmodule Graphmath.Vec3 do
     |> add(scale(cross(k, v), st))
     |> add(scale(k, coeff))
   end
+
+    @doc """
+  `equal(a, b)` checks to see if two vec3s a and b are equivalent.
+
+  `a` is the `vec3`.
+
+  `b` is the `vec3`.
+
+  It returns true if the vectors have equal elements.
+
+  Note that due to precision issues, you may want to use `equal/3` instead.
+  """
+  @spec equal(vec3, vec3) :: boolean
+  def equal({ax, ay, az}, {bx, by, bz}) do
+    ax == bx and ay == by and az == bz
+  end
+
+  @doc """
+  `equal(a, b, eps)` checks to see if two vec3s a and b are equivalent within some tolerance.
+
+  `a` is the `vec3`.
+
+  `b` is the `vec3`.
+
+  `eps` is the tolerance, a float.
+
+  It returns true if the vectors have equal elements within some tolerance.
+  """
+  @spec equal(vec3, vec3, float) :: boolean
+  def equal({ax, ay, az}, {bx, by, bz}, eps) do
+    abs(ax - bx) <= eps and
+    abs(ay - by) <= eps and
+    abs(az - bz) <= eps
+  end
 end

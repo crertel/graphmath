@@ -306,4 +306,37 @@ defmodule Graphmath.Vec2 do
     {x, y} = a
     {-y, x}
   end
+
+  @doc """
+  `equal(a, b)` checks to see if two vec2s a and b are equivalent.
+
+  `a` is the `vec2`.
+
+  `b` is the `vec2`.
+
+  It returns true if the vectors have equal elements.
+
+  Note that due to precision issues, you may want to use `equal/3` instead.
+  """
+  @spec equal(vec2, vec2) :: boolean
+  def equal({ax, ay}, {bx, by}) do
+    ax == bx and ay == by
+  end
+
+  @doc """
+  `equal(a, b, eps)` checks to see if two vec2s a and b are equivalent within some tolerance.
+
+  `a` is the `vec2`.
+
+  `b` is the `vec2`.
+
+  `eps` is the tolerance, a float.
+
+  It returns true if the vectors have equal elements within some tolerance.
+  """
+  @spec equal(vec2, vec2, float) :: boolean
+  def equal({ax, ay}, {bx, by}, eps) do
+    abs(ax - bx) <= eps and
+    abs(ay - by) <= eps
+  end
 end
