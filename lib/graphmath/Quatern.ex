@@ -570,6 +570,30 @@ defmodule Graphmath.Quatern do
   end
 
   @doc """
+  `transform_vector(q,v)` transforms a vector v by an orientation quaternion q.
+
+  `q` is an orientation quaternion.
+
+  `v` is a Vec3 to transform--it need not be normalized.
+
+  It returns a `Vec3` of `v` having undergone the rotation represented by `q`.
+  """
+  def transform_vector( {qw, qx, qy, qz}, {vx, vy, vz}) do
+    # v' = qvq', but we'll use the rediscovered formula of rodrigues answer from SO ( https://gamedev.stackexchange.com/a/50545 )
+
+    dot_uv = (qx*vx) + (qy*vy) + (qz*vz)
+    two_dot_uv = 2.0 * dot_uv
+    dot_uu = (qx*qx) + (qy*qy) + (qz*qz)
+    v_scalar = (qw*qw) - dot_uu
+    two_qw = 2.0 * qw
+
+    {
+      (two_dot_uv * qx) + (v_scalar * vx) + two_qw*(qy*vz - qz*vy),
+      (two_dot_uv * qy) + (v_scalar * vy) + two_qw*(qz*vx - qx*vz),
+      (two_dot_uv * qz) + (v_scalar * vz) + two_qw*(qx*vy - qy*vx)
+    }
+  end
+  @doc """
   `integrate(q, omega, dt)` integrates the angular velocty omega over a timestep dt with intial orientation q.
 
   `q` is an orientation quaternion to use as the initial orientation.
