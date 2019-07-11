@@ -308,4 +308,50 @@ defmodule Graphmath.Vec3 do
     abs(ay - by) <= eps and
     abs(az - bz) <= eps
   end
+
+  @doc """
+  `random_sphere()` gives a point at or within unit distance of the origin, using [this](http://extremelearning.com.au/how-to-generate-uniformly-random-points-on-n-spheres-and-n-balls/) polar method.
+  Another really nice exploration of this is [here](http://mathworld.wolfram.com/SpherePointPicking.html).
+
+  It returns a vec3 within at most unit distance of the origin.
+  """
+  @spec random_sphere() :: vec3
+  def random_sphere() do
+     u = 2.0 * :random.uniform() - 1
+     phi = 2.0 * :math.pi() * :random.uniform()
+     x = :math.cos(phi) * :math.sqrt( 1- (u*u))
+     y = :math.sin(phi) * :math.sqrt( 1- (u*u))
+     z = u
+     {x,y,z}
+  end
+
+  @doc """
+  `random_ball()` gives a point at or within unit distance of the origin, using [the last algo here](https://karthikkaranth.me/blog/generating-random-points-in-a-sphere/).
+
+  It returns a vec3 within at most unit distance of the origin.
+  """
+  @spec random_ball() :: vec3
+  def random_ball() do
+     u = :random.uniform()
+     v = :random.uniform()
+     theta = 2.0 * u * :math.pi()
+     phi = :math.acos((2.0 * v) - 1.0)
+     r = :math.pow( :random.uniform(), 1/3) # basically cube root
+     sin_theta = :math.sin(theta)
+     cos_theta = :math.cos(theta)
+     sin_phi = :math.sin(phi)
+     cos_phi = :math.cos(phi)
+     x = r * sin_phi * cos_theta
+     y = r * sin_phi * sin_theta
+     z = r * cos_phi
+     {x,y,z}
+  end
+
+  @doc """
+  `random_box()` gives a point on or in the unit box [0,1]x[0,1]x[0,1].
+
+  It returns a vec3.
+  """
+  @spec random_box() :: vec3
+  def random_box(), do: {:random.uniform(), :random.uniform(), :random.uniform()}
 end

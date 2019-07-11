@@ -339,4 +339,36 @@ defmodule Graphmath.Vec2 do
     abs(ax - bx) <= eps and
     abs(ay - by) <= eps
   end
+
+  @doc """
+  `random_circle()` generates a point on the unit circle.
+
+  It returns a vec2 with distance 1 from the origin.
+  """
+  @spec random_circle() :: vec2
+  def random_circle() do
+    pi = :math.pi()
+    theta = :random.uniform()
+    { :math.cos( 2.0 * pi * theta), :math.sin( 2.0 * pi * theta) }
+  end
+
+  @doc """
+  `random_disc()` generates a point on or inside the unit circle using the method [here](http://mathworld.wolfram.com/DiskPointPicking.html).
+
+  It returns a vec2 with distance 1 from the origin.
+  """
+  @spec random_disc() :: vec2
+  def random_disc() do
+    pi = :math.pi()
+    theta = :random.uniform()
+    rho = :math.sqrt(:random.uniform())
+    { rho * :math.cos( 2.0 * pi * theta), rho * :math.sin( 2.0 * pi * theta) }
+  end
+
+  @doc """
+  `random_box()` generates a point on or inside the unit box [0,1]x[0,1].
+  """
+  @spec random_box() :: vec2
+  def random_box(), do: { :random.uniform(), :random.uniform()}
+
 end
