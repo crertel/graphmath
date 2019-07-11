@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2019-07-10
+### Added
+- Add `Quatern.random/0` for generating random quaternions.
+- Add `Vec2.random_circle/0` for generating vec2s on a unit circle.
+- Add `Vec2.random_disc/0` for generating vec2s on a unit disc.
+- Add `Vec2.random_square/0` for generating vec2s on unit square.
+- Add `Vec3.random_box/0` for generating vec3s inside a unit box.
+- Add `Vec3.random_sphere/0` for generating vec3s on a unit sphere.
+- Add `Vec3.random_ball/0` for generating vec3s on or inside the unit sphere.
+
 ## [2.1.0] - 2019-06-20
 ### Added
 - Add `Quatern.transform_vector/2` to transform a vector by a quaternion.
