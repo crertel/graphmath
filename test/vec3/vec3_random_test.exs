@@ -5,14 +5,14 @@ defmodule Graphmath.Vec3.RandomVec3 do
   @tag :random
   test "random_ball/0 works" do
     v = Graphmath.Vec3.random_ball()
-    assert Graphmath.Vec3.length_squared(v) == 1.0
+    assert Graphmath.Vec3.length_squared(v) <= 1.0
   end
 
   @tag :vec3
   @tag :random
   test "random_sphere/0 works" do
     v = Graphmath.Vec3.random_sphere()
-    assert Graphmath.Vec3.length_squared(v) <= 1.0
+    assert Graphmath.Vec3.length_squared(v) == 1.0
   end
 
   @tag :vec3
