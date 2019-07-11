@@ -578,6 +578,7 @@ defmodule Graphmath.Quatern do
 
   It returns a `Vec3` of `v` having undergone the rotation represented by `q`.
   """
+  @spec transform_vector( quatern, vec3) :: vec3
   def transform_vector( {qw, qx, qy, qz}, {vx, vy, vz}) do
     # v' = qvq', but we'll use the rediscovered formula of rodrigues answer from SO ( https://gamedev.stackexchange.com/a/50545 )
 
@@ -604,6 +605,7 @@ defmodule Graphmath.Quatern do
 
   It returns an orientation `quatern`.
   """
+  @spec integrate(quatern, vec3, number) :: quatern
   def integrate(q, omega, dt) do
     # this routine inspired and adapted from http://physicsforgames.blogspot.com/2010/02/quaternions.html
     # this explains a similar routine in cannon.js
@@ -624,5 +626,27 @@ defmodule Graphmath.Quatern do
 
     multiply({delta_Q_w, theta_x * s, theta_y * s, theta_z * s}, q)
     |> normalize()
+  end
+
+  @doc """
+  Genrate a random quatenrion (rotation on SO3), using the algorithm given [here](http://planning.cs.uiuc.edu/node198.html).
+
+  It returns an orientation `quatern`.
+  """
+  @spec random() :: quatern
+  def random() do
+    u1 = :random.uniform()
+    u2 = :random.uniform()
+    u3 = :random.uniform()
+
+    sqrtomu1 = :math.sqrt(1.0 - u1)
+    sqrtu1 = :math.sqrt(u1)
+    pi = :math.pi()
+    s2pu2 = :math.sin(2.0*pi*u2)
+    c2pu2 = :math.cos(2.0*pi*u2)
+    s2pu3 = :math.sin(2.0*pi*u3)
+    c2pu3 = :math.cos(2.0*pi*u3)
+
+    {sqrtomu1 * s2pu2, sqrtomu1 * c2pu2, sqrtu1 * s2pu3, sqrtu1 * c2pu3}
   end
 end
