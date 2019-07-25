@@ -371,4 +371,9 @@ defmodule Graphmath.Vec2 do
   @spec random_box() :: vec2
   def random_box(), do: { :random.uniform(), :random.uniform()}
 
+  @doc """
+  `negate(v)` creates a vector whose elements are opposite in sign to `v`.
+  """
+  @spec negate(vec2) :: vec2
+  def negate({x,y}), do: {-1.0*x, -1.0*y}
 end

@@ -354,4 +354,10 @@ defmodule Graphmath.Vec3 do
   """
   @spec random_box() :: vec3
   def random_box(), do: {:random.uniform(), :random.uniform(), :random.uniform()}
+
+    @doc """
+  `negate(v)` creates a vector whose elements are opposite in sign to `v`.
+  """
+  @spec negate(vec3) :: vec3
+  def negate({x,y,z}), do: {-1.0*x, -1.0*y, -1.0*z}
 end
