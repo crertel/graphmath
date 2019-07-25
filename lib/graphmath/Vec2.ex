@@ -376,4 +376,12 @@ defmodule Graphmath.Vec2 do
   """
   @spec negate(vec2) :: vec2
   def negate({x,y}), do: {-1.0*x, -1.0*y}
+
+  @doc """
+  `weighted_sum(a, v1, b, v2)` returns the sum of vectors `v1` and `v2` having been scaled by `a` and `b`, respectively.
+  """
+  @spec weighted_sum( number, vec2, number, vec2) :: vec2
+  def weighted_sum( a, {x,y}, b, {u,v}) do
+    {(a*x) + (b*u), (a*y) + (b*v)}
+  end
 end

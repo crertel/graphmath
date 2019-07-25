@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add `Vec2.negate/1` for negating vectors.
 - Add `Vec3.negate/1` for negating vectors.
+- Add `Vec2.weighted_sum/4` for summing vectors.
+- Add `Vec3.weighted_sum/4` for summing vectors.
 
 ## [2.2.0] - 2019-07-10
 ### Added

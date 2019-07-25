@@ -360,4 +360,12 @@ defmodule Graphmath.Vec3 do
   """
   @spec negate(vec3) :: vec3
   def negate({x,y,z}), do: {-1.0*x, -1.0*y, -1.0*z}
+
+  @doc """
+  `weighted_sum(a, v1, b, v2)` returns the sum of vectors `v1` and `v2` having been scaled by `a` and `b`, respectively.
+  """
+  @spec weighted_sum( number, vec3, number, vec3) :: vec3
+  def weighted_sum( a, {x,y,z}, b, {u,v,w}) do
+    {(a*x) + (b*u), (a*y) + (b*v), (a*z) + (b*w)}
+  end
 end
