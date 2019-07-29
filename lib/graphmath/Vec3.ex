@@ -368,4 +368,14 @@ defmodule Graphmath.Vec3 do
   def weighted_sum( a, {x,y,z}, b, {u,v,w}) do
     {(a*x) + (b*u), (a*y) + (b*v), (a*z) + (b*w)}
   end
+
+  @doc """
+  `scalar_triple(a,b,c)` returns the [scalar triple product](https://en.wikipedia.org/wiki/Triple_product#Scalar_triple_product) of three vectors.
+
+  We're using the `a*(b x c)` form.
+  """
+  @spec scalar_triple( vec3, vec3, vec3) :: float
+  def scalar_triple( {ax,ay,az}, {bx,by,bz}, {cx,cy,cz}) do
+    ( ax * (by * cz - bz * cy)) + (ay * (bz * cx - bx * cz) ) + ( az* (bx * cy - by * cx) )
+  end
 end
