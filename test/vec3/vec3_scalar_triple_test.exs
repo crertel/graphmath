@@ -8,7 +8,7 @@ defmodule Graphmath.Vec3.ScalarTripleVec3 do
     a = {1.0, 2.0, 3.0}
     b = {4.0, 5.0, 6.0}
     c = {7.0, 8.0, 9.0}
-    assert 0.0 == Vec3.scalar_triple(a,b,c)
+    assert 0.0 == Vec3.scalar_triple(a, b, c)
   end
 
   @tag :vec3
@@ -17,6 +17,6 @@ defmodule Graphmath.Vec3.ScalarTripleVec3 do
     a = {1.0, 0.0, 0.0}
     b = {0.0, 1.0, 0.0}
     c = {0.0, 0.0, 1.0}
-    assert 1.0 == Vec3.scalar_triple(a,b,c)
+    assert 1.0 == Vec3.scalar_triple(a, b, c)
   end
 end

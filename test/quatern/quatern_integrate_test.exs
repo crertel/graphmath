@@ -8,8 +8,16 @@ defmodule GraphmathTest.Quatern.Integrate do
     x_axis_180 = {:math.pi(), 0.0, 0.0}
     dt = 1.0
     sqrt_half = :math.sqrt(0.5)
-    assert Graphmath.Quatern.equal({0.0,1.0,0.0,0.0}, Graphmath.Quatern.integrate(start, x_axis_180, dt))
-    assert Graphmath.Quatern.equal({sqrt_half,sqrt_half,0.0,0.0}, Graphmath.Quatern.integrate(start, x_axis_180, dt/2))
+
+    assert Graphmath.Quatern.equal(
+             {0.0, 1.0, 0.0, 0.0},
+             Graphmath.Quatern.integrate(start, x_axis_180, dt)
+           )
+
+    assert Graphmath.Quatern.equal(
+             {sqrt_half, sqrt_half, 0.0, 0.0},
+             Graphmath.Quatern.integrate(start, x_axis_180, dt / 2)
+           )
   end
 
   @tag :quatern
@@ -19,8 +27,16 @@ defmodule GraphmathTest.Quatern.Integrate do
     y_axis_180 = {0.0, :math.pi(), 0.0}
     dt = 1.0
     sqrt_half = :math.sqrt(0.5)
-    assert Graphmath.Quatern.equal({0.0,0.0,1.0,0.0}, Graphmath.Quatern.integrate(start, y_axis_180, dt))
-    assert Graphmath.Quatern.equal({sqrt_half,0.0,sqrt_half,0.0}, Graphmath.Quatern.integrate(start, y_axis_180, dt/2))
+
+    assert Graphmath.Quatern.equal(
+             {0.0, 0.0, 1.0, 0.0},
+             Graphmath.Quatern.integrate(start, y_axis_180, dt)
+           )
+
+    assert Graphmath.Quatern.equal(
+             {sqrt_half, 0.0, sqrt_half, 0.0},
+             Graphmath.Quatern.integrate(start, y_axis_180, dt / 2)
+           )
   end
 
   @tag :quatern
@@ -30,7 +46,15 @@ defmodule GraphmathTest.Quatern.Integrate do
     z_axis_180 = {0.0, 0.0, :math.pi()}
     dt = 1.0
     sqrt_half = :math.sqrt(0.5)
-    assert Graphmath.Quatern.equal({0.0,0.0,0.0,1.0}, Graphmath.Quatern.integrate(start, z_axis_180, dt))
-    assert Graphmath.Quatern.equal({sqrt_half,0.0,0.0,sqrt_half}, Graphmath.Quatern.integrate(start, z_axis_180, dt/2))
+
+    assert Graphmath.Quatern.equal(
+             {0.0, 0.0, 0.0, 1.0},
+             Graphmath.Quatern.integrate(start, z_axis_180, dt)
+           )
+
+    assert Graphmath.Quatern.equal(
+             {sqrt_half, 0.0, 0.0, sqrt_half},
+             Graphmath.Quatern.integrate(start, z_axis_180, dt / 2)
+           )
   end
 end

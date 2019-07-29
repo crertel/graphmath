@@ -4,7 +4,7 @@ defmodule Graphmath.Quatern.RandomQuatern do
   @tag :quatern
   @tag :random
   test "random/0 works" do
-    {w,x,y,z} = Graphmath.Quatern.random()
-    assert abs( 1 - :math.sqrt(w*w + x*x + y*y + z*z) ) < 0.00005
+    {w, x, y, z} = Graphmath.Quatern.random()
+    assert abs(1 - :math.sqrt(w * w + x * x + y * y + z * z)) < 0.00005
   end
 end

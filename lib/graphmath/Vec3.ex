@@ -275,7 +275,7 @@ defmodule Graphmath.Vec3 do
     |> add(scale(k, coeff))
   end
 
-    @doc """
+  @doc """
   `equal(a, b)` checks to see if two vec3s a and b are equivalent.
 
   `a` is the `vec3`.
@@ -305,8 +305,8 @@ defmodule Graphmath.Vec3 do
   @spec equal(vec3, vec3, float) :: boolean
   def equal({ax, ay, az}, {bx, by, bz}, eps) do
     abs(ax - bx) <= eps and
-    abs(ay - by) <= eps and
-    abs(az - bz) <= eps
+      abs(ay - by) <= eps and
+      abs(az - bz) <= eps
   end
 
   @doc """
@@ -317,12 +317,12 @@ defmodule Graphmath.Vec3 do
   """
   @spec random_sphere() :: vec3
   def random_sphere() do
-     u = 2.0 * :random.uniform() - 1
-     phi = 2.0 * :math.pi() * :random.uniform()
-     x = :math.cos(phi) * :math.sqrt( 1- (u*u))
-     y = :math.sin(phi) * :math.sqrt( 1- (u*u))
-     z = u
-     {x,y,z}
+    u = 2.0 * :random.uniform() - 1
+    phi = 2.0 * :math.pi() * :random.uniform()
+    x = :math.cos(phi) * :math.sqrt(1 - u * u)
+    y = :math.sin(phi) * :math.sqrt(1 - u * u)
+    z = u
+    {x, y, z}
   end
 
   @doc """
@@ -332,19 +332,20 @@ defmodule Graphmath.Vec3 do
   """
   @spec random_ball() :: vec3
   def random_ball() do
-     u = :random.uniform()
-     v = :random.uniform()
-     theta = 2.0 * u * :math.pi()
-     phi = :math.acos((2.0 * v) - 1.0)
-     r = :math.pow( :random.uniform(), 1/3) # basically cube root
-     sin_theta = :math.sin(theta)
-     cos_theta = :math.cos(theta)
-     sin_phi = :math.sin(phi)
-     cos_phi = :math.cos(phi)
-     x = r * sin_phi * cos_theta
-     y = r * sin_phi * sin_theta
-     z = r * cos_phi
-     {x,y,z}
+    u = :random.uniform()
+    v = :random.uniform()
+    theta = 2.0 * u * :math.pi()
+    phi = :math.acos(2.0 * v - 1.0)
+    # basically cube root
+    r = :math.pow(:random.uniform(), 1 / 3)
+    sin_theta = :math.sin(theta)
+    cos_theta = :math.cos(theta)
+    sin_phi = :math.sin(phi)
+    cos_phi = :math.cos(phi)
+    x = r * sin_phi * cos_theta
+    y = r * sin_phi * sin_theta
+    z = r * cos_phi
+    {x, y, z}
   end
 
   @doc """
@@ -355,18 +356,18 @@ defmodule Graphmath.Vec3 do
   @spec random_box() :: vec3
   def random_box(), do: {:random.uniform(), :random.uniform(), :random.uniform()}
 
-    @doc """
+  @doc """
   `negate(v)` creates a vector whose elements are opposite in sign to `v`.
   """
   @spec negate(vec3) :: vec3
-  def negate({x,y,z}), do: {-1.0*x, -1.0*y, -1.0*z}
+  def negate({x, y, z}), do: {-1.0 * x, -1.0 * y, -1.0 * z}
 
   @doc """
   `weighted_sum(a, v1, b, v2)` returns the sum of vectors `v1` and `v2` having been scaled by `a` and `b`, respectively.
   """
-  @spec weighted_sum( number, vec3, number, vec3) :: vec3
-  def weighted_sum( a, {x,y,z}, b, {u,v,w}) do
-    {(a*x) + (b*u), (a*y) + (b*v), (a*z) + (b*w)}
+  @spec weighted_sum(number, vec3, number, vec3) :: vec3
+  def weighted_sum(a, {x, y, z}, b, {u, v, w}) do
+    {a * x + b * u, a * y + b * v, a * z + b * w}
   end
 
   @doc """
@@ -374,8 +375,8 @@ defmodule Graphmath.Vec3 do
 
   We're using the `a*(b x c)` form.
   """
-  @spec scalar_triple( vec3, vec3, vec3) :: float
-  def scalar_triple( {ax,ay,az}, {bx,by,bz}, {cx,cy,cz}) do
-    ( ax * (by * cz - bz * cy)) + (ay * (bz * cx - bx * cz) ) + ( az* (bx * cy - by * cx) )
+  @spec scalar_triple(vec3, vec3, vec3) :: float
+  def scalar_triple({ax, ay, az}, {bx, by, bz}, {cx, cy, cz}) do
+    ax * (by * cz - bz * cy) + ay * (bz * cx - bx * cz) + az * (bx * cy - by * cx)
   end
 end

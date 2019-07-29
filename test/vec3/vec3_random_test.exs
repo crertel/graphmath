@@ -18,7 +18,7 @@ defmodule Graphmath.Vec3.RandomVec3 do
   @tag :vec3
   @tag :random
   test "random_box/0 works" do
-    {x,y,z} = Graphmath.Vec3.random_box()
+    {x, y, z} = Graphmath.Vec3.random_box()
     assert abs(x) <= 1.0
     assert abs(y) <= 1.0
     assert abs(z) <= 1.0
