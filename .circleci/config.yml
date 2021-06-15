@@ -12,12 +12,9 @@ jobs:  # basic units of work in a run
     steps:  # commands that comprise the `build` job
       - checkout  # check out source code to working directory
 
-      - run: 
-          name: Setup hex and rebar
-          command: |
-            mix local.hex --force  # install Hex locally (without prompt)
-            mix local.rebar --force  # fetch a copy of rebar (without prompt)
-
+      - run: mix local.hex --force  # install Hex locally (without prompt)
+      - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
+                      
       - restore_cache:  # restores saved mix cache
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           keys:  # list of cache keys, in decreasing specificity
@@ -61,7 +58,7 @@ jobs:  # basic units of work in a run
             export T_COMMIT_MESSAGE="`git log --pretty=format:%s -1`"
             MIX_ENV=dev mix coveralls.post --branch "$CIRCLE_BRANCH" --sha "$CIRCLE_SHA1" --message "$T_COMMIT_MESSAGE"
       - run:
-          name: Post documnetation coverage
+          name: Post documentation coverage
           command: |
             MIX_ENV=docs mix deps.get
             MIX_ENV=docs mix inch.report
