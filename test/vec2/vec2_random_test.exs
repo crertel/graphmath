@@ -1,4 +1,4 @@
-defmodule Graphmath.Vec2.RandomVec2 do
+defmodule GraphmathTest.Vec2.RandomVec2 do
   use ExUnit.Case
 
   @very_smol 1.0e-10

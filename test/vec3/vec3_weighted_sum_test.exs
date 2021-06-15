@@ -1,4 +1,4 @@
-defmodule Graphmath.Vec3.WeightedSumVec2 do
+defmodule GraphmathTest.Vec3.WeightedSumVec2 do
   alias Graphmath.Vec3
   use ExUnit.Case
 

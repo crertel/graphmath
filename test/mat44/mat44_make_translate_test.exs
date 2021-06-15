@@ -1,4 +1,4 @@
-defmodule Graphmath.Mat44.MakeTranslation do
+defmodule GraphmathTest.Mat44.MakeTranslation do
   use ExUnit.Case
 
   @tag :mat44

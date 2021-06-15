@@ -1,4 +1,4 @@
-defmodule Graphmath.Mat44.CreateMat44 do
+defmodule GraphmathTest.Mat44.CreateMat44 do
   use ExUnit.Case
 
   @tag :mat44

@@ -1,4 +1,4 @@
-defmodule Graphmath.Mat33.MakeRotate do
+defmodule GraphmathTest.Mat33.MakeRotate do
   use ExUnit.Case
 
   @tag :mat33

@@ -1,4 +1,4 @@
-defmodule Graphmath.Vec3.ScalarTripleVec3 do
+defmodule GraphmathTest.Vec3.ScalarTripleVec3 do
   alias Graphmath.Vec3
   use ExUnit.Case
 

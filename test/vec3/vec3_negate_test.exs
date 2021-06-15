@@ -1,4 +1,4 @@
-defmodule Graphmath.Vec3.NegateVec3 do
+defmodule GraphmathTest.Vec3.NegateVec3 do
   alias Graphmath.Vec3
   use ExUnit.Case
 
