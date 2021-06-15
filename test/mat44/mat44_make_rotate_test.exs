@@ -1,4 +1,4 @@
-defmodule Graphmath.Mat44.MakeRotate do
+defmodule GraphmathTest.Mat44.MakeRotate do
   use ExUnit.Case
 
   @tag :mat44

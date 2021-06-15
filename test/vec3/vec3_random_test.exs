@@ -1,5 +1,6 @@
-defmodule Graphmath.Vec3.RandomVec3 do
+defmodule GraphmathTest.Vec3.RandomVec3 do
   use ExUnit.Case
+  import TestUtils
 
   @tag :vec3
   @tag :random
@@ -12,7 +13,7 @@ defmodule Graphmath.Vec3.RandomVec3 do
   @tag :random
   test "random_sphere/0 works" do
     v = Graphmath.Vec3.random_sphere()
-    assert Graphmath.Vec3.length_squared(v) == 1.0
+    assert within_eps(Graphmath.Vec3.length_squared(v), 1.0)
   end
 
   @tag :vec3

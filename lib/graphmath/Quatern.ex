@@ -615,7 +615,7 @@ defmodule Graphmath.Quatern do
     theta_magnitude_squared = Graphmath.Vec3.length_squared(theta)
 
     # use small-angle approximation for sin/cos if the magnitude is too small
-    {delta_Q_w, s} =
+    {delta_q_w, s} =
       if theta_magnitude_squared * theta_magnitude_squared / 24.0 < @machine_small_float do
         # use the more stable Taylor series for low-angle appromixations to sin/cos
         {1.0 - theta_magnitude_squared / 2.0, 1.0 - theta_magnitude_squared / 6.0}
@@ -625,7 +625,7 @@ defmodule Graphmath.Quatern do
         {:math.cos(theta_magnitude), :math.sin(theta_magnitude) / theta_magnitude}
       end
 
-    multiply({delta_Q_w, theta_x * s, theta_y * s, theta_z * s}, q)
+    multiply({delta_q_w, theta_x * s, theta_y * s, theta_z * s}, q)
     |> normalize()
   end
 
@@ -636,9 +636,9 @@ defmodule Graphmath.Quatern do
   """
   @spec random() :: quatern
   def random() do
-    u1 = :random.uniform()
-    u2 = :random.uniform()
-    u3 = :random.uniform()
+    u1 = :rand.uniform()
+    u2 = :rand.uniform()
+    u3 = :rand.uniform()
 
     sqrtomu1 = :math.sqrt(1.0 - u1)
     sqrtu1 = :math.sqrt(u1)

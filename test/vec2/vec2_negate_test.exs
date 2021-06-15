@@ -1,4 +1,4 @@
-defmodule Graphmath.Vec2.NegateVec2 do
+defmodule GraphmathTest.Vec2.NegateVec2 do
   alias Graphmath.Vec2
   use ExUnit.Case
 

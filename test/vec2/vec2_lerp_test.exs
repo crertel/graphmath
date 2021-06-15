@@ -1,4 +1,4 @@
-defmodule Graphmath.Vec2.LerpVec2 do
+defmodule GraphmathTest.Vec2.LerpVec2 do
   use ExUnit.Case
 
   @tag :vec2
