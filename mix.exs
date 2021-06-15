@@ -4,8 +4,8 @@ defmodule Graphmath.Mixfile do
   def project do
     [
       app: :graphmath,
-      version: "2.4.0",
-      elixir: "~> 1.0",
+      version: "2.5.0",
+      elixir: "~> 1.12",
       description: description(),
       package: package(),
       docs: &docs/0,
@@ -24,10 +24,10 @@ defmodule Graphmath.Mixfile do
 
   defp deps do
     [
-      {:credo, "~> 1.0.3", only: :dev},
-      {:dialyxir, "~> 1.0.0-rc.4", only: [:dev], runtime: false},
-      {:ex_doc, "~> 0.19.3", only: [:dev, :docs]},
-      {:excoveralls, "~> 0.10.0", only: [:test, :dev]},
+      {:credo, "~> 1.5.6", only: :dev},
+      {:dialyxir, "~> 1.1.0", only: [:dev], runtime: false},
+      {:ex_doc, "~> 0.24.2", only: [:dev, :docs]},
+      {:excoveralls, "~> 0.14.1", only: [:test, :dev]},
       {:inch_ex, "~> 2.0.0", only: :docs}
     ]
   end

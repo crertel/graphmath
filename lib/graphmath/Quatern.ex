@@ -636,9 +636,9 @@ defmodule Graphmath.Quatern do
   """
   @spec random() :: quatern
   def random() do
-    u1 = :random.uniform()
-    u2 = :random.uniform()
-    u3 = :random.uniform()
+    u1 = :rand.uniform()
+    u2 = :rand.uniform()
+    u3 = :rand.uniform()
 
     sqrtomu1 = :math.sqrt(1.0 - u1)
     sqrtu1 = :math.sqrt(u1)

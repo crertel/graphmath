@@ -348,7 +348,7 @@ defmodule Graphmath.Vec2 do
   @spec random_circle() :: vec2
   def random_circle() do
     pi = :math.pi()
-    theta = :random.uniform()
+    theta = :rand.uniform()
     {:math.cos(2.0 * pi * theta), :math.sin(2.0 * pi * theta)}
   end
 
@@ -360,8 +360,8 @@ defmodule Graphmath.Vec2 do
   @spec random_disc() :: vec2
   def random_disc() do
     pi = :math.pi()
-    theta = :random.uniform()
-    rho = :math.sqrt(:random.uniform())
+    theta = :rand.uniform()
+    rho = :math.sqrt(:rand.uniform())
     {rho * :math.cos(2.0 * pi * theta), rho * :math.sin(2.0 * pi * theta)}
   end
 
@@ -369,7 +369,7 @@ defmodule Graphmath.Vec2 do
   `random_box()` generates a point on or inside the unit box [0,1]x[0,1].
   """
   @spec random_box() :: vec2
-  def random_box(), do: {:random.uniform(), :random.uniform()}
+  def random_box(), do: {:rand.uniform(), :rand.uniform()}
 
   @doc """
   `negate(v)` creates a vector whose elements are opposite in sign to `v`.

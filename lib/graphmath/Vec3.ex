@@ -317,8 +317,8 @@ defmodule Graphmath.Vec3 do
   """
   @spec random_sphere() :: vec3
   def random_sphere() do
-    u = 2.0 * :random.uniform() - 1
-    phi = 2.0 * :math.pi() * :random.uniform()
+    u = 2.0 * :rand.uniform() - 1
+    phi = 2.0 * :math.pi() * :rand.uniform()
     x = :math.cos(phi) * :math.sqrt(1 - u * u)
     y = :math.sin(phi) * :math.sqrt(1 - u * u)
     z = u
@@ -332,12 +332,12 @@ defmodule Graphmath.Vec3 do
   """
   @spec random_ball() :: vec3
   def random_ball() do
-    u = :random.uniform()
-    v = :random.uniform()
+    u = :rand.uniform()
+    v = :rand.uniform()
     theta = 2.0 * u * :math.pi()
     phi = :math.acos(2.0 * v - 1.0)
     # basically cube root
-    r = :math.pow(:random.uniform(), 1 / 3)
+    r = :math.pow(:rand.uniform(), 1 / 3)
     sin_theta = :math.sin(theta)
     cos_theta = :math.cos(theta)
     sin_phi = :math.sin(phi)
@@ -354,7 +354,7 @@ defmodule Graphmath.Vec3 do
   It returns a vec3.
   """
   @spec random_box() :: vec3
-  def random_box(), do: {:random.uniform(), :random.uniform(), :random.uniform()}
+  def random_box(), do: {:rand.uniform(), :rand.uniform(), :rand.uniform()}
 
   @doc """
   `negate(v)` creates a vector whose elements are opposite in sign to `v`.
