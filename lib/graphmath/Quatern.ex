@@ -1,36 +1,135 @@
 defmodule Graphmath.Quatern do
-  alias Graphmath.Mat33, as: Mat33
-
   @moduledoc """
   This is the 3D mathematics library for graphmath.
 
-  This submodule handles  Quaternion using tuples of floats.
-  i.e. a rotation around an axis.
+  This submodule handles Quaternion using tuples of floats.
 
-  Consider the `quatern` format: `{ w, x, y, z }` where `w` is the angle in Radians,
-  and `x` `y` `z` are the axis coordinates
+  Quaternions represent an angle of theta around a unit axis vector {nx, ny, nz} as `{ cos(theta/2), nx * sin(theta/2), ny * sin(theta/2), nz * sin(theta/2) }`.
+
   """
+
+  alias Graphmath.Mat33, as: Mat33
 
   @type quatern :: {float, float, float, float}
   @type vec3 :: {float, float, float}
   @type mat33 :: {float, float, float, float, float, float, float, float, float}
+  @type mat44 ::
+          {float, float, float, float, float, float, float, float, float, float, float, float,
+           float, float, float, float}
+
+  # https://en.wikipedia.org/wiki/Machine_epsilon
+  # note that BEAM uses doubles internally, so this is a bit of a cludge
+  @machine_small_float 5.96e-08
 
   @doc """
-  `create()` creates a zeroed `quatern`.
+  `identity()` creates the identity `quatern`.
 
   It takes no arguments.
 
-  It returns a `quatern` of the form `{ 0.0, 0.0, 0.0, 0.0  }`.
+  It returns a `quatern` of the form `{1.0, 0.0, 0.0, 0.0}`.
   """
-  @spec create() :: quatern
-  def create() do
-    {0.0, 0.0, 0.0, 0.0}
+  @spec identity() :: quatern
+  def identity(), do: {1.0, 0.0, 0.0, 0.0}
+
+  @doc """
+  `zero()` creates a zero `quatern`.
+
+  It takes no arguments.
+
+  It returns a `quatern` of the form `{0.0, 0.0, 0.0, 0.0}`.
+
+  Note that the zero quaternion is almost definetely not something you ever use.
+  """
+  @spec zero() :: quatern
+  def zero(), do: {0.0, 0.0, 0.0, 0.0}
+
+  @doc """
+  `equal_elements(a,b)` checks to see if two quaternions a and b are element-wise equal.
+
+  `a` is the first quaternion.
+
+  `b` is the second quaternion.
+
+  It returns true if the quaternions have the same elements, false otherwise.
+
+  **This function does not require normalized quaternions.**
+
+  Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
+
+  In such cases, prefer the `equal/2` function.
+  """
+  @spec equal_elements(quatern, quatern) :: boolean()
+  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b) do
+    aw == bw and ax == bx and ay == by and az == bz
+  end
+
+  @doc """
+  `equal_elements(a,b, eps)` checks to see if two quaternions a and b are element-wise equal to some epsilon
+
+  `a` is the first quaternion.
+
+  `b` is the second quaternion.
+
+  `eps` is the float of the epsilon for comparison.
+
+  It returns true if the quaternions have the same element-wise values up to and including some epsilon.
+
+  **This function does not require normalized quaternions.**
+
+  Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
+
+  In such cases, prefer the `equal/3` function.
+  """
+  @spec equal_elements(quatern, quatern, float) :: boolean()
+  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b, eps) do
+    abs(aw - bw) <= eps and
+      abs(ax - bx) <= eps and
+      abs(ay - by) <= eps and
+      abs(az - bz) <= eps
+  end
+
+  @doc """
+  `equal(a,b)` checks to see if two orientation quaternions a and b are equivalent.
+
+  `a` is the first quaternion.
+
+  `b` is the second quaternion.
+
+  It returns true if the quaternions represent the same orientation.
+
+  **This function expects normalized quaternions.**
+
+  Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
+  """
+  @spec equal(quatern, quatern) :: boolean()
+  def equal(a, b) do
+    abs(dot(a, b)) >= 1.0
+  end
+
+  @doc """
+  `equal(a,b,eps)` checks to see if two orientation quaternions a and b are equivalent up to some epsilon
+
+  `a` is the first quaternion.
+
+  `b` is the second quaternion.
+
+  `eps` is the epsilon, on the interval [0,1].
+
+  It returns true if the quaternions represent the same orientation.
+
+  **This function expects normalized quaternions.**
+
+  Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
+  """
+  @spec equal(quatern, quatern, float) :: boolean()
+  def equal(a, b, eps) do
+    abs(dot(a, b)) >= 1.0 - eps
   end
 
   @doc """
   `create(w,x,y,z)` creates a `quatern` of value (w,x,y,z).
 
-  `w` is the rotation arround the axis in Radians.
+  `w` is the rotation around the axis in radians.
 
   `x` is the first element of the `vec3` representing the axis to be created.
 
@@ -52,11 +151,8 @@ defmodule Graphmath.Quatern do
 
   It returns a `quatern` of the form `{w,x,y,z}`, where `w`, `x`, `y`, and `z` are the first four elements in `quatern`.
   """
-  @spec create([float]) :: quatern
-  def create(quatern) do
-    [w, x, y, z | _] = quatern
-    {w, x, y, z}
-  end
+  @spec from_list([float]) :: quatern
+  def from_list([w, x, y, z]), do: {w, x, y, z}
 
   @doc """
   `create(w, vec)` creates a `quatern` from an angle and an axis.
@@ -67,10 +163,12 @@ defmodule Graphmath.Quatern do
 
   It returns a `quatern` of the form `{w,x,y,z}`.
   """
-  @spec create(float, vec3) :: quatern
-  def create(w, vec) do
-    {x, y, z} = vec
-    {w, x, y, z}
+  @spec from_axis_angle(float, vec3) :: quatern
+  def from_axis_angle(theta, {x, y, z}) do
+    half_theta = theta / 2.0
+    ct = :math.cos(half_theta)
+    st = :math.sin(half_theta)
+    {ct, st * x, st * y, st * z}
   end
 
   @doc """
@@ -254,14 +352,14 @@ defmodule Graphmath.Quatern do
   end
 
   @doc """
-  `to_rotation_matrix(quat)` creates a `mat33` from a quatern.
+  `to_rotation_matrix_33(quat)` creates a `mat33` from a quatern.
 
   `quat` is the quatern
 
   It returns a `mat33` representing a rotation.
   """
-  @spec to_rotation_matrix(quatern) :: mat33
-  def to_rotation_matrix(quat) do
+  @spec to_rotation_matrix_33(quatern) :: mat33
+  def to_rotation_matrix_33(quat) do
     {w, x, y, z} = quat
     f_tx = x + x
     f_ty = y + y
@@ -287,6 +385,42 @@ defmodule Graphmath.Quatern do
     a33 = 1.0 - (f_t_xx + f_t_yy)
 
     {a11, a12, a13, a21, a22, a23, a31, a32, a33}
+  end
+
+  @doc """
+  `to_rotation_matrix_44(quat)` creates a `mat44` from a quatern.
+
+  `quat` is the quatern
+
+  It returns a `mat44` representing a rotation.
+  """
+  @spec to_rotation_matrix_44(quatern) :: mat44
+  def to_rotation_matrix_44(quat) do
+    {w, x, y, z} = quat
+    f_tx = x + x
+    f_ty = y + y
+    f_tz = z + z
+    f_t_wx = f_tx * w
+    f_t_wy = f_ty * w
+    f_t_wz = f_tz * w
+    f_t_xx = f_tx * x
+    f_t_xy = f_ty * x
+    f_t_xz = f_tz * x
+    f_t_yy = f_ty * y
+    f_t_yz = f_tz * y
+    f_t_zz = f_tz * z
+
+    a11 = 1.0 - (f_t_yy + f_t_zz)
+    a12 = f_t_xy - f_t_wz
+    a13 = f_t_xz + f_t_wy
+    a21 = f_t_xy + f_t_wz
+    a22 = 1.0 - (f_t_xx + f_t_zz)
+    a23 = f_t_yz - f_t_wx
+    a31 = f_t_xz - f_t_wy
+    a32 = f_t_yz + f_t_wx
+    a33 = 1.0 - (f_t_xx + f_t_yy)
+
+    {a11, a12, a13, 0.0, a21, a22, a23, 0.0, a31, a32, a33, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -320,17 +454,39 @@ defmodule Graphmath.Quatern do
   end
 
   @doc """
+  `normalize_strict(q)` returns a normalized verison of a quaternion.
+
+  `q` is the `quatern` to be normalized.
+
+  This returns a `quatern` of unit length in the same direction as `q`.
+
+  If the magnitude of the quaternion is 0, it will explode.
+  """
+  @spec normalize_strict(quatern) :: quatern
+  def normalize_strict({w, x, y, z} = _q) do
+    inv_mag = 1.0 / :math.sqrt(w * w + x * x + y * y + z * z)
+    {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
+  end
+
+  @doc """
   `normalize(q)` returns a normalized verison of a quaternion.
 
   `q` is the `quatern` to be normalized.
 
   This returns a `quatern` of unit length in the same direction as `q`.
+
+  If the magnitude of the quaternion is 0, it will return the zero quaternion.
   """
   @spec normalize(quatern) :: quatern
-  def normalize(q) do
-    {w, x, y, z} = q
-    inv_mag = 1.0 / :math.sqrt(w * w + x * x + y * y + z * z)
-    {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
+  def normalize({w, x, y, z} = _q) do
+    mag = :math.sqrt(w * w + x * x + y * y + z * z)
+
+    if mag > 0 do
+      inv_mag = 1.0 / :math.sqrt(w * w + x * x + y * y + z * z)
+      {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
+    else
+      {0.0, 0.0, 0.0, 0.0}
+    end
   end
 
   @doc """
@@ -340,7 +496,7 @@ defmodule Graphmath.Quatern do
 
   It returns a `quatern` representing the inverse of the parameter quaternion.
 
-  If the `quat`is less than zero, the quaternion returned is a zero quaternion.
+  If the `quat` is less than or equal to zero, the quaternion returned is a zero quaternion.
   """
   @spec inverse(quatern) :: quatern
   def inverse(quat) do
@@ -352,8 +508,7 @@ defmodule Graphmath.Quatern do
       f_inv_norm = 1.0 / f_norm
       {w * f_inv_norm, -x * f_inv_norm, -y * f_inv_norm, -z * f_inv_norm}
     else
-      # return an invalid result to flag the error
-      create()
+      {0.0, 0.0, 0.0, 0.0}
     end
   end
 
@@ -411,5 +566,88 @@ defmodule Graphmath.Quatern do
       # taking the complement requires renormalisation
       normalize(r)
     end
+  end
+
+  @doc """
+  `transform_vector(q,v)` transforms a vector v by an orientation quaternion q.
+
+  `q` is an orientation quaternion.
+
+  `v` is a Vec3 to transform--it need not be normalized.
+
+  It returns a `Vec3` of `v` having undergone the rotation represented by `q`.
+  """
+  @spec transform_vector(quatern, vec3) :: vec3
+  def transform_vector({qw, qx, qy, qz}, {vx, vy, vz}) do
+    # v' = qvq', but we'll use the rediscovered formula of rodrigues answer from SO ( https://gamedev.stackexchange.com/a/50545 )
+
+    dot_uv = qx * vx + qy * vy + qz * vz
+    two_dot_uv = 2.0 * dot_uv
+    dot_uu = qx * qx + qy * qy + qz * qz
+    v_scalar = qw * qw - dot_uu
+    two_qw = 2.0 * qw
+
+    {
+      two_dot_uv * qx + v_scalar * vx + two_qw * (qy * vz - qz * vy),
+      two_dot_uv * qy + v_scalar * vy + two_qw * (qz * vx - qx * vz),
+      two_dot_uv * qz + v_scalar * vz + two_qw * (qx * vy - qy * vx)
+    }
+  end
+
+  @doc """
+  `integrate(q, omega, dt)` integrates the angular velocty omega over a timestep dt with intial orientation q.
+
+  `q` is an orientation quaternion to use as the initial orientation.
+
+  `omega` is a `vec3` whose direction is the axis of rotation and whose magnitude is the velocity about that axis.
+
+  `dt` is the timestep over which to apply the angular velocity.
+
+  It returns an orientation `quatern`.
+  """
+  @spec integrate(quatern, vec3, number) :: quatern
+  def integrate(q, omega, dt) do
+    # this routine inspired and adapted from http://physicsforgames.blogspot.com/2010/02/quaternions.html
+    # this explains a similar routine in cannon.js
+
+    # get convert angular velocity vector to actual angular displacement by integrating time
+    {theta_x, theta_y, theta_z} = theta = Graphmath.Vec3.scale(omega, 0.5 * dt)
+    theta_magnitude_squared = Graphmath.Vec3.length_squared(theta)
+
+    # use small-angle approximation for sin/cos if the magnitude is too small
+    {delta_Q_w, s} =
+      if theta_magnitude_squared * theta_magnitude_squared / 24.0 < @machine_small_float do
+        # use the more stable Taylor series for low-angle appromixations to sin/cos
+        {1.0 - theta_magnitude_squared / 2.0, 1.0 - theta_magnitude_squared / 6.0}
+      else
+        # we're not too small! use real sin/cos
+        theta_magnitude = :math.sqrt(theta_magnitude_squared)
+        {:math.cos(theta_magnitude), :math.sin(theta_magnitude) / theta_magnitude}
+      end
+
+    multiply({delta_Q_w, theta_x * s, theta_y * s, theta_z * s}, q)
+    |> normalize()
+  end
+
+  @doc """
+  Genrate a random quatenrion (rotation on SO3), using the algorithm given [here](http://planning.cs.uiuc.edu/node198.html).
+
+  It returns an orientation `quatern`.
+  """
+  @spec random() :: quatern
+  def random() do
+    u1 = :random.uniform()
+    u2 = :random.uniform()
+    u3 = :random.uniform()
+
+    sqrtomu1 = :math.sqrt(1.0 - u1)
+    sqrtu1 = :math.sqrt(u1)
+    pi = :math.pi()
+    s2pu2 = :math.sin(2.0 * pi * u2)
+    c2pu2 = :math.cos(2.0 * pi * u2)
+    s2pu3 = :math.sin(2.0 * pi * u3)
+    c2pu3 = :math.cos(2.0 * pi * u3)
+
+    {sqrtomu1 * s2pu2, sqrtomu1 * c2pu2, sqrtu1 * s2pu3, sqrtu1 * c2pu3}
   end
 end

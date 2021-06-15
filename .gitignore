@@ -7,3 +7,5 @@ erl_crash.dump
 *.beam
 doc/**/*
 graphmath.code-workspace
+.elixir_ls
+.vscode

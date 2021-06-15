@@ -306,4 +306,82 @@ defmodule Graphmath.Vec2 do
     {x, y} = a
     {-y, x}
   end
+
+  @doc """
+  `equal(a, b)` checks to see if two vec2s a and b are equivalent.
+
+  `a` is the `vec2`.
+
+  `b` is the `vec2`.
+
+  It returns true if the vectors have equal elements.
+
+  Note that due to precision issues, you may want to use `equal/3` instead.
+  """
+  @spec equal(vec2, vec2) :: boolean
+  def equal({ax, ay}, {bx, by}) do
+    ax == bx and ay == by
+  end
+
+  @doc """
+  `equal(a, b, eps)` checks to see if two vec2s a and b are equivalent within some tolerance.
+
+  `a` is the `vec2`.
+
+  `b` is the `vec2`.
+
+  `eps` is the tolerance, a float.
+
+  It returns true if the vectors have equal elements within some tolerance.
+  """
+  @spec equal(vec2, vec2, float) :: boolean
+  def equal({ax, ay}, {bx, by}, eps) do
+    abs(ax - bx) <= eps and
+      abs(ay - by) <= eps
+  end
+
+  @doc """
+  `random_circle()` generates a point on the unit circle.
+
+  It returns a vec2 with distance 1 from the origin.
+  """
+  @spec random_circle() :: vec2
+  def random_circle() do
+    pi = :math.pi()
+    theta = :random.uniform()
+    {:math.cos(2.0 * pi * theta), :math.sin(2.0 * pi * theta)}
+  end
+
+  @doc """
+  `random_disc()` generates a point on or inside the unit circle using the method [here](http://mathworld.wolfram.com/DiskPointPicking.html).
+
+  It returns a vec2 with distance 1 from the origin.
+  """
+  @spec random_disc() :: vec2
+  def random_disc() do
+    pi = :math.pi()
+    theta = :random.uniform()
+    rho = :math.sqrt(:random.uniform())
+    {rho * :math.cos(2.0 * pi * theta), rho * :math.sin(2.0 * pi * theta)}
+  end
+
+  @doc """
+  `random_box()` generates a point on or inside the unit box [0,1]x[0,1].
+  """
+  @spec random_box() :: vec2
+  def random_box(), do: {:random.uniform(), :random.uniform()}
+
+  @doc """
+  `negate(v)` creates a vector whose elements are opposite in sign to `v`.
+  """
+  @spec negate(vec2) :: vec2
+  def negate({x, y}), do: {-1.0 * x, -1.0 * y}
+
+  @doc """
+  `weighted_sum(a, v1, b, v2)` returns the sum of vectors `v1` and `v2` having been scaled by `a` and `b`, respectively.
+  """
+  @spec weighted_sum(number, vec2, number, vec2) :: vec2
+  def weighted_sum(a, {x, y}, b, {u, v}) do
+    {a * x + b * u, a * y + b * v}
+  end
 end

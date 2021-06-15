@@ -1,4 +1,3 @@
-[![Build Status](https://api.travis-ci.org/repositories/crertel/graphmath.svg)](https://travis-ci.org/crertel/graphmath)
 [![CircleCI](https://circleci.com/gh/crertel/graphmath.svg?style=svg)](https://circleci.com/gh/crertel/graphmath)
 [![Inline docs](http://inch-ci.org/github/crertel/graphmath.svg)](http://inch-ci.org/github/crertel/graphmath)
 [![hex.pm version](https://img.shields.io/hexpm/v/graphmath.svg)](https://hex.pm/packages/graphmath)
@@ -63,11 +62,11 @@ All operations are accompanied by tests and documentation.
 Contributing
 ============
 
-###Issues###
+### Issues
 
 1. Open an issue on Github.
 
-###For developers###
+### For developers
 
 1. Fork this project on Github.
 
@@ -81,7 +80,7 @@ Contributing
 
 6. Bask in the glory of having helped create content on one of the best platforms ever devised.
 
-###For non-developers###
+### For non-developers
 
 1. Buy me a beer if you see me at ElixirConf.
 

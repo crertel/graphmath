@@ -3,22 +3,20 @@ jobs:  # basic units of work in a run
   build:  # runs not using Workflows must have a `build` job as entry point
     parallelism: 1  # run only one instance of this job in parallel
     docker:  # run the steps with Docker
-      - image: circleci/elixir:1.7.3  # ...with this image as the primary container; this is where all `steps` will run
+      - image: circleci/elixir:1.8.2  # ...with this image as the primary container; this is where all `steps` will run
         environment:  # environment variables for primary container
           MIX_ENV: test
-      - image: circleci/postgres:10.1-alpine  # database image
-        environment:  # environment variables for database
-          POSTGRES_USER: postgres
-          POSTGRES_DB: app_test
-          POSTGRES_PASSWORD:
 
     working_directory: ~/app  # directory where steps will run
 
     steps:  # commands that comprise the `build` job
       - checkout  # check out source code to working directory
 
-      - run: mix local.hex --force  # install Hex locally (without prompt)
-      - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
+      - run: 
+          name: Setup hex and rebar
+          command: |
+            mix local.hex --force  # install Hex locally (without prompt)
+            mix local.rebar --force  # fetch a copy of rebar (without prompt)
 
       - restore_cache:  # restores saved mix cache
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
@@ -30,7 +28,9 @@ jobs:  # basic units of work in a run
           keys:
             - v1-build-cache-{{ .Branch }}
             - v1-build-cache
-      - run: mix do deps.get, compile  # get updated dependencies & compile them
+      - run:
+          name: Get deps and compile
+          command: mix do deps.get, compile  # get updated dependencies & compile them
       - save_cache:  # generate and store mix cache
           key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
           paths: "deps"
@@ -47,12 +47,22 @@ jobs:  # basic units of work in a run
           key: v1-build-cache
           paths: "_build"
 
-      - run:  # special utility that stalls main process until DB is ready
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-
-      - run: mix test  # run all tests in project
+      - run: 
+          name: Run tests
+          command: mix test  # run all tests in project
 
       - store_test_results:  # upload junit test results for display in Test Summary
           # Read more: https://circleci.com/docs/2.0/collect-test-data/
           path: _build/test/lib/graphmath # Replace with the name of your :app
+
+      - run: 
+          name: Post test coverage
+          command: |
+            export T_COMMIT_MESSAGE="`git log --pretty=format:%s -1`"
+            MIX_ENV=dev mix coveralls.post --branch "$CIRCLE_BRANCH" --sha "$CIRCLE_SHA1" --message "$T_COMMIT_MESSAGE"
+      - run:
+          name: Post documnetation coverage
+          command: |
+            MIX_ENV=docs mix deps.get
+            MIX_ENV=docs mix inch.report
+      
