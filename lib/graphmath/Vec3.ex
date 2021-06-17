@@ -379,4 +379,18 @@ defmodule Graphmath.Vec3 do
   def scalar_triple({ax, ay, az}, {bx, by, bz}, {cx, cy, cz}) do
     ax * (by * cz - bz * cy) + ay * (bz * cx - bx * cz) + az * (bx * cy - by * cx)
   end
+
+    @doc """
+  `minkowski_distance(a,b,order)` returns the [Minkowski distance](https://en.wikipedia.org/wiki/Minkowski_distance) between two points `a` and b` of order `order`.
+
+  Order 1 is equivalent to manhattan distance, 2 to Euclidean distance, otherwise all bets are off.
+  """
+  @spec minkowski_distance( vec3, vec3, number) :: number
+  def minkowski_distance({x1,y1,z1}, {x2,y2,z2}, order) do
+    adx = abs(x2 - x1)
+    ady = abs(y2 - y1)
+    adz = abs(z2 - z1)
+    temp = :math.pow(adx, order) + :math.pow(ady, order) + :math.pow(adz, order)
+    :math.pow(temp, 1 / order)
+  end
 end

@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [2.5.0] - 2021-06-14
+### Added
+- Added `Vec2.minkowski_distance/3".
+- Added `Vec3.minkowski_distance/3".
+
 ### Changed
 - Update to require Elixir 12.1.
 - Update credo to 1.5.6.
