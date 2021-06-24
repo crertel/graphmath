@@ -397,4 +397,14 @@ defmodule Graphmath.Vec2 do
     temp = :math.pow(adx, order) + :math.pow(ady, order)
     :math.pow(temp, 1 / order)
   end
+
+  @doc """
+  `chebyshev_distance(a,b)` returns the [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance) between two points `a` and b`.
+  """
+  @spec chebyshev_distance( vec2, vec2) :: number
+  def chebyshev_distance({x1,y1}, {x2,y2}) do
+    adx = abs(x2 - x1)
+    ady = abs(y2 - y1)
+    max(adx, ady)
+  end
 end
