@@ -380,7 +380,7 @@ defmodule Graphmath.Vec3 do
     ax * (by * cz - bz * cy) + ay * (bz * cx - bx * cz) + az * (bx * cy - by * cx)
   end
 
-    @doc """
+  @doc """
   `minkowski_distance(a,b,order)` returns the [Minkowski distance](https://en.wikipedia.org/wiki/Minkowski_distance) between two points `a` and b` of order `order`.
 
   `order` needs to be greater than or equal to 1 to define a [metric space](https://en.wikipedia.org/wiki/Metric_space).
@@ -394,5 +394,16 @@ defmodule Graphmath.Vec3 do
     adz = abs(z2 - z1)
     temp = :math.pow(adx, order) + :math.pow(ady, order) + :math.pow(adz, order)
     :math.pow(temp, 1 / order)
+  end
+
+  @doc """
+  `chebyshev_distance(a,b)` returns the [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance) between two points `a` and b`.
+  """
+  @spec chebyshev_distance( vec3, vec3) :: number
+  def chebyshev_distance({x1,y1,z1}, {x2,y2,z2}) do
+    adx = abs(x2 - x1)
+    ady = abs(y2 - y1)
+    adz = abs(z2 - z1)
+    max(adx, max(ady,adz))
   end
 end
