@@ -406,4 +406,20 @@ defmodule Graphmath.Vec3 do
     adz = abs(z2 - z1)
     max(adx, max(ady,adz))
   end
+
+  @doc """
+  `p_norm(v,order)` returns the [P-norm](https://en.wikipedia.org/wiki/Lp_space#The_p-norm_in_finite_dimensions) of vector `v` of order `order`.
+
+  `order` needs to be greater than or equal to 1 to define a [metric space](https://en.wikipedia.org/wiki/Metric_space).
+
+  `order` 1 is equivalent to manhattan distance, 2 to Euclidean distance, otherwise all bets are off.
+  """
+  @spec p_norm( vec3, number) :: number
+  def p_norm({x, y, z}, order) do
+    ax = abs(x)
+    ay = abs(y)
+    az = abs(z)
+    temp = :math.pow(ax, order) + :math.pow(ay, order) + :math.pow(az, order)
+    :math.pow(temp, 1 / order)
+  end
 end
