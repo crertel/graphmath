@@ -383,7 +383,9 @@ defmodule Graphmath.Vec3 do
     @doc """
   `minkowski_distance(a,b,order)` returns the [Minkowski distance](https://en.wikipedia.org/wiki/Minkowski_distance) between two points `a` and b` of order `order`.
 
-  Order 1 is equivalent to manhattan distance, 2 to Euclidean distance, otherwise all bets are off.
+  `order` needs to be greater than or equal to 1 to define a [metric space](https://en.wikipedia.org/wiki/Metric_space).
+
+  `order` 1 is equivalent to manhattan distance, 2 to Euclidean distance, otherwise all bets are off.
   """
   @spec minkowski_distance( vec3, vec3, number) :: number
   def minkowski_distance({x1,y1,z1}, {x2,y2,z2}, order) do
