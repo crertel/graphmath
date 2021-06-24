@@ -6,10 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.5.0] - 2021-06-14
 ### Added
-- Added `Vec2.minkowski_distance/3".
-- Added `Vec3.minkowski_distance/3".
-- Added `Vec2.chebyshev_distance/3".
-- Added `Vec3.chebyshev_distance/3".
+- Added `Vec2.minkowski_distance/3`.
+- Added `Vec3.minkowski_distance/3`.
+- Added `Vec2.chebyshev_distance/3`.
+- Added `Vec3.chebyshev_distance/3`.
+- Added `Vec2.p_norm/2`.
+- Added `Vec3.p_norm/2`.
 
 ### Changed
 - Update to require Elixir 12.1.
