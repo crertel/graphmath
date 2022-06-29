@@ -37,7 +37,7 @@ This package is available from the [hex](https://hex.pm) package manager.
 
 Just add it to your `mix.exs` file like so:
 
-```
+```elixir
   def project do
     [app: myapp,
      version: "x.y.z",
