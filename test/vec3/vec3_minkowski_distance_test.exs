@@ -16,12 +16,12 @@ defmodule GraphmathTest.Vec3.MinkowskiDistanceVec3 do
   @tag :vec3
   @tag :minkowski_distance
   test "minkowski_distance({0,0},{1,1,1}, 1) returns 0" do
-    assert 3 == Graphmath.Vec3.minkowski_distance({0, 0, 0}, {1,1,1}, 1)
+    assert 3 == Graphmath.Vec3.minkowski_distance({0, 0, 0}, {1, 1, 1}, 1)
   end
 
   @tag :vec3
   @tag :minkowski_distance
   test "minkowski_distance({0,0},{1,1,1}, 2) returns 0" do
-    assert :math.sqrt(3) == Graphmath.Vec3.minkowski_distance({0, 0,0}, {1,1,1}, 2)
+    assert :math.sqrt(3) == Graphmath.Vec3.minkowski_distance({0, 0, 0}, {1, 1, 1}, 2)
   end
 end

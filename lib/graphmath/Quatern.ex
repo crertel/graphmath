@@ -1,6 +1,6 @@
 defmodule Graphmath.Quatern do
   @moduledoc """
-  This is the 3D mathematics library for graphmath.
+  This is the 3D mathematics.
 
   This submodule handles Quaternion using tuples of floats.
 

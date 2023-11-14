@@ -1,6 +1,6 @@
 defmodule Graphmath.Mat44 do
   @moduledoc """
-  This is the 3D mathematics library for graphmath.
+  This is the 3D mathematics.
 
   This submodule handles 4x4 matrices using tuples of floats.
   """

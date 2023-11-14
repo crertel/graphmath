@@ -1,8 +1,8 @@
 defmodule Graphmath.Vec2 do
   @moduledoc """
-  This is the 2D mathematics library for graphmath.
+  This is the 2D mathematics.
 
-  This submodule handles vectors stored as a tuple.
+  This submodule handles vectors stored as tuples of floats ex: `{1.0, 2.0}`.
   """
 
   @type vec2 :: {float, float}
@@ -386,12 +386,12 @@ defmodule Graphmath.Vec2 do
   end
 
   @doc """
-  `minkowski_distance(a,b,order)` returns the [Minkowski distance](https://en.wikipedia.org/wiki/Minkowski_distance) between two points `a` and b` of order `order`.
+  `minkowski_distance(a,b,order)` returns the [Minkowski distance](https://en.wikipedia.org/wiki/Minkowski_distance) between two points `a` and `b` of order `order`.
 
   Order 1 is equivalent to manhattan distance, 2 to Euclidean distance, otherwise all bets are off.
   """
-  @spec minkowski_distance( vec2, vec2, number) :: number
-  def minkowski_distance({x1,y1}, {x2,y2}, order) do
+  @spec minkowski_distance(vec2, vec2, number) :: number
+  def minkowski_distance({x1, y1}, {x2, y2}, order) do
     adx = abs(x2 - x1)
     ady = abs(y2 - y1)
     temp = :math.pow(adx, order) + :math.pow(ady, order)
@@ -399,23 +399,23 @@ defmodule Graphmath.Vec2 do
   end
 
   @doc """
-  `chebyshev_distance(a,b)` returns the [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance) between two points `a` and b`.
+  `chebyshev_distance(a,b)` returns the [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance) between two points `a` and `b`.
   """
-  @spec chebyshev_distance( vec2, vec2) :: number
-  def chebyshev_distance({x1,y1}, {x2,y2}) do
+  @spec chebyshev_distance(vec2, vec2) :: number
+  def chebyshev_distance({x1, y1}, {x2, y2}) do
     adx = abs(x2 - x1)
     ady = abs(y2 - y1)
     max(adx, ady)
   end
 
-    @doc """
+  @doc """
   `p_norm(v,order)` returns the [P-norm](https://en.wikipedia.org/wiki/Lp_space#The_p-norm_in_finite_dimensions) of vector `v` of order `order`.
 
   `order` needs to be greater than or equal to 1 to define a [metric space](https://en.wikipedia.org/wiki/Metric_space).
 
   `order` 1 is equivalent to manhattan distance, 2 to Euclidean distance, otherwise all bets are off.
   """
-  @spec p_norm( vec2, number) :: number
+  @spec p_norm(vec2, number) :: number
   def p_norm({x, y}, order) do
     ax = abs(x)
     ay = abs(y)
