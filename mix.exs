@@ -12,7 +12,14 @@ defmodule Graphmath.Mixfile do
       source_url: "https://github.com/crertel/graphmath",
       docs: &docs/0,
       deps: deps(),
-      test_coverage: [tool: ExCoveralls]
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.github": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
