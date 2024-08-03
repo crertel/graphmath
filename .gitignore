@@ -9,3 +9,5 @@ doc/**/*
 graphmath.code-workspace
 .elixir_ls
 .vscode
+/.nix-hex
+/.nix-mix

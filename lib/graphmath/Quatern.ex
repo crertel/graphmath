@@ -18,7 +18,7 @@ defmodule Graphmath.Quatern do
            float, float, float, float}
 
   # https://en.wikipedia.org/wiki/Machine_epsilon
-  # note that BEAM uses doubles internally, so this is a bit of a cludge
+  # note that BEAM uses doubles internally, so this is a bit of a kludge
   @machine_small_float 5.96e-08
 
   @doc """
@@ -59,9 +59,13 @@ defmodule Graphmath.Quatern do
   In such cases, prefer the `equal/2` function.
   """
   @spec equal_elements(quatern, quatern) :: boolean()
-  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b) do
-    aw == bw and ax == bx and ay == by and az == bz
-  end
+  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b)
+      when is_float(aw) and is_float(ax) and is_float(ay) and is_float(az) and
+             is_float(bw) and is_float(bx) and is_float(by) and is_float(bz),
+      do: aw == bw and ax == bx and ay == by and az == bz
+
+  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b),
+    do: aw == bw and ax == bx and ay == by and az == bz
 
   @doc """
   `equal_elements(a,b, eps)` checks to see if two quaternions a and b are element-wise equal to some epsilon
@@ -81,12 +85,21 @@ defmodule Graphmath.Quatern do
   In such cases, prefer the `equal/3` function.
   """
   @spec equal_elements(quatern, quatern, float) :: boolean()
-  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b, eps) do
-    abs(aw - bw) <= eps and
-      abs(ax - bx) <= eps and
-      abs(ay - by) <= eps and
-      abs(az - bz) <= eps
-  end
+  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b, eps)
+      when is_float(aw) and is_float(ax) and is_float(ay) and is_float(az) and
+             is_float(bw) and is_float(bx) and is_float(by) and is_float(bz) and is_float(eps),
+      do:
+        abs(aw - bw) <= eps and
+          abs(ax - bx) <= eps and
+          abs(ay - by) <= eps and
+          abs(az - bz) <= eps
+
+  def equal_elements({aw, ax, ay, az} = _a, {bw, bx, by, bz} = _b, eps),
+    do:
+      abs(aw - bw) <= eps and
+        abs(ax - bx) <= eps and
+        abs(ay - by) <= eps and
+        abs(az - bz) <= eps
 
   @doc """
   `equal(a,b)` checks to see if two orientation quaternions a and b are equivalent.
@@ -102,9 +115,12 @@ defmodule Graphmath.Quatern do
   Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
   """
   @spec equal(quatern, quatern) :: boolean()
-  def equal(a, b) do
-    abs(dot(a, b)) >= 1.0
-  end
+  def equal({aw, ax, ay, az} = a, {bw, bx, by, bz} = b)
+      when is_float(aw) and is_float(ax) and is_float(ay) and is_float(az) and
+             is_float(bw) and is_float(bx) and is_float(by) and is_float(bz),
+      do: abs(dot(a, b)) >= 1.0
+
+  def equal(a, b), do: abs(dot(a, b)) >= 1.0
 
   @doc """
   `equal(a,b,eps)` checks to see if two orientation quaternions a and b are equivalent up to some epsilon
@@ -122,9 +138,13 @@ defmodule Graphmath.Quatern do
   Note that orientation quaternions exist where a == -b...that is, where the axes are equivalent but the angle is opposite in sign.
   """
   @spec equal(quatern, quatern, float) :: boolean()
-  def equal(a, b, eps) do
-    abs(dot(a, b)) >= 1.0 - eps
-  end
+
+  def equal({aw, ax, ay, az} = a, {bw, bx, by, bz} = b, eps)
+      when is_float(aw) and is_float(ax) and is_float(ay) and is_float(az) and
+             is_float(bw) and is_float(bx) and is_float(by) and is_float(bz) and is_float(eps),
+      do: abs(dot(a, b)) >= 1.0 - eps
+
+  def equal(a, b, eps), do: abs(dot(a, b)) >= 1.0 - eps
 
   @doc """
   `create(w,x,y,z)` creates a `quatern` of value (w,x,y,z).
@@ -140,9 +160,10 @@ defmodule Graphmath.Quatern do
   It returns a `quatern` of the form `{w,x,y,z}`.
   """
   @spec create(float, float, float, float) :: quatern
-  def create(w, x, y, z) do
-    {w, x, y, z}
-  end
+  def create(w, x, y, z) when is_float(w) and is_float(x) and is_float(y) and is_float(z),
+    do: {w, x, y, z}
+
+  def create(w, x, y, z), do: {1.0 * w, 1.0 * x, 1.0 * y, 1.0 * z}
 
   @doc """
   `create(quatern)` creates a `quatern` from a list of 4 or more floats.
@@ -152,7 +173,11 @@ defmodule Graphmath.Quatern do
   It returns a `quatern` of the form `{w,x,y,z}`, where `w`, `x`, `y`, and `z` are the first four elements in `quatern`.
   """
   @spec from_list([float]) :: quatern
-  def from_list([w, x, y, z]), do: {w, x, y, z}
+  def from_list([w, x, y, z | _])
+      when is_float(w) and is_float(x) and is_float(y) and is_float(z),
+      do: {w, x, y, z}
+
+  def from_list([w, x, y, z | _]), do: {w, x, y, z}
 
   @doc """
   `create(w, vec)` creates a `quatern` from an angle and an axis.
@@ -164,6 +189,14 @@ defmodule Graphmath.Quatern do
   It returns a `quatern` of the form `{w,x,y,z}`.
   """
   @spec from_axis_angle(float, vec3) :: quatern
+  def from_axis_angle(theta, {x, y, z})
+      when is_float(theta) and is_float(x) and is_float(y) and is_float(z) do
+    half_theta = theta / 2.0
+    ct = :math.cos(half_theta)
+    st = :math.sin(half_theta)
+    {ct, st * x, st * y, st * z}
+  end
+
   def from_axis_angle(theta, {x, y, z}) do
     half_theta = theta / 2.0
     ct = :math.cos(half_theta)
@@ -181,12 +214,12 @@ defmodule Graphmath.Quatern do
   It returns a `quatern` of the form { lhs<sub>w</sub> + rhs<sub>w</sub>, lhs<sub>x</sub> + rhs<sub>x</sub>, lhs<sub>y</sub> + rhs<sub>y</sub>, lhs<sub>z</sub> + rhs<sub>z</sub> }.
   """
   @spec add(quatern, quatern) :: quatern
-  def add(lhs, rhs) do
-    {w, x, y, z} = lhs
-    {a, b, c, d} = rhs
+  def add({w, x, y, z}, {a, b, c, d})
+      when is_float(w) and is_float(x) and is_float(y) and is_float(z) and
+             is_float(a) and is_float(b) and is_float(c) and is_float(d),
+      do: {w + a, x + b, y + c, z + d}
 
-    {w + a, x + b, y + c, z + d}
-  end
+  def add({w, x, y, z}, {a, b, c, d}), do: {1.0 * w + a, 1.0 * x + b, 1.0 * y + c, 1.0 * z + d}
 
   @doc """
   `subtract(lhs, rhs)` subtract two quaternions.
@@ -198,12 +231,13 @@ defmodule Graphmath.Quatern do
    It returns a `quatern` of the form { lhs<sub>w</sub> - rhs<sub>w</sub>, lhs<sub>x</sub> - rhs<sub>x</sub>, lhs<sub>y</sub> - rhs<sub>y</sub>, lhs<sub>z</sub> - rhs<sub>z</sub> }.
   """
   @spec subtract(quatern, quatern) :: quatern
-  def subtract(lhs, rhs) do
-    {w, x, y, z} = lhs
-    {a, b, c, d} = rhs
+  def subtract({w, x, y, z}, {a, b, c, d})
+      when is_float(w) and is_float(x) and is_float(y) and is_float(z) and
+             is_float(a) and is_float(b) and is_float(c) and is_float(d),
+      do: {w - a, x - b, y - c, z - d}
 
-    {w - a, x - b, y - c, z - d}
-  end
+  def subtract({w, x, y, z}, {a, b, c, d}),
+    do: {1.0 * w - a, 1.0 * x - b, 1.0 * y - c, 1.0 * z - d}
 
   @doc """
   `multiply(lhs, rhs)` multiply two quaternions.
@@ -216,13 +250,17 @@ defmodule Graphmath.Quatern do
    NOTE: Multiplication is not generally commutative, so in most cases p*q != q*p.
   """
   @spec multiply(quatern, quatern) :: quatern
-  def multiply(lhs, rhs) do
-    {w, x, y, z} = lhs
-    {a, b, c, d} = rhs
+  def multiply({w, x, y, z}, {a, b, c, d})
+      when is_float(w) and is_float(x) and is_float(y) and is_float(z) and
+             is_float(a) and is_float(b) and is_float(c) and is_float(d),
+      do:
+        {w * a - x * b - y * c - z * d, w * b + x * a + y * d - z * c,
+         w * c + y * a + z * b - x * d, w * d + z * a + x * c - y * b}
 
-    {w * a - x * b - y * c - z * d, w * b + x * a + y * d - z * c, w * c + y * a + z * b - x * d,
-     w * d + z * a + x * c - y * b}
-  end
+  def multiply({w, x, y, z}, {a, b, c, d}),
+    do:
+      {1.0 * w * a - x * b - y * c - z * d, 1.0 * w * b + x * a + y * d - z * c,
+       1.0 * w * c + y * a + z * b - x * d, 1.0 * w * d + z * a + x * c - y * b}
 
   @doc """
   `scale(quat, scalar)` multiply a `quatern` for a scalar.
@@ -235,11 +273,11 @@ defmodule Graphmath.Quatern do
       { a<sub>w</sub> * scalar, a<sub>x</sub> * scalar, a<sub>y</sub> * scalar, a<sub>z</sub> * scalar}.
   """
   @spec scale(quatern, float) :: quatern
-  def scale(quat, scalar) do
-    {w, x, y, z} = quat
+  def scale({w, x, y, z}, scalar)
+      when is_float(w) and is_float(x) and is_float(y) and is_float(z) and is_float(scalar),
+      do: {w * scalar, x * scalar, y * scalar, z * scalar}
 
-    {w * scalar, x * scalar, y * scalar, z * scalar}
-  end
+  def scale({w, x, y, z}, scalar), do: {w * scalar, x * scalar, y * scalar, z * scalar}
 
   @doc """
   `roll(quat)` Calculate the local roll element of a quaternion.
@@ -249,9 +287,18 @@ defmodule Graphmath.Quatern do
   It returns a `float` representing the roll of the quaternion in Radians.
   """
   @spec get_roll(quatern) :: float
-  def get_roll(quat) do
-    {w, x, y, z} = quat
+  def get_roll({w, x, y, z}) when is_float(w) and is_float(x) and is_float(y) and is_float(z) do
+    f_t_y = 2.0 * y
+    f_t_z = 2.0 * z
+    f_t_wz = f_t_z * w
+    f_t_xy = f_t_y * x
+    f_t_yy = f_t_y * y
+    f_t_zz = f_t_z * z
 
+    :math.atan2(f_t_xy + f_t_wz, 1.0 - (f_t_yy + f_t_zz))
+  end
+
+  def get_roll({w, x, y, z}) do
     f_t_y = 2.0 * y
     f_t_z = 2.0 * z
     f_t_wz = f_t_z * w
@@ -270,9 +317,18 @@ defmodule Graphmath.Quatern do
   It returns a `float` representing the pitch of the quaternion in Radians.
   """
   @spec get_pitch(quatern) :: float
-  def get_pitch(quat) do
-    {w, x, y, z} = quat
+  def get_pitch({w, x, y, z}) when is_float(w) and is_float(x) and is_float(y) and is_float(z) do
+    f_t_x = 2.0 * x
+    f_t_z = 2.0 * z
+    f_t_wx = f_t_x * w
+    f_t_xx = f_t_x * x
+    f_t_yz = f_t_z * y
+    f_t_zz = f_t_z * z
 
+    :math.atan2(f_t_yz + f_t_wx, 1.0 - (f_t_xx + f_t_zz))
+  end
+
+  def get_pitch({w, x, y, z}) do
     f_t_x = 2.0 * x
     f_t_z = 2.0 * z
     f_t_wx = f_t_x * w
@@ -291,9 +347,19 @@ defmodule Graphmath.Quatern do
   It returns a `float` representing the yaw of the quaternion in Radians.
   """
   @spec get_yaw(quatern) :: float
-  def get_yaw(quat) do
-    {w, x, y, z} = quat
+  def get_yaw({w, x, y, z}) when is_float(w) and is_float(x) and is_float(y) and is_float(z) do
+    f_t_x = 2.0 * x
+    f_t_y = 2.0 * y
+    f_t_z = 2.0 * z
+    f_t_wy = f_t_y * w
+    f_t_xx = f_t_x * x
+    f_t_xz = f_t_z * x
+    f_t_yy = f_t_y * y
 
+    :math.atan2(f_t_xz + f_t_wy, 1.0 - (f_t_xx + f_t_yy))
+  end
+
+  def get_yaw({w, x, y, z}) do
     f_t_x = 2.0 * x
     f_t_y = 2.0 * y
     f_t_z = 2.0 * z
@@ -313,9 +379,46 @@ defmodule Graphmath.Quatern do
   It returns a `quatern` of the form `{w,x,y,z}`.
   """
   @spec from_rotation_matrix(mat33) :: quatern
-  def from_rotation_matrix(mat) do
-    {a11, a12, a13, a21, a22, a23, a31, a32, a33} = mat
+  def from_rotation_matrix({a11, a12, a13, a21, a22, a23, a31, a32, a33} = mat)
+      when is_float(a11) and is_float(a12) and is_float(a13) and
+             is_float(a21) and is_float(a22) and is_float(a23) and
+             is_float(a31) and is_float(a32) and is_float(a33) do
+    # Why does the trace matter? Consult here:
+    # http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
+    f_trace = a11 + a22 + a33
 
+    if f_trace > 0.0 do
+      f_root = :math.sqrt(f_trace + 1.0)
+      w = 0.5 * f_root
+      f_root = 0.5 / f_root
+      {w, (a32 - a23) * f_root, (a13 - a31) * f_root, (a21 - a12) * f_root}
+    else
+      i_next = {1, 2, 0}
+
+      i =
+        cond do
+          a22 > a11 and a33 > Mat33.at(mat, 1, 1) -> 2
+          a33 > Mat33.at(mat, 0, 0) -> 2
+          true -> 0
+        end
+
+      j = elem(i_next, i)
+      k = elem(i_next, j)
+
+      f_root = :math.sqrt(Mat33.at(mat, i, i) - Mat33.at(mat, j, j) - Mat33.at(mat, k, k) + 1.0)
+      apk_quat = {0.0, 0.0, 0.0}
+      apk_quat = put_elem(apk_quat, i, 0.5 * f_root)
+      f_root = 0.5 / f_root
+      apk_quat = put_elem(apk_quat, j, (Mat33.at(mat, j, i) + Mat33.at(mat, i, j)) * f_root)
+      apk_quat = put_elem(apk_quat, k, (Mat33.at(mat, k, i) + Mat33.at(mat, i, k)) * f_root)
+
+      {x, y, z} = apk_quat
+
+      {x, y, z, (Mat33.at(mat, k, j) - Mat33.at(mat, j, k)) * f_root}
+    end
+  end
+
+  def from_rotation_matrix({a11, a12, a13, a21, a22, a23, a31, a32, a33} = mat) do
     # Why does the trace matter? Consult here:
     # http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
     f_trace = a11 + a22 + a33
@@ -359,11 +462,38 @@ defmodule Graphmath.Quatern do
   It returns a `mat33` representing a rotation.
   """
   @spec to_rotation_matrix_33(quatern) :: mat33
-  def to_rotation_matrix_33(quat) do
-    {w, x, y, z} = quat
+  def to_rotation_matrix_33({w, x, y, z})
+      when is_float(w) and is_float(x) and is_float(y) and is_float(z) do
     f_tx = x + x
     f_ty = y + y
     f_tz = z + z
+    f_t_wx = f_tx * w
+    f_t_wy = f_ty * w
+    f_t_wz = f_tz * w
+    f_t_xx = f_tx * x
+    f_t_xy = f_ty * x
+    f_t_xz = f_tz * x
+    f_t_yy = f_ty * y
+    f_t_yz = f_tz * y
+    f_t_zz = f_tz * z
+
+    a11 = 1.0 - (f_t_yy + f_t_zz)
+    a12 = f_t_xy - f_t_wz
+    a13 = f_t_xz + f_t_wy
+    a21 = f_t_xy + f_t_wz
+    a22 = 1.0 - (f_t_xx + f_t_zz)
+    a23 = f_t_yz - f_t_wx
+    a31 = f_t_xz - f_t_wy
+    a32 = f_t_yz + f_t_wx
+    a33 = 1.0 - (f_t_xx + f_t_yy)
+
+    {a11, a12, a13, a21, a22, a23, a31, a32, a33}
+  end
+
+  def to_rotation_matrix_33({w, x, y, z}) do
+    f_tx = 1.0 * x + x
+    f_ty = 1.0 * y + y
+    f_tz = 1.0 * z + z
     f_t_wx = f_tx * w
     f_t_wy = f_ty * w
     f_t_wz = f_tz * w
@@ -395,11 +525,38 @@ defmodule Graphmath.Quatern do
   It returns a `mat44` representing a rotation.
   """
   @spec to_rotation_matrix_44(quatern) :: mat44
-  def to_rotation_matrix_44(quat) do
-    {w, x, y, z} = quat
+  def to_rotation_matrix_44({w, x, y, z})
+      when is_float(w) and is_float(x) and is_float(y) and is_float(z) do
     f_tx = x + x
     f_ty = y + y
     f_tz = z + z
+    f_t_wx = f_tx * w
+    f_t_wy = f_ty * w
+    f_t_wz = f_tz * w
+    f_t_xx = f_tx * x
+    f_t_xy = f_ty * x
+    f_t_xz = f_tz * x
+    f_t_yy = f_ty * y
+    f_t_yz = f_tz * y
+    f_t_zz = f_tz * z
+
+    a11 = 1.0 - (f_t_yy + f_t_zz)
+    a12 = f_t_xy - f_t_wz
+    a13 = f_t_xz + f_t_wy
+    a21 = f_t_xy + f_t_wz
+    a22 = 1.0 - (f_t_xx + f_t_zz)
+    a23 = f_t_yz - f_t_wx
+    a31 = f_t_xz - f_t_wy
+    a32 = f_t_yz + f_t_wx
+    a33 = 1.0 - (f_t_xx + f_t_yy)
+
+    {a11, a12, a13, 0.0, a21, a22, a23, 0.0, a31, a32, a33, 0.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  def to_rotation_matrix_44({w, x, y, z}) do
+    f_tx = 1.0 * x + x
+    f_ty = 1.0 * y + y
+    f_tz = 1.0 * z + z
     f_t_wx = f_tx * w
     f_t_wy = f_ty * w
     f_t_wz = f_tz * w
@@ -433,12 +590,12 @@ defmodule Graphmath.Quatern do
   It returns a `float` representing the dot product.
   """
   @spec dot(quatern, quatern) :: float
-  def dot(lhs, rhs) do
-    {w, x, y, z} = lhs
-    {a, b, c, d} = rhs
+  def dot({w, x, y, z}, {a, b, c, d})
+      when is_float(w) and is_float(x) and is_float(y) and is_float(z) and
+             is_float(a) and is_float(b) and is_float(c) and is_float(d),
+      do: w * a + x * b + y * c + z * d
 
-    w * a + x * b + y * c + z * d
-  end
+  def dot({w, x, y, z}, {a, b, c, d}), do: 1.0 * w * a + x * b + y * c + z * d
 
   @doc """
   `norm(quat)` Returns the L2 norm of a quaternion.
@@ -448,10 +605,10 @@ defmodule Graphmath.Quatern do
   It returns a `float` representing the L2 norm.
   """
   @spec norm(quatern) :: float
-  def norm(quat) do
-    {w, x, y, z} = quat
-    :math.sqrt(w * w + x * x + y * y + z * z)
-  end
+  def norm({w, x, y, z}) when is_float(w) and is_float(x) and is_float(y) and is_float(z),
+    do: :math.sqrt(w * w + x * x + y * y + z * z)
+
+  def norm({w, x, y, z}), do: :math.sqrt(w * w + x * x + y * y + z * z)
 
   @doc """
   `normalize_strict(q)` returns a normalized verison of a quaternion.
@@ -463,6 +620,12 @@ defmodule Graphmath.Quatern do
   If the magnitude of the quaternion is 0, it will explode.
   """
   @spec normalize_strict(quatern) :: quatern
+  def normalize_strict({w, x, y, z} = _q)
+      when is_float(w) and is_float(x) and is_float(y) and is_float(z) do
+    inv_mag = 1.0 / :math.sqrt(w * w + x * x + y * y + z * z)
+    {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
+  end
+
   def normalize_strict({w, x, y, z} = _q) do
     inv_mag = 1.0 / :math.sqrt(w * w + x * x + y * y + z * z)
     {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
@@ -478,6 +641,18 @@ defmodule Graphmath.Quatern do
   If the magnitude of the quaternion is 0, it will return the zero quaternion.
   """
   @spec normalize(quatern) :: quatern
+  def normalize({w, x, y, z} = _q)
+      when is_float(w) and is_float(x) and is_float(y) and is_float(z) do
+    mag = :math.sqrt(w * w + x * x + y * y + z * z)
+
+    if mag > 0 do
+      inv_mag = 1.0 / :math.sqrt(w * w + x * x + y * y + z * z)
+      {w * inv_mag, x * inv_mag, y * inv_mag, z * inv_mag}
+    else
+      {0.0, 0.0, 0.0, 0.0}
+    end
+  end
+
   def normalize({w, x, y, z} = _q) do
     mag = :math.sqrt(w * w + x * x + y * y + z * z)
 
@@ -499,10 +674,19 @@ defmodule Graphmath.Quatern do
   If the `quat` is less than or equal to zero, the quaternion returned is a zero quaternion.
   """
   @spec inverse(quatern) :: quatern
-  def inverse(quat) do
-    {w, x, y, z} = quat
-
+  def inverse({w, x, y, z}) when is_float(w) and is_float(x) and is_float(y) and is_float(z) do
     f_norm = w * w + x * x + y * y + z * z
+
+    if f_norm > 0.0 do
+      f_inv_norm = 1.0 / f_norm
+      {w * f_inv_norm, -x * f_inv_norm, -y * f_inv_norm, -z * f_inv_norm}
+    else
+      {0.0, 0.0, 0.0, 0.0}
+    end
+  end
+
+  def inverse({w, x, y, z}) do
+    f_norm = 1.0 * w * w + x * x + y * y + z * z
 
     if f_norm > 0.0 do
       f_inv_norm = 1.0 / f_norm
@@ -522,10 +706,10 @@ defmodule Graphmath.Quatern do
   Note that the conjugate of a unit quaternion is its inverse.
   """
   @spec conjugate(quatern) :: quatern
-  def conjugate(quat) do
-    {w, x, y, z} = quat
-    {w, -x, -y, -z}
-  end
+  def conjugate({w, x, y, z}) when is_float(w) and is_float(x) and is_float(y) and is_float(z),
+    do: {w, -x, -y, -z}
+
+  def conjugate({w, x, y, z}), do: {w, -x, -y, -z}
 
   @doc """
   `slerp(lhs, rhs, t)` Performs Spherical linear interpolation between two quaternions, and returns the result.
@@ -544,6 +728,32 @@ defmodule Graphmath.Quatern do
   This is specially important in IK animation.
   """
   @spec slerp(quatern, quatern, float) :: quatern
+  def slerp({w, x, y, z} = lhs, {a, b, c, d} = rhs, t)
+      when is_float(w) and is_float(x) and is_float(y) and is_float(z) and
+             is_float(a) and is_float(b) and is_float(c) and is_float(d) do
+    f_cos = dot(lhs, rhs)
+
+    # There are two situations:
+    # 1. "rhs" and "lhs" are very close (fCos ~= +1), so we can do a linear
+    #    interpolation safely.
+    # 2. "rhs" and "lhs" are almost inverse of each other (fCos ~= -1), there
+    #    are an infinite number of possibilities interpolation. but we haven't
+    #    have method to fix this case, so just use linear interpolation here.
+
+    if abs(f_cos) < 1 - 1.0e-03 do
+      f_sin = :math.sqrt(1 - f_cos * f_cos)
+      f_angle = :math.atan2(f_sin, f_cos)
+      f_inv_sin = 1.0 / f_sin
+      f_coeff0 = :math.sin((1.0 - t) * f_angle) * f_inv_sin
+      f_coeff1 = :math.sin(t * f_angle) * f_inv_sin
+      normalize(add(scale(lhs, f_coeff0), scale(rhs, f_coeff1)))
+    else
+      r = add(scale(lhs, 1.0 - t), scale(rhs, t))
+      # taking the complement requires renormalisation
+      normalize(r)
+    end
+  end
+
   def slerp(lhs, rhs, t) do
     f_cos = dot(lhs, rhs)
 
@@ -578,6 +788,24 @@ defmodule Graphmath.Quatern do
   It returns a `Vec3` of `v` having undergone the rotation represented by `q`.
   """
   @spec transform_vector(quatern, vec3) :: vec3
+  def transform_vector({qw, qx, qy, qz}, {vx, vy, vz})
+      when is_float(qw) and is_float(qx) and is_float(qy) and is_float(qz) and
+             is_float(vx) and is_float(vy) and is_float(vz) do
+    # v' = qvq', but we'll use the rediscovered formula of rodrigues answer from SO ( https://gamedev.stackexchange.com/a/50545 )
+
+    dot_uv = qx * vx + qy * vy + qz * vz
+    two_dot_uv = 2.0 * dot_uv
+    dot_uu = qx * qx + qy * qy + qz * qz
+    v_scalar = qw * qw - dot_uu
+    two_qw = 2.0 * qw
+
+    {
+      two_dot_uv * qx + v_scalar * vx + two_qw * (qy * vz - qz * vy),
+      two_dot_uv * qy + v_scalar * vy + two_qw * (qz * vx - qx * vz),
+      two_dot_uv * qz + v_scalar * vz + two_qw * (qx * vy - qy * vx)
+    }
+  end
+
   def transform_vector({qw, qx, qy, qz}, {vx, vy, vz}) do
     # v' = qvq', but we'll use the rediscovered formula of rodrigues answer from SO ( https://gamedev.stackexchange.com/a/50545 )
 
@@ -606,6 +834,31 @@ defmodule Graphmath.Quatern do
   It returns an orientation `quatern`.
   """
   @spec integrate(quatern, vec3, number) :: quatern
+  def integrate({qw, qx, qy, qz} = q, {ox, oy, oz} = omega, dt)
+      when is_float(qw) and is_float(qx) and is_float(qy) and is_float(qz) and is_float(ox) and
+             is_float(oy) and is_float(oz) and is_float(dt) do
+    # this routine inspired and adapted from http://physicsforgames.blogspot.com/2010/02/quaternions.html
+    # this explains a similar routine in cannon.js
+
+    # get convert angular velocity vector to actual angular displacement by integrating time
+    {theta_x, theta_y, theta_z} = theta = Graphmath.Vec3.scale(omega, 0.5 * dt)
+    theta_magnitude_squared = Graphmath.Vec3.length_squared(theta)
+
+    # use small-angle approximation for sin/cos if the magnitude is too small
+    {delta_q_w, s} =
+      if theta_magnitude_squared * theta_magnitude_squared / 24.0 < @machine_small_float do
+        # use the more stable Taylor series for low-angle appromixations to sin/cos
+        {1.0 - theta_magnitude_squared / 2.0, 1.0 - theta_magnitude_squared / 6.0}
+      else
+        # we're not too small! use real sin/cos
+        theta_magnitude = :math.sqrt(theta_magnitude_squared)
+        {:math.cos(theta_magnitude), :math.sin(theta_magnitude) / theta_magnitude}
+      end
+
+    multiply({delta_q_w, theta_x * s, theta_y * s, theta_z * s}, q)
+    |> normalize()
+  end
+
   def integrate(q, omega, dt) do
     # this routine inspired and adapted from http://physicsforgames.blogspot.com/2010/02/quaternions.html
     # this explains a similar routine in cannon.js
