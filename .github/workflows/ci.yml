@@ -55,5 +55,9 @@ jobs:
       if: startsWith(matrix.elixir, '1.15')
     - name: Run Tests
       run: mix test
+    - name: Run coverage
+      run:  mix coveralls.github
+      env:
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #    - name: Run credo
 #      run: mix credo suggest --min-priority=high --ignore-checks Credo.Check.Design.DuplicatedCode
