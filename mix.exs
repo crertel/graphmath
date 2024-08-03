@@ -4,7 +4,7 @@ defmodule Graphmath.Mixfile do
   def project do
     [
       app: :graphmath,
-      version: "2.5.0",
+      version: "2.6.0",
       elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
       description: description(),
@@ -20,7 +20,7 @@ defmodule Graphmath.Mixfile do
 
   defp description do
     """
-    Graphmath is a library for doing 2D and 3D math, supporting matrix and vector operations.
+    Graphmath is a library for doing 2D and 3D math, supporting matrix, vector, and quaternion operations.
     """
   end
 
