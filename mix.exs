@@ -37,6 +37,9 @@ defmodule Graphmath.Mixfile do
 
   defp deps do
     [
+      {:benchee, "~> 1.3", only: :dev},
+      {:benchee_html, "~> 1.0", only: :dev},
+      {:benchee_markdown, "~> 0.3", only: :dev},
       {:credo, "~> 1.7.7", only: :dev},
       {:dialyxir, "~> 1.4.3", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.34.2", only: [:dev, :docs]},
