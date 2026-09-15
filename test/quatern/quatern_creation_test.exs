@@ -1,61 +1,50 @@
 defmodule GraphmathTest.Quatern.CreateQuatern do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
+  alias Graphmath.Quatern
 
-  @tag :quatern
+  @moduletag :quatern
+
   @tag :create
-  test "create returns {w,x,y,z} given (w,x,y,z)" do
-    assert {3, 4, 5, 6} == Graphmath.Quatern.create(3, 4, 5, 6)
+  @tag :from_list
+  @tag :identity
+  @tag :zero
+  test "component and list constructors return floats in scalar-first order" do
+    for [w, x, y, z] <- [[3, -4, 5, -6], [3.0, -4.0, 5.0, -6.0], [3, -4.0, 5, -6.0]] do
+      assert Quatern.create(w, x, y, z) === {3.0, -4.0, 5.0, -6.0}
+      assert Quatern.from_list([w, x, y, z, :ignored]) === {3.0, -4.0, 5.0, -6.0}
+    end
+
+    assert Quatern.create(0.5, -1.5, 2.5, -3.5) === {0.5, -1.5, 2.5, -3.5}
+    assert Quatern.identity() === {1.0, 0.0, 0.0, 0.0}
+    assert Quatern.zero() === {0.0, 0.0, 0.0, 0.0}
   end
 
-  @tag :quatern
   @tag :create
-  test "create returns {w,x,y,z} given quatern" do
-    assert {1, 2, 3, 4} == Graphmath.Quatern.from_list([1, 2, 3, 4])
-  end
+  @tag :from_axis_angle
+  test "axis-angle construction has the expected sign and absolute component error" do
+    for axis <- [
+          {1, 0, 0},
+          {0, 1, 0},
+          {0, 0, 1},
+          {1.0, 0.0, 0.0},
+          {0.0, 1.0, 0.0},
+          {0.0, 0.0, 1.0},
+          {0, 0.0, 1.0}
+        ],
+        {angle, w, s} <- [
+          {0, 1.0, 0.0},
+          {0.0, 1.0, 0.0},
+          {:math.pi(), 0.0, 1.0},
+          {-:math.pi(), 0.0, -1.0},
+          {:math.pi() / 2, :math.sqrt(0.5), :math.sqrt(0.5)}
+        ] do
+      {x, y, z} = axis
+      expected = {w, s * x, s * y, s * z}
+      actual = Quatern.from_axis_angle(angle, axis)
 
-  @tag :quatern
-  @tag :create
-  test "create return {w,x,y,z} given (w, vec3)" do
-    sqrthalf = :math.sqrt(0.5)
-
-    assert(
-      case Graphmath.Quatern.from_axis_angle(:math.pi(), {0, 0, 1}) do
-        {w, x, y, z} when w < 0.0005 and x < 0.0005 and y < 0.0005 and z > 0.9995 -> true
-        _ -> false
+      for {a, b} <- Enum.zip(Tuple.to_list(actual), Tuple.to_list(expected)) do
+        assert_in_delta a, b, 1.0e-12
       end
-    )
-
-    assert(
-      case Graphmath.Quatern.from_axis_angle(:math.pi(), {0, 1, 0}) do
-        {w, x, y, z} when w < 0.0005 and x < 0.0005 and y > 0.9995 and z < 0.0005 -> true
-        _ -> false
-      end
-    )
-
-    assert(
-      case Graphmath.Quatern.from_axis_angle(:math.pi(), {0, 0, 1}) do
-        {w, x, y, z} when w < 0.0005 and x < 0.0005 and y < 0.0005 and z > 0.9995 -> true
-        _ -> false
-      end
-    )
-
-    assert(
-      case Graphmath.Quatern.from_axis_angle(:math.pi(), {1, 0, 0}) do
-        {w, x, y, z} when w < 0.0005 and x > 0.9995 and y < 0.0005 and z < 0.0005 -> true
-        _ -> false
-      end
-    )
-
-    assert(
-      case Graphmath.Quatern.from_axis_angle(:math.pi() / 2, {1, 0, 0}) do
-        {w, x, y, z}
-        when abs(w - sqrthalf) < 0.0005 and abs(x - sqrthalf) < 0.0005 and y < 0.0005 and
-               z < 0.0005 ->
-          true
-
-        _ ->
-          false
-      end
-    )
+    end
   end
 end
