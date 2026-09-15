@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/crertel/graphmath.svg?style=svg)](https://circleci.com/gh/crertel/graphmath)
+[![CI](https://github.com/crertel/graphmath/actions/workflows/ci.yml/badge.svg)](https://github.com/crertel/graphmath/actions/workflows/ci.yml)
 [![Inline docs](http://inch-ci.org/github/crertel/graphmath.svg)](http://inch-ci.org/github/crertel/graphmath)
 [![hex.pm version](https://img.shields.io/hexpm/v/graphmath.svg)](https://hex.pm/packages/graphmath)
 [![hex.pm downloads](https://img.shields.io/hexpm/dt/graphmath.svg)](https://hex.pm/packages/graphmath)
