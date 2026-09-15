@@ -3,6 +3,15 @@ defmodule Graphmath.Mat33 do
   This is the 3D mathematics.
 
   This submodule handles 3x3 matrices using tuples of floats.
+
+  Tuples store matrix rows in order: `{a11,a12,a13,a21,a22,a23,a31,a32,a33}`.
+  `apply(a, v)` computes the column-vector product **A****v**. Graphics
+  constructors use row vectors: `transform_point/2` and `transform_vector/2`
+  multiply `{x,y,1}` and `{x,y,0}` by **A** from the left, then drop the third
+  coordinate. Use `apply_left(v, a)` or `apply_transpose(a, v)` for the
+  corresponding full three-component product.
+
+  For full vectors, `apply_left(v, multiply(a, b))` applies `a` first, then `b`.
   """
 
   @type mat33 :: {float, float, float, float, float, float, float, float, float}

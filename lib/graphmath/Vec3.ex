@@ -184,13 +184,15 @@ defmodule Graphmath.Vec3 do
 
   `a` is the `vec3` to find the Manhattan length of.
 
-  It returns a float of the value (a<sub>x</sub> + a<sub>y</sub> + a<sub>z</sub>).
+  It returns a float of the value (abs(a<sub>x</sub>) + abs(a<sub>y</sub>) + abs(a<sub>z</sub>)).
 
-  The Manhattan length is the sum of the components.
+  The Manhattan length is the sum of the absolute values of the components.
   """
   @spec length_manhattan(vec3) :: float
-  def length_manhattan({x, y, z}) when is_float(x) and is_float(y) and is_float(z), do: x + y + z
-  def length_manhattan({x, y, z}), do: 1.0 * x + y + z
+  def length_manhattan({x, y, z}) when is_float(x) and is_float(y) and is_float(z),
+    do: abs(x) + abs(y) + abs(z)
+
+  def length_manhattan({x, y, z}), do: 1.0 * abs(x) + abs(y) + abs(z)
 
   @doc """
   `normalize(a)` finds the unit vector with the same direction as a `vec3`.

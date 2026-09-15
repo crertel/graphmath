@@ -3,6 +3,14 @@ defmodule Graphmath.Mat44 do
   This is the 3D mathematics.
 
   This submodule handles 4x4 matrices using tuples of floats.
+
+  Tuples store matrix rows in order. `apply(a, v)` computes the column-vector
+  product **A****v**. Graphics constructors use row vectors: `transform_point/2`
+  and `transform_vector/2` multiply `{x,y,z,1}` and `{x,y,z,0}` by **A** from the
+  left, then drop the fourth coordinate. Use `apply_left(v, a)` or
+  `apply_transpose(a, v)` for the corresponding full four-component product.
+
+  For full vectors, `apply_left(v, multiply(a, b))` applies `a` first, then `b`.
   """
 
   @type mat44 ::
@@ -211,14 +219,14 @@ defmodule Graphmath.Mat44 do
     st = :math.sin(theta)
     ct = :math.cos(theta)
 
-    {ct, 0.0, st, 0.0, 0.0, 1.0, 0.0, 0.0, -st, 0.0, ct, 0.0, 0.0, 0.0, 0.0, 1.0}
+    {ct, 0.0, -st, 0.0, 0.0, 1.0, 0.0, 0.0, st, 0.0, ct, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   def make_rotate_y(theta) do
     st = :math.sin(theta)
     ct = :math.cos(theta)
 
-    {ct, 0.0, st, 0.0, 0.0, 1.0, 0.0, 0.0, -st, 0.0, ct, 0.0, 0.0, 0.0, 0.0, 1.0}
+    {ct, 0.0, -st, 0.0, 0.0, 1.0, 0.0, 0.0, st, 0.0, ct, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """

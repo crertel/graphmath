@@ -180,13 +180,13 @@ defmodule Graphmath.Vec2 do
 
   `a` is the `vec2` to find the Manhattan length of.
 
-  It returns a float of the value (a<sub>x</sub> + a<sub>y</sub>).
+  It returns a float of the value (abs(a<sub>x</sub>) + abs(a<sub>y</sub>)).
 
-  The Manhattan length is the sum of the components.
+  The Manhattan length is the sum of the absolute values of the components.
   """
   @spec length_manhattan(vec2) :: float
-  def length_manhattan({x, y}) when is_float(x) and is_float(y), do: x + y
-  def length_manhattan({x, y}), do: 1.0 * x + y
+  def length_manhattan({x, y}) when is_float(x) and is_float(y), do: abs(x) + abs(y)
+  def length_manhattan({x, y}), do: 1.0 * abs(x) + abs(y)
 
   @doc """
   `normalize(a)` finds the unit vector with the same direction as a `vec2`.
