@@ -2,17 +2,25 @@ defmodule GraphmathTest.Vec3.RandomVec3 do
   use ExUnit.Case, async: true
   alias Graphmath.Vec3
 
+  @moduletag :vec3
+
   setup do
     :rand.seed(:exsss, {17, 29, 43})
     :ok
   end
 
+  @tag :length_squared
+  @tag :random
+  @tag :random_sphere
   test "random_sphere samples the unit sphere in all directions" do
     samples = for _ <- 1..2000, do: Vec3.random_sphere()
     for v <- samples, do: assert_in_delta(Vec3.length_squared(v), 1.0, 1.0e-12)
     assert_spread(samples, 1 / 3)
   end
 
+  @tag :length_squared
+  @tag :random
+  @tag :random_ball
   test "random_ball samples the interior uniformly by volume" do
     samples = for _ <- 1..2000, do: Vec3.random_ball()
     radii_squared = Enum.map(samples, &Vec3.length_squared/1)
@@ -23,6 +31,8 @@ defmodule GraphmathTest.Vec3.RandomVec3 do
     assert_spread(samples, 0.2)
   end
 
+  @tag :random
+  @tag :random_box
   test "random_box samples all coordinates throughout [0, 1]" do
     samples = for _ <- 1..2000, do: Vec3.random_box()
     assert MapSet.size(MapSet.new(samples)) > 1900

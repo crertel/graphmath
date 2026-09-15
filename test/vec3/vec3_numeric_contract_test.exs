@@ -2,6 +2,8 @@ defmodule GraphmathTest.Vec3.NumericContract do
   use ExUnit.Case, async: true
   alias Graphmath.Vec3
 
+  @moduletag :vec3
+
   for {kind, a, b, scalar} <- [
         {:integer, {3, -4, 12}, {-2, 5, -6}, 2},
         {:float, {3.0, -4.0, 12.0}, {-2.0, 5.0, -6.0}, 2.0},
@@ -11,6 +13,21 @@ defmodule GraphmathTest.Vec3.NumericContract do
     @b b
     @scalar scalar
 
+    @tag :add
+    @tag :create
+    @tag :cross
+    @tag :dot
+    @tag :length
+    @tag :length_squared
+    @tag :lerp
+    @tag :multiply
+    @tag :negate
+    @tag :normalize
+    @tag :rotate
+    @tag :scalar_triple
+    @tag :scale
+    @tag :subtract
+    @tag :weighted_sum
     test "arithmetic, geometry and constructors with #{kind} inputs" do
       {x, y, z} = @a
       assert Vec3.create(x, y, z) === {3.0, -4.0, 12.0}
@@ -33,6 +50,13 @@ defmodule GraphmathTest.Vec3.NumericContract do
       assert Vec3.lerp(@a, @b, 1) == @b
     end
 
+    @tag :add
+    @tag :chebyshev_distance
+    @tag :length
+    @tag :length_manhattan
+    @tag :minkowski_distance
+    @tag :p_norm
+    @tag :subtract
     test "signed norms and distance relationships with #{kind} inputs" do
       assert Vec3.length_manhattan(@a) == 19.0
       assert Vec3.p_norm(@a, 1) == Vec3.length_manhattan(@a)
@@ -60,6 +84,9 @@ defmodule GraphmathTest.Vec3.NumericContract do
     end
   end
 
+  @tag :minkowski_distance
+  @tag :p_norm
+  @tag :scale
   test "fractional coordinates, scalars and norm orders retain their magnitude" do
     assert Vec3.scale({1.5, -2.5, 3.5}, 0.5) === {0.75, -1.25, 1.75}
     # (4^(3/2) + 9^(3/2) + 16^(3/2))^(2/3) = 99^(2/3).
@@ -72,6 +99,7 @@ defmodule GraphmathTest.Vec3.NumericContract do
                     1.0e-12
   end
 
+  @tag :equal
   test "equality includes its epsilon boundary and checks each coordinate" do
     for a <- [{0, 0, 0}, {0.0, 0.0, 0.0}, {0, 0.0, 0}], i <- 0..2, sign <- [-1, 1] do
       b = put_elem(a, i, sign * 0.5)
@@ -84,6 +112,7 @@ defmodule GraphmathTest.Vec3.NumericContract do
     end
   end
 
+  @tag :near
   test "near uses an exclusive Euclidean distance boundary" do
     for {a, b} <- [
           {{0, 0, 0}, {3, 4, 12}},
@@ -98,6 +127,7 @@ defmodule GraphmathTest.Vec3.NumericContract do
     end
   end
 
+  @tag :rotate
   test "rotation about a diagonal axis cycles coordinates and preserves the axial component" do
     k = 1 / :math.sqrt(3)
 
@@ -106,6 +136,7 @@ defmodule GraphmathTest.Vec3.NumericContract do
     end
   end
 
+  @tag :normalize
   test "zero normalization raises" do
     for zero <- [{0, 0, 0}, {0.0, 0.0, 0.0}, {0, 0.0, 0}] do
       assert_raise ArithmeticError, fn -> Vec3.normalize(zero) end

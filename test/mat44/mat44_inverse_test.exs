@@ -2,12 +2,19 @@ defmodule GraphmathTest.Mat44.InverseMat44 do
   use ExUnit.Case, async: true
   alias Graphmath.Mat44
 
+  @moduletag :mat44
+
+  @tag :identity
+  @tag :inverse
   test "identity is its own inverse" do
     assert_close(Mat44.inverse(Mat44.identity()), Mat44.identity())
   end
 
   for kind <- [:integer, :float, :mixed] do
     @kind kind
+    @tag :identity
+    @tag :inverse
+    @tag :multiply
     test "known inverse and unrounded residuals with #{kind} inputs" do
       a = numeric({-2, 3, 1, -1, 0, 1, 2, 3, 1, -1, 1, 2, 4, -3, 5, 1}, @kind)
 
@@ -27,6 +34,7 @@ defmodule GraphmathTest.Mat44.InverseMat44 do
       end
     end
 
+    @tag :inverse
     test "zero and nonzero singular matrices raise with #{kind} inputs" do
       for matrix <- [
             numeric({0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, @kind),

@@ -2,12 +2,20 @@ defmodule GraphmathTest.Mat33.InverseMat33 do
   use ExUnit.Case, async: true
   alias Graphmath.Mat33
 
+  @moduletag :mat33
+  @moduletag :Mat33
+
+  @tag :identity
+  @tag :inverse
   test "identity is its own inverse" do
     assert Mat33.inverse(Mat33.identity()) === Mat33.identity()
   end
 
   for kind <- [:integer, :float, :mixed] do
     @kind kind
+    @tag :identity
+    @tag :inverse
+    @tag :multiply
     test "known inverse and unrounded residuals with #{kind} inputs" do
       a = numeric({-2, 3, 1, 0, 1, 2, 1, -1, 1}, @kind)
       assert_close(Mat33.inverse(a), {-3, 4, -5, -2, 3, -4, 1, -1, 2})
@@ -22,6 +30,7 @@ defmodule GraphmathTest.Mat33.InverseMat33 do
       end
     end
 
+    @tag :inverse
     test "zero and nonzero singular matrices raise with #{kind} inputs" do
       for matrix <- [
             numeric({0, 0, 0, 0, 0, 0, 0, 0, 0}, @kind),

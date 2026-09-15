@@ -2,17 +2,25 @@ defmodule GraphmathTest.Vec2.RandomVec2 do
   use ExUnit.Case, async: true
   alias Graphmath.Vec2
 
+  @moduletag :vec2
+
   setup do
     :rand.seed(:exsss, {17, 29, 43})
     :ok
   end
 
+  @tag :length_squared
+  @tag :random
+  @tag :random_circle
   test "random_circle samples the unit circumference in all directions" do
     samples = for _ <- 1..2000, do: Vec2.random_circle()
     for v <- samples, do: assert_in_delta(Vec2.length_squared(v), 1.0, 1.0e-12)
     assert_spread(samples, 0.5)
   end
 
+  @tag :length_squared
+  @tag :random
+  @tag :random_disc
   test "random_disc samples the interior uniformly by area" do
     samples = for _ <- 1..2000, do: Vec2.random_disc()
     radii_squared = Enum.map(samples, &Vec2.length_squared/1)
@@ -23,6 +31,8 @@ defmodule GraphmathTest.Vec2.RandomVec2 do
     assert_spread(samples, 0.25)
   end
 
+  @tag :random
+  @tag :random_box
   test "random_box samples both coordinates throughout [0, 1]" do
     samples = for _ <- 1..2000, do: Vec2.random_box()
     assert MapSet.size(MapSet.new(samples)) > 1900

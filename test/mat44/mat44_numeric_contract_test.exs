@@ -2,8 +2,30 @@ defmodule GraphmathTest.Mat44.NumericContract do
   use ExUnit.Case, async: true
   alias Graphmath.Mat44
 
+  @moduletag :mat44
+
   for kind <- [:integer, :float, :mixed] do
     @kind kind
+    @tag :add
+    @tag :apply
+    @tag :apply_left
+    @tag :apply_left_transpose
+    @tag :apply_transpose
+    @tag :at
+    @tag :column0
+    @tag :column1
+    @tag :column2
+    @tag :column3
+    @tag :diag
+    @tag :multiply
+    @tag :multiply_transpose
+    @tag :round
+    @tag :row0
+    @tag :row1
+    @tag :row2
+    @tag :row3
+    @tag :scale
+    @tag :subtract
     test "dense arithmetic and selections with #{kind} inputs" do
       a = numeric({1, -2, 3, 4, 5, -6, 7, -8, 9, 10, -11, 12, -13, 14, 15, -16}, @kind)
       b = numeric({-2, 3, 1, 5, -4, 2, 6, 7, -3, 8, 9, -10, 11, -12, 13, 14}, @kind)
@@ -49,6 +71,7 @@ defmodule GraphmathTest.Mat44.NumericContract do
     end
   end
 
+  @tag :round
   test "round preserves fractional signs and decimal precision" do
     a =
       {0.125, -1.125, 2.125, -3.125, 4.125, -5.125, 6.125, -7.125, 8.125, -9.125, 10.125, -11.125,
