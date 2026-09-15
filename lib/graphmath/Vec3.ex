@@ -34,7 +34,7 @@ defmodule Graphmath.Vec3 do
   def create(x, y, z), do: {1.0 * x, 1.0 * y, 1.0 * z}
 
   @doc """
-  `create(vec)` creates a `vec3` from a list of 3 or more floats.
+  `create(vec)` creates a `vec3` from a list of 3 or more numbers, converting them to floats.
 
   `vec` is a list of 3 or more floats.
 
@@ -42,7 +42,7 @@ defmodule Graphmath.Vec3 do
   """
   @spec create([float]) :: vec3
   def create([x, y, z | _]) when is_float(x) and is_float(y) and is_float(z), do: {x, y, z}
-  def create([x, y, z | _]), do: {x, y, z}
+  def create([x, y, z | _]), do: {1.0 * x, 1.0 * y, 1.0 * z}
 
   @doc """
   `add( a, b)` adds two `vec3`s.
@@ -202,6 +202,7 @@ defmodule Graphmath.Vec3 do
   It returns a `vec3` of the form `{normx, normy, normz}`.
 
   This is done by dividing each component by the vector's magnitude.
+  Raises `ArithmeticError` for a zero vector.
   """
   @spec normalize(vec3) :: vec3
   def normalize({x, y, z}) when is_float(x) and is_float(y) and is_float(z) do
@@ -223,7 +224,7 @@ defmodule Graphmath.Vec3 do
 
   `t` is the interpolant float, on the domain [0,1].
 
-  It returns a `vec3` of the form (1-t)**a** - (t)**b**.
+  It returns a `vec3` of the form (1-t)**a** + (t)**b**.
 
   The interpolant `t` is on the domain [0,1]. Behavior outside of that is undefined.
   """
@@ -244,6 +245,7 @@ defmodule Graphmath.Vec3 do
   `b` is the second `vec3`.
 
   `distance` is the distance between them as a float.
+  The comparison is strict: points exactly `distance` apart return false.
   """
   @spec near(vec3, vec3, float) :: boolean
   def near({x, y, z}, {u, v, w}, distance)
@@ -348,10 +350,10 @@ defmodule Graphmath.Vec3 do
         abs(az - bz) <= eps
 
   @doc """
-  `random_sphere()` gives a point at or within unit distance of the origin, using [this](http://extremelearning.com.au/how-to-generate-uniformly-random-points-on-n-spheres-and-n-balls/) polar method.
+  `random_sphere()` gives a point at unit distance of the origin, using [this](http://extremelearning.com.au/how-to-generate-uniformly-random-points-on-n-spheres-and-n-balls/) polar method.
   Another really nice exploration of this is [here](http://mathworld.wolfram.com/SpherePointPicking.html).
 
-  It returns a vec3 within at most unit distance of the origin.
+  It returns a vec3 on the surface of the unit sphere.
   """
   @spec random_sphere() :: vec3
   def random_sphere() do
