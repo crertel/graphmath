@@ -1,11 +1,30 @@
 defmodule Graphmath.Quatern do
   @moduledoc """
-  This is the 3D mathematics.
+  Quaternion arithmetic and 3D rotations using `{w, x, y, z}` tuples of floats.
 
-  This submodule handles Quaternion using tuples of floats.
+  `w` is the scalar component; `{x, y, z}` is the vector (imaginary) part.
+  For a unit quaternion representing a rotation by `theta` radians about the
+  unit axis `{nx, ny, nz}`, the components are:
 
-  Quaternions represent an angle of theta around a unit axis vector {nx, ny, nz} as `{ cos(theta/2), nx * sin(theta/2), ny * sin(theta/2), nz * sin(theta/2) }`.
+  ```text
+  w = cos(theta / 2)
+  x = nx * sin(theta / 2)
+  y = ny * sin(theta / 2)
+  z = nz * sin(theta / 2)
+  ```
 
+  The angle is encoded through its half-angle sine and cosine. The vector part
+  carries the axis direction, scaled by `sin(theta / 2)`.
+
+  `create/4` and `from_list/1` store the components you supply. Use
+  `from_axis_angle/2` to convert an angle and unit axis into those components.
+
+  For example, a positive 90-degree rotation about Z is approximately
+  `{0.7071, 0.0, 0.0, 0.7071}`:
+
+  ```elixir
+  Graphmath.Quatern.from_axis_angle(:math.pi() / 2, {0.0, 0.0, 1.0})
+  ```
   """
 
   alias Graphmath.Mat33, as: Mat33
@@ -129,7 +148,8 @@ defmodule Graphmath.Quatern do
 
   `b` is the second quaternion.
 
-  `eps` is the epsilon, on the interval [0,1].
+  `eps` is the epsilon, on the interval [0,1]. It bounds `1 - abs(dot(a, b))`,
+  including the boundary; it is not an angular tolerance in radians.
 
   It returns true if the quaternions represent the same orientation.
 
@@ -149,15 +169,19 @@ defmodule Graphmath.Quatern do
   @doc """
   `create(w,x,y,z)` creates a `quatern` of value (w,x,y,z).
 
-  `w` is the rotation around the axis in radians.
+  `w` is the scalar component.
 
-  `x` is the first element of the `vec3` representing the axis to be created.
+  `x` is the first imaginary component.
 
-  `y` is the second element of the `vec3` representing the axis to be created.
+  `y` is the second imaginary component.
 
-  `z` is the third element of the `vec3` representing the axis to be created.
+  `z` is the third imaginary component.
 
   It returns a `quatern` of the form `{w,x,y,z}`.
+
+  The supplied values are stored as floats without normalization or angle-axis
+  conversion. To construct a rotation from an angle and a unit axis, use
+  `from_axis_angle/2`.
   """
   @spec create(float, float, float, float) :: quatern
   def create(w, x, y, z) when is_float(w) and is_float(x) and is_float(y) and is_float(z),
@@ -166,7 +190,7 @@ defmodule Graphmath.Quatern do
   def create(w, x, y, z), do: {1.0 * w, 1.0 * x, 1.0 * y, 1.0 * z}
 
   @doc """
-  `create(quatern)` creates a `quatern` from a list of 4 or more floats.
+  `from_list(quatern)` creates a `quatern` from a list of 4 or more numbers, converting them to floats.
 
   `quatern` is a list of 4 or more floats.
 
@@ -177,16 +201,17 @@ defmodule Graphmath.Quatern do
       when is_float(w) and is_float(x) and is_float(y) and is_float(z),
       do: {w, x, y, z}
 
-  def from_list([w, x, y, z | _]), do: {w, x, y, z}
+  def from_list([w, x, y, z | _]), do: {1.0 * w, 1.0 * x, 1.0 * y, 1.0 * z}
 
   @doc """
-  `create(w, vec)` creates a `quatern` from an angle and an axis.
+  `from_axis_angle(theta, axis)` creates a rotation quaternion from an angle and a unit axis.
 
-  `w` is the angle in radians.
+  `theta` is the angle in radians.
 
-  `vec` is the axis `vec3` of the form {x,y,z}.
+  `axis` is a unit `vec3` of the form `{nx, ny, nz}`.
 
-  It returns a `quatern` of the form `{w,x,y,z}`.
+  It returns `{cos(theta / 2), nx * sin(theta / 2), ny * sin(theta / 2), nz * sin(theta / 2)}`.
+  The returned scalar component `w` is `cos(theta / 2)`.
   """
   @spec from_axis_angle(float, vec3) :: quatern
   def from_axis_angle(theta, {x, y, z})
@@ -622,7 +647,7 @@ defmodule Graphmath.Quatern do
 
   This returns a `quatern` of unit length in the same direction as `q`.
 
-  If the magnitude of the quaternion is 0, it will explode.
+  Raises `ArithmeticError` if the magnitude of the quaternion is zero.
   """
   @spec normalize_strict(quatern) :: quatern
   def normalize_strict({w, x, y, z} = _q)
@@ -676,7 +701,7 @@ defmodule Graphmath.Quatern do
 
   It returns a `quatern` representing the inverse of the parameter quaternion.
 
-  If the `quat` is less than or equal to zero, the quaternion returned is a zero quaternion.
+  If `quat` has zero magnitude, this returns the zero quaternion.
   """
   @spec inverse(quatern) :: quatern
   def inverse({w, x, y, z}) when is_float(w) and is_float(x) and is_float(y) and is_float(z) do
@@ -824,13 +849,18 @@ defmodule Graphmath.Quatern do
   end
 
   @doc """
-  `integrate(q, omega, dt)` integrates the angular velocty omega over a timestep dt with intial orientation q.
+  `integrate(q, omega, dt)` integrates angular velocity over a timestep with initial orientation `q`.
 
   `q` is an orientation quaternion to use as the initial orientation.
 
-  `omega` is a `vec3` whose direction is the axis of rotation and whose magnitude is the velocity about that axis.
+  `omega` is a world-space `vec3` whose direction is the axis of rotation and
+  whose magnitude is angular velocity in radians per unit time. The incremental
+  rotation left-multiplies `q`, so it acts after the initial orientation.
 
   `dt` is the timestep over which to apply the angular velocity.
+
+  The result is normalized, including for zero timestep or zero angular velocity.
+  Small increments use a Taylor approximation; the zero quaternion remains zero.
 
   It returns an orientation `quatern`.
   """
