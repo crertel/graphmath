@@ -84,6 +84,17 @@ Contributing
 
 1. Buy me a beer if you see me at ElixirConf.
 
+### Tests and coverage
+
+Run `mix test` for the test suite, or `mix coveralls` to run it with the same
+100% library line-coverage requirement enforced by CI. Test-support modules under
+`test/support/` are excluded from the coverage total. Line coverage measures
+execution; tests must also check meaningful results and edge cases.
+
+Use the organizing tags for focused runs, for example `mix test --only vec2`,
+`mix test --only random`, or `mix test --only inverse`. Run the full suite with
+`mix coveralls` before submitting a PR; a focused run can fall below the floor.
+
 Wishlist
 ========
 
