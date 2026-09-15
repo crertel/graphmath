@@ -1,11 +1,30 @@
 defmodule Graphmath.Quatern do
   @moduledoc """
-  This is the 3D mathematics.
+  Quaternion arithmetic and 3D rotations using `{w, x, y, z}` tuples of floats.
 
-  This submodule handles Quaternion using tuples of floats.
+  `w` is the scalar component; `{x, y, z}` is the vector (imaginary) part.
+  For a unit quaternion representing a rotation by `theta` radians about the
+  unit axis `{nx, ny, nz}`, the components are:
 
-  Quaternions represent an angle of theta around a unit axis vector {nx, ny, nz} as `{ cos(theta/2), nx * sin(theta/2), ny * sin(theta/2), nz * sin(theta/2) }`.
+  ```text
+  w = cos(theta / 2)
+  x = nx * sin(theta / 2)
+  y = ny * sin(theta / 2)
+  z = nz * sin(theta / 2)
+  ```
 
+  The angle is encoded through its half-angle sine and cosine. The vector part
+  carries the axis direction, scaled by `sin(theta / 2)`.
+
+  `create/4` and `from_list/1` store the components you supply. Use
+  `from_axis_angle/2` to convert an angle and unit axis into those components.
+
+  For example, a positive 90-degree rotation about Z is approximately
+  `{0.7071, 0.0, 0.0, 0.7071}`:
+
+  ```elixir
+  Graphmath.Quatern.from_axis_angle(:math.pi() / 2, {0.0, 0.0, 1.0})
+  ```
   """
 
   alias Graphmath.Mat33, as: Mat33
@@ -150,7 +169,7 @@ defmodule Graphmath.Quatern do
   @doc """
   `create(w,x,y,z)` creates a `quatern` of value (w,x,y,z).
 
-  `w` is the scalar component, not an angle.
+  `w` is the scalar component.
 
   `x` is the first imaginary component.
 
@@ -159,6 +178,10 @@ defmodule Graphmath.Quatern do
   `z` is the third imaginary component.
 
   It returns a `quatern` of the form `{w,x,y,z}`.
+
+  The supplied values are stored as floats without normalization or angle-axis
+  conversion. To construct a rotation from an angle and a unit axis, use
+  `from_axis_angle/2`.
   """
   @spec create(float, float, float, float) :: quatern
   def create(w, x, y, z) when is_float(w) and is_float(x) and is_float(y) and is_float(z),
@@ -181,13 +204,14 @@ defmodule Graphmath.Quatern do
   def from_list([w, x, y, z | _]), do: {1.0 * w, 1.0 * x, 1.0 * y, 1.0 * z}
 
   @doc """
-  `from_axis_angle(w, vec)` creates a `quatern` from an angle and a unit axis.
+  `from_axis_angle(theta, axis)` creates a rotation quaternion from an angle and a unit axis.
 
-  `w` is the angle in radians.
+  `theta` is the angle in radians.
 
-  `vec` is the unit axis `vec3` of the form {x,y,z}.
+  `axis` is a unit `vec3` of the form `{nx, ny, nz}`.
 
-  It returns a `quatern` of the form `{w,x,y,z}`.
+  It returns `{cos(theta / 2), nx * sin(theta / 2), ny * sin(theta / 2), nz * sin(theta / 2)}`.
+  The returned scalar component `w` is `cos(theta / 2)`.
   """
   @spec from_axis_angle(float, vec3) :: quatern
   def from_axis_angle(theta, {x, y, z})
