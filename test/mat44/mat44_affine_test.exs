@@ -2,6 +2,11 @@ defmodule GraphmathTest.Mat44.Affine do
   use ExUnit.Case, async: true
   alias Graphmath.Mat44
 
+  @moduletag :mat44
+
+  @tag :inverse
+  @tag :transform_point
+  @tag :transform_vector
   test "scale and shear transform points and directions through numeric clauses" do
     for {matrix, v} <- [
           {{2, 1, -1, 0, -1, 3, 2, 0, 1, -2, 4, 0, 5, -7, 11, 1}, {4, -2, 3}},
@@ -17,6 +22,15 @@ defmodule GraphmathTest.Mat44.Affine do
     end
   end
 
+  @tag :apply_left
+  @tag :apply_transpose
+  @tag :inverse
+  @tag :make_rotate_z
+  @tag :make_scale
+  @tag :make_translate
+  @tag :multiply
+  @tag :transform_point
+  @tag :transform_vector
   test "nonuniform scale, quarter turn and translation compose left to right" do
     scale = Mat44.make_scale(2.0, -3.0, 0.5, 1.0)
     rotate = Mat44.make_rotate_z(:math.pi() / 2)
@@ -34,6 +48,11 @@ defmodule GraphmathTest.Mat44.Affine do
     assert_close(Mat44.transform_vector(inverse, {-6.0, 8.0, 3.0}), {4, -2, 6})
   end
 
+  @tag :identity
+  @tag :make_rotate_x
+  @tag :make_rotate_y
+  @tag :make_rotate_z
+  @tag :transform_vector
   test "quarter turns about all axes preserve the axial coordinate" do
     for v <- [{2, -3, 4}, {2.0, -3.0, 4.0}, {2, -3.0, 4}] do
       assert_close(Mat44.transform_vector(Mat44.make_rotate_x(:math.pi() / 2), v), {2, -4, -3})
@@ -46,6 +65,8 @@ defmodule GraphmathTest.Mat44.Affine do
     end
   end
 
+  @tag :apply_left
+  @tag :make_scale
   test "uniform full-matrix scale also scales the homogeneous coordinate" do
     for scalar <- [2, 2.0] do
       assert Mat44.apply_left({1.0, -2.0, 3.0, 1.0}, Mat44.make_scale(scalar)) == {2, -4, 6, 2}

@@ -2,6 +2,8 @@ defmodule GraphmathTest.Vec2.NumericContract do
   use ExUnit.Case, async: true
   alias Graphmath.Vec2
 
+  @moduletag :vec2
+
   for {kind, a, b, scalar} <- [
         {:integer, {3, -4}, {-2, 5}, 2},
         {:float, {3.0, -4.0}, {-2.0, 5.0}, 2.0},
@@ -11,6 +13,22 @@ defmodule GraphmathTest.Vec2.NumericContract do
     @b b
     @scalar scalar
 
+    @tag :add
+    @tag :create
+    @tag :dot
+    @tag :length
+    @tag :length_squared
+    @tag :lerp
+    @tag :multiply
+    @tag :negate
+    @tag :normalize
+    @tag :perp
+    @tag :perp_prod
+    @tag :project
+    @tag :rotate
+    @tag :scale
+    @tag :subtract
+    @tag :weighted_sum
     test "arithmetic, geometry and constructors with #{kind} inputs" do
       {x, y} = @a
       assert Vec2.create(x, y) === {3.0, -4.0}
@@ -34,6 +52,13 @@ defmodule GraphmathTest.Vec2.NumericContract do
       assert_tuple_close(Vec2.project(@a, @b), {52 / 29, -130 / 29})
     end
 
+    @tag :add
+    @tag :chebyshev_distance
+    @tag :length
+    @tag :length_manhattan
+    @tag :minkowski_distance
+    @tag :p_norm
+    @tag :subtract
     test "signed norms and distance relationships with #{kind} inputs" do
       assert Vec2.length_manhattan(@a) == 7.0
       assert Vec2.p_norm(@a, 1) == Vec2.length_manhattan(@a)
@@ -61,6 +86,9 @@ defmodule GraphmathTest.Vec2.NumericContract do
     end
   end
 
+  @tag :minkowski_distance
+  @tag :p_norm
+  @tag :scale
   test "fractional coordinates, scalars and norm orders retain their magnitude" do
     assert Vec2.scale({1.5, -2.5}, 0.5) === {0.75, -1.25}
     # (4^(3/2) + 9^(3/2))^(2/3) = 35^(2/3).
@@ -73,6 +101,7 @@ defmodule GraphmathTest.Vec2.NumericContract do
                     1.0e-12
   end
 
+  @tag :equal
   test "equality includes its epsilon boundary and checks each coordinate" do
     for a <- [{0, 0}, {0.0, 0.0}, {0, 0.0}], i <- 0..1, sign <- [-1, 1] do
       b = put_elem(a, i, sign * 0.5)
@@ -85,6 +114,7 @@ defmodule GraphmathTest.Vec2.NumericContract do
     end
   end
 
+  @tag :near
   test "near uses an exclusive Euclidean distance boundary" do
     for {a, b} <- [{{0, 0}, {3, 4}}, {{0.0, 0.0}, {3.0, 4.0}}, {{0, 0.0}, {3.0, 4}}] do
       refute Vec2.near(a, b, 5.0)
@@ -95,6 +125,8 @@ defmodule GraphmathTest.Vec2.NumericContract do
     end
   end
 
+  @tag :normalize
+  @tag :project
   test "zero normalization and zero projection target raise" do
     for zero <- [{0, 0}, {0.0, 0.0}, {0, 0.0}] do
       assert_raise ArithmeticError, fn -> Vec2.normalize(zero) end

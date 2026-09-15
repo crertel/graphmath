@@ -2,6 +2,11 @@ defmodule GraphmathTest.Mat33.Affine do
   use ExUnit.Case, async: true
   alias Graphmath.Mat33
 
+  @moduletag :mat33
+
+  @tag :inverse
+  @tag :transform_point
+  @tag :transform_vector
   test "scale and shear transform points and directions through numeric clauses" do
     for {matrix, v} <- [
           {{2, 1, 0, -1, 3, 0, 5, -7, 1}, {4, -2}},
@@ -16,6 +21,15 @@ defmodule GraphmathTest.Mat33.Affine do
     end
   end
 
+  @tag :apply_left
+  @tag :apply_transpose
+  @tag :inverse
+  @tag :make_rotate
+  @tag :make_scale
+  @tag :make_translate
+  @tag :multiply
+  @tag :transform_point
+  @tag :transform_vector
   test "nonuniform scale, quarter turn and translation compose left to right" do
     scale = Mat33.make_scale(2.0, -3.0, 1.0)
     rotate = Mat33.make_rotate(:math.pi() / 2)
@@ -33,6 +47,10 @@ defmodule GraphmathTest.Mat33.Affine do
     assert_close(Mat33.transform_vector(inverse, {-6.0, 8.0}), {4, -2})
   end
 
+  @tag :apply_left
+  @tag :identity
+  @tag :make_rotate
+  @tag :make_scale
   test "uniform full-matrix scale also scales the homogeneous coordinate" do
     for scalar <- [2, 2.0] do
       assert Mat33.apply_left({1.0, -2.0, 1.0}, Mat33.make_scale(scalar)) == {2, -4, 2}
