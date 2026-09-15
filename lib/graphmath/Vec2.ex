@@ -38,7 +38,7 @@ defmodule Graphmath.Vec2 do
 
   `vec` is a list of 2 or more floats.
 
-  It returns a `vec2` of the form `{x,y}`, where `x` and `y` are the first three elements in `vec`.
+  It returns a `vec2` of the form `{x,y}`, where `x` and `y` are the first two elements in `vec`.
   """
   @spec create([float]) :: vec2
   def create([x, y | _]) when is_float(x) and is_float(y), do: {x, y}
@@ -196,6 +196,7 @@ defmodule Graphmath.Vec2 do
   It returns a `vec2` of the form `{normx, normy}`.
 
   This is done by dividing each component by the vector's magnitude.
+  Raises `ArithmeticError` for a zero vector.
   """
   @spec normalize(vec2) :: vec2
   def normalize({x, y}) when is_float(x) and is_float(y) do
@@ -220,7 +221,7 @@ defmodule Graphmath.Vec2 do
 
   `t` is the interpolant float, on the domain [0,1].
 
-  It returns a `vec2` of the form (1-t)**a** - (t)**b**.
+  It returns a `vec2` of the form (1-t)**a** + (t)**b**.
 
   The interpolant `t` is on the domain [0,1]. Behavior outside of that is undefined.
   """
@@ -261,6 +262,7 @@ defmodule Graphmath.Vec2 do
   `b` is the second `vec2`.
 
   `distance` is the distance between them as a float.
+  The comparison is strict: points exactly `distance` apart return false.
   """
   @spec near(vec2, vec2, float) :: boolean
   def near({x, y}, {u, v}, distance)
@@ -284,6 +286,7 @@ defmodule Graphmath.Vec2 do
   `b` is the second `vec2`.
 
   This returns a `vec2` representing the image of `a` in the direction of `b`.
+  Raises `ArithmeticError` when the target `b` is zero.
   """
   @spec project(vec2, vec2) :: vec2
   def project({x, y}, {u, v}) when is_float(x) and is_float(y) and is_float(u) and is_float(v) do
@@ -301,7 +304,7 @@ defmodule Graphmath.Vec2 do
 
   `a` is the `vec2` to be perpindicular to.
 
-  This returns a `vec2` perpindicular to `a`, to the right of the original `a`.
+  This returns a `vec2` perpindicular to `a`, 90 degrees counterclockwise from `a`.
   """
   @spec perp(vec2) :: vec2
   def perp({x, y}) when is_float(x) and is_float(y), do: {-1.0 * y, 1.0 * x}
@@ -363,7 +366,7 @@ defmodule Graphmath.Vec2 do
   @doc """
   `random_disc()` generates a point on or inside the unit circle using the method [here](http://mathworld.wolfram.com/DiskPointPicking.html).
 
-  It returns a vec2 with distance 1 from the origin.
+  It returns a vec2 with distance at most 1 from the origin.
   """
   @spec random_disc() :: vec2
   def random_disc() do
