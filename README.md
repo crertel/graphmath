@@ -15,7 +15,7 @@ Features
 ========
 
 * Support for vectors in R2 and R3.
-* Support for 3x3 and 4x4 matrices.
+* Support for 2x2, 3x3, and 4x4 matrices.
 * Support for quaternions
 * Addition, subtraction
 * Element-wise multiplication
