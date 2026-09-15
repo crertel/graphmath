@@ -25,7 +25,7 @@ defmodule GraphmathTest.Mat44.MakeRotate do
   @tag :mat44
   @tag :make_rotate_y
   test "make_rotate_y( PI/2 ) returns a matrix of rotation PI/2 radians about the Y axis." do
-    assert {0, 0, 1, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 1} ==
+    assert {0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1} ==
              Graphmath.Mat44.round(Graphmath.Mat44.make_rotate_y(:math.pi() / 2.0), 0)
   end
 

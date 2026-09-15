@@ -374,7 +374,8 @@ defmodule Graphmath.Quatern do
   @doc """
   `from_rotation_matrix(mat)` creates a `quatern` from a rotation matrix.
 
-  `mat` is the matrix
+  `mat` is a 3x3 rotation matrix using the row-vector convention of
+  `Graphmath.Mat33.make_rotate/1` and `Graphmath.Mat33.apply_left/2`.
 
   It returns a `quatern` of the form `{w,x,y,z}`.
   """
@@ -391,14 +392,14 @@ defmodule Graphmath.Quatern do
       f_root = :math.sqrt(f_trace + 1.0)
       w = 0.5 * f_root
       f_root = 0.5 / f_root
-      {w, (a32 - a23) * f_root, (a13 - a31) * f_root, (a21 - a12) * f_root}
+      {w, (a23 - a32) * f_root, (a31 - a13) * f_root, (a12 - a21) * f_root}
     else
       i_next = {1, 2, 0}
 
       i =
         cond do
-          a22 > a11 and a33 > Mat33.at(mat, 1, 1) -> 2
-          a33 > Mat33.at(mat, 0, 0) -> 2
+          a22 > a11 and a22 > a33 -> 1
+          a33 > a11 -> 2
           true -> 0
         end
 
@@ -414,7 +415,7 @@ defmodule Graphmath.Quatern do
 
       {x, y, z} = apk_quat
 
-      {x, y, z, (Mat33.at(mat, k, j) - Mat33.at(mat, j, k)) * f_root}
+      {(Mat33.at(mat, j, k) - Mat33.at(mat, k, j)) * f_root, x, y, z}
     end
   end
 
@@ -427,14 +428,14 @@ defmodule Graphmath.Quatern do
       f_root = :math.sqrt(f_trace + 1.0)
       w = 0.5 * f_root
       f_root = 0.5 / f_root
-      {w, (a32 - a23) * f_root, (a13 - a31) * f_root, (a21 - a12) * f_root}
+      {w, (a23 - a32) * f_root, (a31 - a13) * f_root, (a12 - a21) * f_root}
     else
       i_next = {1, 2, 0}
 
       i =
         cond do
-          a22 > a11 and a33 > Mat33.at(mat, 1, 1) -> 2
-          a33 > Mat33.at(mat, 0, 0) -> 2
+          a22 > a11 and a22 > a33 -> 1
+          a33 > a11 -> 2
           true -> 0
         end
 
@@ -450,16 +451,19 @@ defmodule Graphmath.Quatern do
 
       {x, y, z} = apk_quat
 
-      {x, y, z, (Mat33.at(mat, k, j) - Mat33.at(mat, j, k)) * f_root}
+      {(Mat33.at(mat, j, k) - Mat33.at(mat, k, j)) * f_root, x, y, z}
     end
   end
 
   @doc """
   `to_rotation_matrix_33(quat)` creates a `mat33` from a quatern.
 
-  `quat` is the quatern
+  `quat` is a unit quaternion.
 
-  It returns a `mat33` representing a rotation.
+  It returns a `mat33` representing the same rotation, using row vectors.
+  Apply it to a 3D vector with `Graphmath.Mat33.apply_left/2` or
+  `Graphmath.Mat33.apply_transpose/2`. A rotation about Z can also be used
+  with the Mat33 2D point/vector transforms.
   """
   @spec to_rotation_matrix_33(quatern) :: mat33
   def to_rotation_matrix_33({w, x, y, z})
@@ -487,7 +491,7 @@ defmodule Graphmath.Quatern do
     a32 = f_t_yz + f_t_wx
     a33 = 1.0 - (f_t_xx + f_t_yy)
 
-    {a11, a12, a13, a21, a22, a23, a31, a32, a33}
+    {a11, a21, a31, a12, a22, a32, a13, a23, a33}
   end
 
   def to_rotation_matrix_33({w, x, y, z}) do
@@ -514,15 +518,16 @@ defmodule Graphmath.Quatern do
     a32 = f_t_yz + f_t_wx
     a33 = 1.0 - (f_t_xx + f_t_yy)
 
-    {a11, a12, a13, a21, a22, a23, a31, a32, a33}
+    {a11, a21, a31, a12, a22, a32, a13, a23, a33}
   end
 
   @doc """
   `to_rotation_matrix_44(quat)` creates a `mat44` from a quatern.
 
-  `quat` is the quatern
+  `quat` is a unit quaternion.
 
-  It returns a `mat44` representing a rotation.
+  It returns a `mat44` representing the same rotation, compatible with
+  `Graphmath.Mat44.transform_point/2` and `Graphmath.Mat44.transform_vector/2`.
   """
   @spec to_rotation_matrix_44(quatern) :: mat44
   def to_rotation_matrix_44({w, x, y, z})
@@ -550,7 +555,7 @@ defmodule Graphmath.Quatern do
     a32 = f_t_yz + f_t_wx
     a33 = 1.0 - (f_t_xx + f_t_yy)
 
-    {a11, a12, a13, 0.0, a21, a22, a23, 0.0, a31, a32, a33, 0.0, 0.0, 0.0, 0.0, 1.0}
+    {a11, a21, a31, 0.0, a12, a22, a32, 0.0, a13, a23, a33, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   def to_rotation_matrix_44({w, x, y, z}) do
@@ -577,7 +582,7 @@ defmodule Graphmath.Quatern do
     a32 = f_t_yz + f_t_wx
     a33 = 1.0 - (f_t_xx + f_t_yy)
 
-    {a11, a12, a13, 0.0, a21, a22, a23, 0.0, a31, a32, a33, 0.0, 0.0, 0.0, 0.0, 1.0}
+    {a11, a21, a31, 0.0, a12, a22, a32, 0.0, a13, a23, a33, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -712,20 +717,24 @@ defmodule Graphmath.Quatern do
   def conjugate({w, x, y, z}), do: {w, -x, -y, -z}
 
   @doc """
-  `slerp(lhs, rhs, t)` Performs Spherical linear interpolation between two quaternions, and returns the result.
+  `slerp(lhs, rhs, t)` interpolates between two quaternion orientations along the shortest arc.
 
   `lhs` is the first `quatern`
 
   `rhs` is the second `quatern`
 
-  `t` is the interpolation parameter that will interpolate to `lhs` when `t = 0` and to `rhs` when `t = 1`.
+  `t` is the interpolation parameter on [0,1]. The endpoint orientations are
+  `lhs` when `t = 0` and `rhs` when `t = 1`.
 
   It returns a `quatern` representing the normalized interpolation point.
 
-  Note: `slerp` has the proprieties of performing the interpolation at constant velocity However, it's NOT commutative, which means
-  `slerp( A, B, 0.75 ) != slerp( B, A, 0.25 )`
-  therefore be careful if your code relies in the order of the operands.
-  This is specially important in IK animation.
+  Use unit inputs for interpolation at constant angular velocity. Nearly
+  identical orientations use normalized linear interpolation for stability.
+
+  Quaternions `q` and `-q` represent the same orientation. The sign of `rhs`
+  may be reversed to choose the shortest arc, including at `t = 1`.
+  Swapping the inputs and replacing `t` with `1 - t` gives the same
+  orientation, possibly with the opposite quaternion sign.
   """
   @spec slerp(quatern, quatern, float) :: quatern
   def slerp({w, x, y, z} = lhs, {a, b, c, d} = rhs, t)
@@ -733,14 +742,10 @@ defmodule Graphmath.Quatern do
              is_float(a) and is_float(b) and is_float(c) and is_float(d) do
     f_cos = dot(lhs, rhs)
 
-    # There are two situations:
-    # 1. "rhs" and "lhs" are very close (fCos ~= +1), so we can do a linear
-    #    interpolation safely.
-    # 2. "rhs" and "lhs" are almost inverse of each other (fCos ~= -1), there
-    #    are an infinite number of possibilities interpolation. but we haven't
-    #    have method to fix this case, so just use linear interpolation here.
+    # Choose equivalent quaternion signs that follow the shortest arc.
+    {rhs, f_cos} = if f_cos < 0.0, do: {scale(rhs, -1.0), -f_cos}, else: {rhs, f_cos}
 
-    if abs(f_cos) < 1 - 1.0e-03 do
+    if f_cos < 1 - 1.0e-03 do
       f_sin = :math.sqrt(1 - f_cos * f_cos)
       f_angle = :math.atan2(f_sin, f_cos)
       f_inv_sin = 1.0 / f_sin
@@ -749,7 +754,7 @@ defmodule Graphmath.Quatern do
       normalize(add(scale(lhs, f_coeff0), scale(rhs, f_coeff1)))
     else
       r = add(scale(lhs, 1.0 - t), scale(rhs, t))
-      # taking the complement requires renormalisation
+      # Nearly identical orientations use normalized linear interpolation.
       normalize(r)
     end
   end
@@ -757,14 +762,10 @@ defmodule Graphmath.Quatern do
   def slerp(lhs, rhs, t) do
     f_cos = dot(lhs, rhs)
 
-    # There are two situations:
-    # 1. "rhs" and "lhs" are very close (fCos ~= +1), so we can do a linear
-    #    interpolation safely.
-    # 2. "rhs" and "lhs" are almost inverse of each other (fCos ~= -1), there
-    #    are an infinite number of possibilities interpolation. but we haven't
-    #    have method to fix this case, so just use linear interpolation here.
+    # Choose equivalent quaternion signs that follow the shortest arc.
+    {rhs, f_cos} = if f_cos < 0.0, do: {scale(rhs, -1.0), -f_cos}, else: {rhs, f_cos}
 
-    if abs(f_cos) < 1 - 1.0e-03 do
+    if f_cos < 1 - 1.0e-03 do
       f_sin = :math.sqrt(1 - f_cos * f_cos)
       f_angle = :math.atan2(f_sin, f_cos)
       f_inv_sin = 1.0 / f_sin
@@ -773,7 +774,7 @@ defmodule Graphmath.Quatern do
       normalize(add(scale(lhs, f_coeff0), scale(rhs, f_coeff1)))
     else
       r = add(scale(lhs, 1.0 - t), scale(rhs, t))
-      # taking the complement requires renormalisation
+      # Nearly identical orientations use normalized linear interpolation.
       normalize(r)
     end
   end
