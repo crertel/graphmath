@@ -4,7 +4,45 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.5.0] - 2024-08-03
+## [3.0.0] - Unreleased
+
+### Added
+
+- Add `Mat22` for 2x2 matrix arithmetic, inversion, trace, determinant, and 2D linear transforms.
+- Add `Vec4` arithmetic and explicit homogeneous point (`w = 1`) and direction (`w = 0`) constructors.
+- Add `trace/1`, `determinant/1`, `submatrix/3`, and `cofactor/3` to `Mat33` and `Mat44`.
+- Add `Mat33.orthonormalize/1` for row bases, preserving handedness and rejecting degenerate inputs.
+- Add reflection and shear constructors to `Mat22`, `Mat33`, and `Mat44`. Mat33 names explicitly distinguish 2D affine transforms from 3D linear transforms.
+- Add `Mat44.orient/3`, `look_at/3`, `make_billboard/3`, and `make_billboard_axis/3` with right-handed, -Z-forward camera conventions.
+- Add `Mat44.perspective/4` and `ortho/6` with normalized device depth in [-1, +1]. Perspective projection requires an explicit divide by the resulting homogeneous coordinate.
+- Add Benchee benchmarks for Vec2, Vec3, Mat33, Mat44, and Quatern operations.
+- Expand numeric, boundary, random, and transform tests, and enforce 100% library line coverage in CI.
+
+### Changed
+
+- Move CI to GitHub Actions and remove CircleCI configuration and reporting.
+- Document matrix storage, row-vector graphics transforms, composition order, quaternion components, and world-space angular velocity for quaternion integration.
+- Convert integer components to floats in `Vec3.create/1` and `Quatern.from_list/1`, matching their documented representation.
+
+### Fixed
+
+- Correct quaternion-to-matrix conversions to produce row-vector rotation matrices consistent with the matrix transform helpers.
+- Correct `Quatern.from_rotation_matrix/1` rotation direction, diagonal selection, and `{w, x, y, z}` component order, including rotations with nonpositive trace.
+- Correct `Mat44.make_rotate_y/1` to agree with right-handed vector and quaternion rotations.
+- Make `Quatern.slerp/3` follow the shortest arc and handle opposite-sign representations of the same orientation without producing the zero quaternion.
+- Make `Vec2.length_manhattan/1` and `Vec3.length_manhattan/1` sum absolute component values.
+- Correct the August 2024 changelog heading to identify the published 2.6.0 release.
+
+### Upgrading from 2.x
+
+- Update the dependency requirement to `{:graphmath, "~> 3.0.0"}`. The minimum Elixir requirement remains `~> 1.15`.
+- Review workarounds for rotation direction. `Quatern.to_rotation_matrix_33/1` and `to_rotation_matrix_44/1` now return the transpose of their previous results; `Quatern.from_rotation_matrix/1` expects the corresponding row-vector convention. Use `Mat33.apply_left/2` for full 3D row vectors or the Mat44 point/vector transform helpers. `apply/2` still computes a column-vector product.
+- Remove any angle negation used to compensate for `Mat44.make_rotate_y/1`. A positive quarter-turn about Y now transforms +X toward -Z.
+- Treat quaternion interpolation endpoints as orientations. `Quatern.slerp/3` can return the negation of the second quaternion at `t = 1` to select the shortest arc. Use `Quatern.equal/2` or `equal/3` for orientation comparisons.
+- Expect nonnegative Manhattan lengths for vectors with negative components. For example, `Vec2.length_manhattan({-3.0, 4.0})` now returns `7.0`.
+- Update integer-specific pattern matches or strict equality checks on results of `Vec3.create/1` and `Quatern.from_list/1`: these constructors now return floats for integer inputs.
+
+## [2.6.0] - 2024-08-03
 ### Added
  - Added `is_float` hints to all modules.
  - Removed moduledoc for util and root module.
