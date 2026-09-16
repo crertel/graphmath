@@ -1,12 +1,17 @@
 defmodule Graphmath.Mat44 do
   @moduledoc """
-  4x4 matrices and 3D affine transformations, using tuples of floats.
+  4x4 matrices and 3D transformations, using tuples of floats.
 
   Reflection and shear constructors act on three spatial coordinates and
   preserve the fourth, homogeneous coordinate. Use `transform_point/2` for
   points (`w = 1`) and `transform_vector/2` for directions (`w = 0`), so that
   translation affects only points. A shear can change X, Y or Z; `w` is not
   another spatial axis.
+
+  `perspective/4` and `ortho/6` project right-handed camera coordinates with -Z
+  forward into the OpenGL normalized device depth range [-1, +1]. Perspective
+  projection requires keeping the output of `apply_left/2` and dividing its
+  first three coordinates by `w`; `transform_point/2` does not perform that step.
 
   Tuples store matrix rows in order. `apply(a, v)` computes the column-vector
   product **A****v**. Graphics constructors use row vectors: `transform_point/2`
@@ -253,6 +258,87 @@ defmodule Graphmath.Mat44 do
     ct = :math.cos(theta)
 
     {ct, st, 0.0, 0.0, -st, ct, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  @doc """
+  Creates a right-handed perspective projection for row vectors.
+
+  `fov_y` is the vertical field of view in radians, `aspect` is width / height,
+  and `near` and `far` are positive distances along the camera's -Z direction.
+  Requires `0 < fov_y < pi`, `aspect > 0`, and `0 < near < far`.
+  Invalid parameters raise `ArithmeticError`.
+
+  Maps the near and far planes to normalized device depths -1 and +1,
+  respectively, following the OpenGL depth convention. Apply with `apply_left/2`
+  to a homogeneous point `{x, y, z, 1.0}`, then divide the first three output
+  coordinates by the fourth (`w = -z`). No clipping or division is performed
+  by this constructor. `transform_point/2` discards `w` and is unsuitable for
+  completing a perspective projection.
+
+  ## Examples
+
+      iex> projection = Graphmath.Mat44.perspective(:math.pi() / 2, 1.0, 1.0, 3.0)
+      iex> {x, y, z, w} = Graphmath.Mat44.apply_left({0.0, 0.0, -1.0, 1.0}, projection)
+      iex> {x / w, y / w, z / w}
+      {0.0, 0.0, -1.0}
+  """
+  @spec perspective(float, float, float, float) :: mat44
+  def perspective(fov_y, aspect, near, far)
+      when is_float(fov_y) and is_float(aspect) and is_float(near) and is_float(far) do
+    if fov_y <= 0.0 or fov_y >= :math.pi() or aspect <= 0.0 or near <= 0.0 or far <= near do
+      raise ArithmeticError,
+            "perspective requires 0 < fov_y < pi, aspect > 0, and 0 < near < far"
+    end
+
+    cotangent = 1.0 / :math.tan(fov_y / 2.0)
+    depth_ratio = near / (far - near)
+
+    # Equivalent to -(far + near)/(far - near) and -2*far*near/(far - near),
+    # without multiplying the near and far distances together.
+    {cotangent / aspect, 0.0, 0.0, 0.0, 0.0, cotangent, 0.0, 0.0, 0.0, 0.0,
+     -(1.0 + 2.0 * depth_ratio), -1.0, 0.0, 0.0, -2.0 * near * (1.0 + depth_ratio), 0.0}
+  end
+
+  def perspective(fov_y, aspect, near, far) do
+    perspective(1.0 * fov_y, 1.0 * aspect, 1.0 * near, 1.0 * far)
+  end
+
+  @doc """
+  Creates a right-handed orthographic projection for row vectors.
+
+  Maps X bounds `x_min` and `x_max` to -1 and +1, and Y bounds `y_min` and
+  `y_max` to -1 and +1. The camera looks down -Z: eye-space `z = -near`
+  maps to depth -1, and `z = -far` maps to depth +1 (the OpenGL convention).
+
+  Each pair of bounds must have distinct endpoints; equal endpoints raise
+  `ArithmeticError`. Reversed bounds flip the corresponding axis. Unlike
+  `perspective/4`, `near` and `far` may be zero or negative, allowing volumes
+  that extend behind the eye.
+
+  Preserves the homogeneous coordinate, so `transform_point/2` can apply this
+  projection directly. With `apply_left/2`, a point's output `w` remains 1.
+
+  ## Examples
+
+      iex> projection = Graphmath.Mat44.ortho(-2.0, 6.0, -4.0, 4.0, 1.0, 3.0)
+      iex> Graphmath.Mat44.transform_point(projection, {2.0, 0.0, -2.0})
+      {0.0, 0.0, 0.0}
+  """
+  @spec ortho(float, float, float, float, float, float) :: mat44
+  def ortho(x_min, x_max, y_min, y_max, near, far)
+      when is_float(x_min) and is_float(x_max) and is_float(y_min) and is_float(y_max) and
+             is_float(near) and is_float(far) do
+    if x_min == x_max or y_min == y_max or near == far do
+      raise ArithmeticError, "orthographic bounds must have nonzero extent on every axis"
+    end
+
+    {2.0 / (x_max - x_min), 0.0, 0.0, 0.0, 0.0, 2.0 / (y_max - y_min), 0.0, 0.0, 0.0, 0.0,
+     -2.0 / (far - near), 0.0, -(x_max + x_min) / (x_max - x_min),
+     -(y_max + y_min) / (y_max - y_min), -(far + near) / (far - near), 1.0}
+  end
+
+  def ortho(x_min, x_max, y_min, y_max, near, far) do
+    ortho(1.0 * x_min, 1.0 * x_max, 1.0 * y_min, 1.0 * y_max, 1.0 * near, 1.0 * far)
   end
 
   @doc """
