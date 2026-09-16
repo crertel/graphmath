@@ -51,7 +51,7 @@ defmodule Graphmath.Mixfile do
   defp package do
     [
       maintainers: ["Chris Ertel", "Ivan Miranda", "Matthew Philyaw"],
-      licenses: ["Public Domain (unlicense)", "WTFPL", "New BSD"],
+      licenses: ["Unlicense", "WTFPL", "BSD-3-Clause"],
       links: %{"GitHub" => "https://github.com/crertel/graphmath"}
     ]
   end
