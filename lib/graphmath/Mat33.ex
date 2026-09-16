@@ -1,8 +1,17 @@
 defmodule Graphmath.Mat33 do
   @moduledoc """
-  This is the 3D mathematics.
+  3x3 matrices for 3D linear algebra and 2D affine transformations.
 
-  This submodule handles 3x3 matrices using tuples of floats.
+  Matrices use tuples of floats. Reflection and shear constructors explicitly
+  name the spatial dimension:
+
+  * `_2d` constructors act on `{x, y, w}`, where `w` is a homogeneous coordinate.
+    Use `transform_point/2` for points (`w = 1`) and `transform_vector/2` for
+    directions (`w = 0`).
+  * `_3d` constructors act on full spatial vectors `{x, y, z}`. Use
+    `apply_left/2`; all three coordinates participate in the linear transform.
+
+  For 3D affine transformations, including translation, use `Graphmath.Mat44`.
 
   Tuples store matrix rows in order: `{a11,a12,a13,a21,a22,a23,a31,a32,a33}`.
   `apply(a, v)` computes the column-vector product **A****v**. Graphics
@@ -184,6 +193,154 @@ defmodule Graphmath.Mat33 do
     ct = :math.cos(theta)
 
     {ct, st, 0.0, -st, ct, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  @doc """
+  Creates a 2D affine reflection across `nx*x + ny*y = offset`.
+
+  The normal may have any nonzero length. `offset` is the line equation
+  constant; it is a signed distance only when the normal has unit length.
+  Scaling the normal and offset by the same nonzero factor leaves the mirror
+  unchanged. A zero normal raises `ArithmeticError`.
+
+  Use `transform_point/2` for points and `transform_vector/2` for directions.
+  The homogeneous coordinate is preserved; translation affects only points.
+  """
+  @spec make_reflect_2d(vec2, float) :: mat33
+  def make_reflect_2d({nx, ny}, offset)
+      when is_float(nx) and is_float(ny) and is_float(offset) do
+    scale = max(abs(nx), abs(ny))
+    ux = nx / scale
+    uy = ny / scale
+    factor = 2.0 / (ux * ux + uy * uy)
+    scaled_offset = offset / scale
+
+    {1.0 - factor * ux * ux, -factor * ux * uy, 0.0, -factor * uy * ux, 1.0 - factor * uy * uy,
+     0.0, factor * scaled_offset * ux, factor * scaled_offset * uy, 1.0}
+  end
+
+  def make_reflect_2d({nx, ny}, offset) do
+    scale = max(abs(nx), abs(ny))
+    ux = nx / scale
+    uy = ny / scale
+    factor = 2.0 / (ux * ux + uy * uy)
+    scaled_offset = offset / scale
+
+    {1.0 - factor * ux * ux, -factor * ux * uy, 0.0, -factor * uy * ux, 1.0 - factor * uy * uy,
+     0.0, factor * scaled_offset * ux, factor * scaled_offset * uy, 1.0}
+  end
+
+  @doc """
+  Creates a 2D affine X shear: `x' = x + k*y`.
+
+  The other spatial coordinates and homogeneous coordinate are unchanged.
+  Use `transform_point/2` or `transform_vector/2` with 2 spatial components.
+  """
+  @spec make_shear_x_2d(float) :: mat33
+  def make_shear_x_2d(k)
+      when is_float(k) do
+    {1.0, 0.0, 0.0, k, 1.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  def make_shear_x_2d(k) do
+    {1.0, 0.0, 0.0, 1.0 * k, 1.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  @doc """
+  Creates a 2D affine Y shear: `y' = y + k*x`.
+
+  The other spatial coordinates and homogeneous coordinate are unchanged.
+  Use `transform_point/2` or `transform_vector/2` with 2 spatial components.
+  """
+  @spec make_shear_y_2d(float) :: mat33
+  def make_shear_y_2d(k)
+      when is_float(k) do
+    {1.0, k, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  def make_shear_y_2d(k) do
+    {1.0, 1.0 * k, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  @doc """
+  Creates a 3D linear reflection across the plane through the origin
+  with normal `{nx, ny, nz}`.
+
+  The normal may have any nonzero length; a zero normal raises `ArithmeticError`.
+  Apply using `apply_left/2` with a full 3-component vector.
+  """
+  @spec make_reflect_3d(vec3) :: mat33
+  def make_reflect_3d({nx, ny, nz})
+      when is_float(nx) and is_float(ny) and is_float(nz) do
+    scale = max(abs(nx), max(abs(ny), abs(nz)))
+    ux = nx / scale
+    uy = ny / scale
+    uz = nz / scale
+    factor = 2.0 / (ux * ux + uy * uy + uz * uz)
+
+    {1.0 - factor * ux * ux, -factor * ux * uy, -factor * ux * uz, -factor * uy * ux,
+     1.0 - factor * uy * uy, -factor * uy * uz, -factor * uz * ux, -factor * uz * uy,
+     1.0 - factor * uz * uz}
+  end
+
+  def make_reflect_3d({nx, ny, nz}) do
+    scale = max(abs(nx), max(abs(ny), abs(nz)))
+    ux = nx / scale
+    uy = ny / scale
+    uz = nz / scale
+    factor = 2.0 / (ux * ux + uy * uy + uz * uz)
+
+    {1.0 - factor * ux * ux, -factor * ux * uy, -factor * ux * uz, -factor * uy * ux,
+     1.0 - factor * uy * uy, -factor * uy * uz, -factor * uz * ux, -factor * uz * uy,
+     1.0 - factor * uz * uz}
+  end
+
+  @doc """
+  Creates a 3D linear X shear: `x' = x + ky*y + kz*z`.
+
+  The other spatial coordinates are unchanged.
+  Apply using `apply_left/2` with a full 3-component vector.
+  """
+  @spec make_shear_x_3d(float, float) :: mat33
+  def make_shear_x_3d(ky, kz)
+      when is_float(ky) and is_float(kz) do
+    {1.0, 0.0, 0.0, ky, 1.0, 0.0, kz, 0.0, 1.0}
+  end
+
+  def make_shear_x_3d(ky, kz) do
+    {1.0, 0.0, 0.0, 1.0 * ky, 1.0, 0.0, 1.0 * kz, 0.0, 1.0}
+  end
+
+  @doc """
+  Creates a 3D linear Y shear: `y' = y + kx*x + kz*z`.
+
+  The other spatial coordinates are unchanged.
+  Apply using `apply_left/2` with a full 3-component vector.
+  """
+  @spec make_shear_y_3d(float, float) :: mat33
+  def make_shear_y_3d(kx, kz)
+      when is_float(kx) and is_float(kz) do
+    {1.0, kx, 0.0, 0.0, 1.0, 0.0, 0.0, kz, 1.0}
+  end
+
+  def make_shear_y_3d(kx, kz) do
+    {1.0, 1.0 * kx, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0 * kz, 1.0}
+  end
+
+  @doc """
+  Creates a 3D linear Z shear: `z' = z + kx*x + ky*y`.
+
+  The other spatial coordinates are unchanged.
+  Apply using `apply_left/2` with a full 3-component vector.
+  """
+  @spec make_shear_z_3d(float, float) :: mat33
+  def make_shear_z_3d(kx, ky)
+      when is_float(kx) and is_float(ky) do
+    {1.0, 0.0, kx, 0.0, 1.0, ky, 0.0, 0.0, 1.0}
+  end
+
+  def make_shear_z_3d(kx, ky) do
+    {1.0, 0.0, 1.0 * kx, 0.0, 1.0, 1.0 * ky, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -558,17 +715,11 @@ defmodule Graphmath.Mat33 do
     }
 
   @doc """
-  `transform_point( a, v )` transforms a `vec2` point by a `mat33`.
+  Transforms a 2D point `{x, y}` using the row-vector product `{x, y, 1.0} a`.
 
-  `a` is a `mat33` used to transform the point.
-
-  `v` is a `vec2` to be transformed.
-
-  This returns a `vec2` representing the application of `a` to `v`.
-
-  The point `a` is internally treated as having a third coordinate equal to 1.0.
-
-  Note that transforming a point will work for all transforms.
+  Returns the first two coordinates, including the effect of translation.
+  Use with 2D affine matrices. No perspective division is performed.
+  For a full 3D linear transformation, use `apply_left/2` with `{x, y, z}`.
   """
   @spec transform_point(mat33, vec2) :: vec2
   def transform_point({a11, a21, _, a12, a22, _, a13, a23, _}, {x, y})
@@ -586,17 +737,11 @@ defmodule Graphmath.Mat33 do
     }
 
   @doc """
-  `transform_vector( a, v )` transforms a `vec2` vector by a `mat33`.
+  Transforms a 2D direction `{x, y}` using the row-vector product `{x, y, 0.0} a`.
 
-  `a` is a `mat33` used to transform the point.
-
-  `v` is a `vec2` to be transformed.
-
-  This returns a `vec2` representing the application of `a` to `v`.
-
-  The point `a` is internally treated as having a third coordinate equal to 0.0.
-
-  Note that transforming a vector will work for only rotations, scales, and shears.
+  Returns the first two coordinates. The zero homogeneous coordinate excludes
+  translation; rotations, scales, reflections and shears still affect the vector.
+  For a full 3D linear transformation, use `apply_left/2` with `{x, y, z}`.
   """
   @spec transform_vector(mat33, vec2) :: vec2
   def transform_vector({a11, a21, _, a12, a22, _, _, _, _}, {x, y})
