@@ -614,6 +614,208 @@ defmodule Graphmath.Mat33 do
     }
 
   @doc """
+  Returns the trace, the sum of the diagonal entries.
+  """
+  @spec trace(mat33) :: float
+  def trace({a11, _, _, _, a22, _, _, _, a33})
+      when is_float(a11) and is_float(a22) and is_float(a33),
+      do: a11 + a22 + a33
+
+  def trace({a11, _, _, _, a22, _, _, _, a33}), do: a11 + a22 + a33
+
+  @doc """
+  Returns the determinant of `a`.
+  """
+  @spec determinant(mat33) :: float
+  # Float guards expose the arithmetic's types to the VM for optimization.
+  def determinant({a11, a12, a13, a21, a22, a23, a31, a32, a33})
+      when is_float(a11) and is_float(a12) and is_float(a13) and
+             is_float(a21) and is_float(a22) and is_float(a23) and
+             is_float(a31) and is_float(a32) and is_float(a33),
+      do:
+        a11 * (a22 * a33 - a23 * a32) -
+          a12 * (a21 * a33 - a23 * a31) +
+          a13 * (a21 * a32 - a22 * a31)
+
+  def determinant({a11, a12, a13, a21, a22, a23, a31, a32, a33}),
+    do:
+      a11 * (a22 * a33 - a23 * a32) -
+        a12 * (a21 * a33 - a23 * a31) +
+        a13 * (a21 * a32 - a22 * a31)
+
+  @doc """
+  Returns the `Graphmath.Mat22` obtained by deleting row `i` and column `j`.
+
+  The remaining entries retain their row-major order. Indices are zero-based
+  integers from 0 through 2; invalid indices raise `FunctionClauseError`.
+
+  This returns a matrix. Its determinant is the corresponding scalar minor.
+  """
+  @spec submatrix(mat33, 0..2, 0..2) :: Graphmath.Mat22.mat22()
+  def submatrix({_, _, _, _, a22, a23, _, a32, a33}, 0, 0)
+      when is_float(a22) and is_float(a23) and is_float(a32) and is_float(a33),
+      do: {a22, a23, a32, a33}
+
+  def submatrix({_, _, _, _, a22, a23, _, a32, a33}, 0, 0), do: {a22, a23, a32, a33}
+
+  def submatrix({_, _, _, a21, _, a23, a31, _, a33}, 0, 1)
+      when is_float(a21) and is_float(a23) and is_float(a31) and is_float(a33),
+      do: {a21, a23, a31, a33}
+
+  def submatrix({_, _, _, a21, _, a23, a31, _, a33}, 0, 1), do: {a21, a23, a31, a33}
+
+  def submatrix({_, _, _, a21, a22, _, a31, a32, _}, 0, 2)
+      when is_float(a21) and is_float(a22) and is_float(a31) and is_float(a32),
+      do: {a21, a22, a31, a32}
+
+  def submatrix({_, _, _, a21, a22, _, a31, a32, _}, 0, 2), do: {a21, a22, a31, a32}
+
+  def submatrix({_, a12, a13, _, _, _, _, a32, a33}, 1, 0)
+      when is_float(a12) and is_float(a13) and is_float(a32) and is_float(a33),
+      do: {a12, a13, a32, a33}
+
+  def submatrix({_, a12, a13, _, _, _, _, a32, a33}, 1, 0), do: {a12, a13, a32, a33}
+
+  def submatrix({a11, _, a13, _, _, _, a31, _, a33}, 1, 1)
+      when is_float(a11) and is_float(a13) and is_float(a31) and is_float(a33),
+      do: {a11, a13, a31, a33}
+
+  def submatrix({a11, _, a13, _, _, _, a31, _, a33}, 1, 1), do: {a11, a13, a31, a33}
+
+  def submatrix({a11, a12, _, _, _, _, a31, a32, _}, 1, 2)
+      when is_float(a11) and is_float(a12) and is_float(a31) and is_float(a32),
+      do: {a11, a12, a31, a32}
+
+  def submatrix({a11, a12, _, _, _, _, a31, a32, _}, 1, 2), do: {a11, a12, a31, a32}
+
+  def submatrix({_, a12, a13, _, a22, a23, _, _, _}, 2, 0)
+      when is_float(a12) and is_float(a13) and is_float(a22) and is_float(a23),
+      do: {a12, a13, a22, a23}
+
+  def submatrix({_, a12, a13, _, a22, a23, _, _, _}, 2, 0), do: {a12, a13, a22, a23}
+
+  def submatrix({a11, _, a13, a21, _, a23, _, _, _}, 2, 1)
+      when is_float(a11) and is_float(a13) and is_float(a21) and is_float(a23),
+      do: {a11, a13, a21, a23}
+
+  def submatrix({a11, _, a13, a21, _, a23, _, _, _}, 2, 1), do: {a11, a13, a21, a23}
+
+  def submatrix({a11, a12, _, a21, a22, _, _, _, _}, 2, 2)
+      when is_float(a11) and is_float(a12) and is_float(a21) and is_float(a22),
+      do: {a11, a12, a21, a22}
+
+  def submatrix({a11, a12, _, a21, a22, _, _, _, _}, 2, 2), do: {a11, a12, a21, a22}
+
+  @doc """
+  Returns the signed minor at zero-based row `i` and column `j`.
+
+  This is the determinant of `submatrix(a, i, j)`, negated when `i + j`
+  is odd. Indices must be integers from 0 through 2; invalid indices raise
+  `FunctionClauseError`.
+  """
+  @spec cofactor(mat33, 0..2, 0..2) :: float
+  def cofactor({a11, a12, a13, a21, a22, a23, a31, a32, a33} = a, i, j)
+      when is_float(a11) and is_float(a12) and is_float(a13) and
+             is_float(a21) and is_float(a22) and is_float(a23) and
+             is_float(a31) and is_float(a32) and is_float(a33) and
+             i in 0..2 and j in 0..2,
+      do: (1.0 - 2.0 * rem(i + j, 2)) * Graphmath.Mat22.determinant(submatrix(a, i, j))
+
+  def cofactor(a, i, j) when i in 0..2 and j in 0..2,
+    do: (1 - 2 * rem(i + j, 2)) * Graphmath.Mat22.determinant(submatrix(a, i, j))
+
+  @doc """
+  Orthonormalizes the three rows of `a`, returning floating-point entries.
+
+  Uses modified Gram-Schmidt with a second orthogonalization pass. Rows are
+  processed in order: the first row keeps its direction, the second has its
+  component along the first removed, and the third has its components along
+  both removed. The resulting rows have unit length and are mutually
+  perpendicular, preserving the input's handedness (including reflections).
+
+  Each input row is normalized before removing projections, so the result
+  does not depend on positive scaling of individual rows. Raises
+  `ArithmeticError` for a zero row or when a remaining perpendicular component
+  has length at most `1.0e-12`, treating nearly dependent rows as degenerate.
+
+  This treats all three rows as a 3D basis, following the row-vector convention.
+  It is order-dependent and does not preserve 2D homogeneous translation.
+
+  ## Examples
+
+      iex> Graphmath.Mat33.orthonormalize({2.0, 0.0, 0.0, 1.0, 3.0, 0.0, 4.0, 5.0, 6.0})
+      {1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0}
+  """
+  @spec orthonormalize(mat33) :: mat33
+  def orthonormalize({a11, a12, a13, a21, a22, a23, a31, a32, a33})
+      when is_float(a11) and is_float(a12) and is_float(a13) and
+             is_float(a21) and is_float(a22) and is_float(a23) and
+             is_float(a31) and is_float(a32) and is_float(a33) do
+    {x1, y1, z1} = u = normalize_row({a11, a12, a13})
+
+    # A second pass removes roundoff left along the earlier rows.
+    {x2, y2, z2} =
+      v =
+      {a21, a22, a23}
+      |> normalize_row()
+      |> remove_projection(u)
+      |> remove_projection(u)
+      |> normalize_remainder()
+
+    {x3, y3, z3} =
+      {a31, a32, a33}
+      |> normalize_row()
+      |> remove_projection(u)
+      |> remove_projection(v)
+      |> remove_projection(u)
+      |> remove_projection(v)
+      |> normalize_remainder()
+
+    {x1, y1, z1, x2, y2, z2, x3, y3, z3}
+  end
+
+  def orthonormalize({a11, a12, a13, a21, a22, a23, a31, a32, a33}) do
+    orthonormalize({
+      1.0 * a11,
+      1.0 * a12,
+      1.0 * a13,
+      1.0 * a21,
+      1.0 * a22,
+      1.0 * a23,
+      1.0 * a31,
+      1.0 * a32,
+      1.0 * a33
+    })
+  end
+
+  # Scale first so squaring very large or small entries does not overflow or underflow.
+  defp normalize_row({x, y, z}) when is_float(x) and is_float(y) and is_float(z) do
+    scale = max(abs(x), max(abs(y), abs(z)))
+    sx = x / scale
+    sy = y / scale
+    sz = z / scale
+    length = :math.sqrt(sx * sx + sy * sy + sz * sz)
+    {sx / length, sy / length, sz / length}
+  end
+
+  defp remove_projection({x, y, z}, {u, v, w})
+       when is_float(x) and is_float(y) and is_float(z) and
+              is_float(u) and is_float(v) and is_float(w) do
+    projection = x * u + y * v + z * w
+    {x - projection * u, y - projection * v, z - projection * w}
+  end
+
+  defp normalize_remainder({x, y, z}) when is_float(x) and is_float(y) and is_float(z) do
+    length = :math.sqrt(x * x + y * y + z * z)
+
+    if length <= 1.0e-12 do
+      raise ArithmeticError, "cannot orthonormalize linearly dependent or nearly dependent rows"
+    end
+
+    {x / length, y / length, z / length}
+  end
+
+  @doc """
   `inverse(a)` calculates the inverse matrix
 
   `a` is a `mat33` to be inverted
