@@ -15,6 +15,10 @@ defmodule Graphmath.Mat44 do
   `apply_transpose(a, v)` for the corresponding full four-component product.
 
   For full vectors, `apply_left(v, multiply(a, b))` applies `a` first, then `b`.
+
+  Camera and billboard helpers use a right-handed basis with local -Z forward,
+  +Y up and +X right. `orient/3` and the billboard constructors map local
+  coordinates into world space; `look_at/3` maps world space into camera space.
   """
 
   @type mat44 ::
@@ -342,6 +346,186 @@ defmodule Graphmath.Mat44 do
 
   def make_shear_z(kx, ky) do
     {1.0, 0.0, 1.0 * kx, 0.0, 0.0, 1.0, 1.0 * ky, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  @doc """
+  Creates a rigid local-to-world transform at `position`, looking along `forward`.
+
+  Uses a right-handed basis: local -Z follows `forward`, local +X points right,
+  and local +Y follows the component of `up` perpendicular to `forward`.
+  Both direction inputs are normalized internally; `up` is a roll hint and
+  need not be perpendicular to `forward`.
+
+  Apply with `transform_point/2` or `transform_vector/2`. The translation is
+  `position`, so the local origin maps to `position`. For a camera view matrix
+  (world-to-camera), use `look_at/3`.
+
+  Raises `ArithmeticError` for a zero direction or when the cross product of
+  the normalized forward and up directions has length at most `1.0e-12`.
+
+  ## Examples
+
+      iex> pose = Graphmath.Mat44.orient({2.0, 3.0, 4.0}, {0.0, 0.0, -1.0}, {0.0, 1.0, 0.0})
+      iex> Graphmath.Mat44.transform_point(pose, {1.0, 2.0, -3.0})
+      {3.0, 5.0, 1.0}
+  """
+  @spec orient(vec3, vec3, vec3) :: mat44
+  def orient({px, py, pz}, {fx, fy, fz} = forward, {ux, uy, uz} = up)
+      when is_float(px) and is_float(py) and is_float(pz) and
+             is_float(fx) and is_float(fy) and is_float(fz) and
+             is_float(ux) and is_float(uy) and is_float(uz) do
+    {{rx, ry, rz}, {vx, vy, vz}, {bx, by, bz}} = camera_basis(forward, up)
+    {rx, ry, rz, 0.0, vx, vy, vz, 0.0, bx, by, bz, 0.0, px, py, pz, 1.0}
+  end
+
+  def orient({px, py, pz}, {fx, fy, fz}, {ux, uy, uz}) do
+    orient(
+      {1.0 * px, 1.0 * py, 1.0 * pz},
+      {1.0 * fx, 1.0 * fy, 1.0 * fz},
+      {1.0 * ux, 1.0 * uy, 1.0 * uz}
+    )
+  end
+
+  @doc """
+  Creates a right-handed world-to-camera view matrix.
+
+  `eye` is the camera position, `center` is a target point, and `up` is a
+  direction controlling roll. The eye maps to the origin and the target maps
+  onto the negative Z axis. Local +Y is up and local +X is right.
+
+  This is the inverse of `orient(eye, center - eye, up)`. Apply with
+  `transform_point/2` or `apply_left/2`, following the row-vector convention.
+
+  Raises `ArithmeticError` when `eye` and `center` coincide, `up` is zero,
+  or the cross product of the normalized viewing and up directions has length
+  at most `1.0e-12`.
+
+  ## Examples
+
+      iex> view = Graphmath.Mat44.look_at({0.0, 0.0, 5.0}, {0.0, 0.0, 0.0}, {0.0, 1.0, 0.0})
+      iex> Graphmath.Mat44.transform_point(view, {2.0, 3.0, 0.0})
+      {2.0, 3.0, -5.0}
+  """
+  @spec look_at(vec3, vec3, vec3) :: mat44
+  def look_at({ex, ey, ez}, {cx, cy, cz}, {ux, uy, uz} = up)
+      when is_float(ex) and is_float(ey) and is_float(ez) and
+             is_float(cx) and is_float(cy) and is_float(cz) and
+             is_float(ux) and is_float(uy) and is_float(uz) do
+    {{rx, ry, rz}, {vx, vy, vz}, {bx, by, bz}} =
+      camera_basis({cx - ex, cy - ey, cz - ez}, up)
+
+    {rx, vx, bx, 0.0, ry, vy, by, 0.0, rz, vz, bz, 0.0, -(ex * rx + ey * ry + ez * rz),
+     -(ex * vx + ey * vy + ez * vz), -(ex * bx + ey * by + ez * bz), 1.0}
+  end
+
+  def look_at({ex, ey, ez}, {cx, cy, cz}, {ux, uy, uz}) do
+    look_at(
+      {1.0 * ex, 1.0 * ey, 1.0 * ez},
+      {1.0 * cx, 1.0 * cy, 1.0 * cz},
+      {1.0 * ux, 1.0 * uy, 1.0 * uz}
+    )
+  end
+
+  @doc """
+  Creates a spherical billboard at `position` facing `camera_position`.
+
+  The billboard lies in its local XY plane, with its front pointing along
+  local -Z. Its front faces the camera, and local +Y follows the perpendicular
+  component of `camera_up`. The result is a local-to-world transform; apply it
+  with `transform_point/2` or `apply_left/2`.
+
+  Equivalent to `orient(position, camera_position - position, camera_up)`.
+  Raises `ArithmeticError` when the positions coincide, `camera_up` is zero,
+  or the cross product of the normalized facing and up directions has length
+  at most `1.0e-12`.
+  """
+  @spec make_billboard(vec3, vec3, vec3) :: mat44
+  def make_billboard({px, py, pz} = position, {cx, cy, cz}, {ux, uy, uz} = camera_up)
+      when is_float(px) and is_float(py) and is_float(pz) and
+             is_float(cx) and is_float(cy) and is_float(cz) and
+             is_float(ux) and is_float(uy) and is_float(uz) do
+    orient(position, {cx - px, cy - py, cz - pz}, camera_up)
+  end
+
+  def make_billboard({px, py, pz}, {cx, cy, cz}, {ux, uy, uz}) do
+    make_billboard(
+      {1.0 * px, 1.0 * py, 1.0 * pz},
+      {1.0 * cx, 1.0 * cy, 1.0 * cz},
+      {1.0 * ux, 1.0 * uy, 1.0 * uz}
+    )
+  end
+
+  @doc """
+  Creates a cylindrical billboard at `position`, constrained to `axis`.
+
+  Local +Y stays aligned with the normalized `axis`. The billboard's front
+  (local -Z) faces the projection of `camera_position - position` onto the
+  plane perpendicular to `axis`. Moving the camera along the axis does not
+  change the billboard's orientation.
+
+  The result is a right-handed local-to-world transform. Apply it with
+  `transform_point/2` or `apply_left/2`.
+
+  Raises `ArithmeticError` for a zero axis, coincident positions, or when
+  the cross product of the normalized facing and axis directions has length
+  at most `1.0e-12`. In particular, a camera on the rotation axis does not
+  define a facing direction.
+  """
+  @spec make_billboard_axis(vec3, vec3, vec3) :: mat44
+  def make_billboard_axis({px, py, pz}, {cx, cy, cz}, {ax, ay, az} = axis)
+      when is_float(px) and is_float(py) and is_float(pz) and
+             is_float(cx) and is_float(cy) and is_float(cz) and
+             is_float(ax) and is_float(ay) and is_float(az) do
+    {ux, uy, uz} = unit_axis = normalize_direction(axis)
+    direction = normalize_direction({cx - px, cy - py, cz - pz})
+    {rx, ry, rz} = normalize_cross(direction, unit_axis)
+    bx = ry * uz - rz * uy
+    by = rz * ux - rx * uz
+    bz = rx * uy - ry * ux
+    {rx, ry, rz, 0.0, ux, uy, uz, 0.0, bx, by, bz, 0.0, px, py, pz, 1.0}
+  end
+
+  def make_billboard_axis({px, py, pz}, {cx, cy, cz}, {ax, ay, az}) do
+    make_billboard_axis(
+      {1.0 * px, 1.0 * py, 1.0 * pz},
+      {1.0 * cx, 1.0 * cy, 1.0 * cz},
+      {1.0 * ax, 1.0 * ay, 1.0 * az}
+    )
+  end
+
+  defp camera_basis(forward, up) do
+    {fx, fy, fz} = unit_forward = normalize_direction(forward)
+    unit_up = normalize_direction(up)
+    {rx, ry, rz} = normalize_cross(unit_forward, unit_up)
+    {vx, vy, vz} = {ry * fz - rz * fy, rz * fx - rx * fz, rx * fy - ry * fx}
+    {{rx, ry, rz}, {vx, vy, vz}, {-fx, -fy, -fz}}
+  end
+
+  # Scale before squaring so direction magnitude does not limit normalization.
+  defp normalize_direction({x, y, z}) when is_float(x) and is_float(y) and is_float(z) do
+    scale = max(abs(x), max(abs(y), abs(z)))
+    sx = x / scale
+    sy = y / scale
+    sz = z / scale
+    length = :math.sqrt(sx * sx + sy * sy + sz * sz)
+    {sx / length, sy / length, sz / length}
+  end
+
+  # Inputs are unit directions, so the tolerance measures angular degeneracy.
+  defp normalize_cross({x, y, z}, {u, v, w})
+       when is_float(x) and is_float(y) and is_float(z) and
+              is_float(u) and is_float(v) and is_float(w) do
+    cx = y * w - z * v
+    cy = z * u - x * w
+    cz = x * v - y * u
+    length = :math.sqrt(cx * cx + cy * cy + cz * cz)
+
+    if length <= 1.0e-12 do
+      raise ArithmeticError,
+            "cannot construct a basis from parallel or nearly parallel directions"
+    end
+
+    {cx / length, cy / length, cz / length}
   end
 
   @doc """
