@@ -14,7 +14,7 @@ It's designed to be comfortable to use, reasonably fast, and something which wil
 Features
 ========
 
-* Support for vectors in R2 and R3.
+* Support for vectors in R2, R3, and R4, including homogeneous 3D points and directions.
 * Support for 2x2, 3x3, and 4x4 matrices.
 * Support for quaternions
 * Addition, subtraction
