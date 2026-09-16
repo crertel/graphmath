@@ -4,7 +4,7 @@ defmodule Graphmath.Mixfile do
   def project do
     [
       app: :graphmath,
-      version: "2.6.0",
+      version: "3.0.0",
       elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
       description: description(),

@@ -41,16 +41,19 @@ Just add it to your `mix.exs` file like so:
   def project do
     [app: myapp,
      version: "x.y.z",
-     elixir: "~> 1.0",
+     elixir: "~> 1.15",
      description: "description",
      package: ...,
      deps: [
         ...,
-        {:graphmath, "~> 1.0.2" },
+        {:graphmath, "~> 3.0.0" },
         ...
         ] ]
   end
 ```
+
+See the [3.0.0 upgrade notes](CHANGELOG.md#upgrading-from-2x) for changes to
+rotation matrices, quaternion interpolation, and numeric results.
 
 Conventions in library
 ======================
