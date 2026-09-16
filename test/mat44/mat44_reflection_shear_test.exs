@@ -95,33 +95,35 @@ defmodule GraphmathTest.Mat44.ReflectionShear do
     assert_close(Mat44.inverse(matrix), matrix)
   end
 
-  @tag :make_reflect
-  test "zero offsets reflect through the origin without translating points" do
-    for normal <- [{1.0, 2.0, 2.0}, {1, 2, 2}, {1.0, 2, 2.0}], offset <- [0.0, 0] do
-      matrix = Mat44.make_reflect(normal, offset)
-      assert_close(Mat44.row3(matrix), {0, 0, 0, 1})
-      assert_close(Mat44.transform_point(matrix, {0, 0, 0}), {0, 0, 0})
-      assert_close(Mat44.transform_point(matrix, {2, -1, 0}), {2, -1, 0})
-      assert_close(Mat44.transform_point(matrix, {3, 4, 5}), {-5 / 3, -16 / 3, -13 / 3})
-      assert_close(Mat44.transform_vector(matrix, {3, 4, 5}), {-5 / 3, -16 / 3, -13 / 3})
+  for {plane, normals, expected, on_plane} <- [
+        {"YZ plane (X normal)", [{1.0, 0.0, 0.0}, {1, 0, 0}, {1.0, 0, 0.0}], {-3, 4, 5},
+         {0, -2, 7}},
+        {"XZ plane (Y normal)", [{0.0, 1.0, 0.0}, {0, 1, 0}, {0, 1.0, 0.0}], {3, -4, 5},
+         {2, 0, 7}},
+        {"XY plane (Z normal)", [{0.0, 0.0, 1.0}, {0, 0, 1}, {0.0, 0, 1.0}], {3, 4, -5},
+         {2, -3, 0}},
+        {"oblique plane", [{1.0, 2.0, 2.0}, {1, 2, 2}, {1.0, 2, 2.0}], {-5 / 3, -16 / 3, -13 / 3},
+         {2, -1, 0}}
+      ] do
+    @normals normals
+    @expected expected
+    @on_plane on_plane
 
-      for w <- [0.0, 1.0] do
-        assert_close(Mat44.apply_left({3, 4, 5, w}, matrix), {-5 / 3, -16 / 3, -13 / 3, w})
+    @tag :make_reflect
+    test "zero offsets reflect across the #{plane} without translation" do
+      for normal <- @normals, offset <- [0.0, 0] do
+        matrix = Mat44.make_reflect(normal, offset)
+        assert_close(Mat44.row3(matrix), {0, 0, 0, 1})
+        assert_close(Mat44.transform_point(matrix, {0, 0, 0}), {0, 0, 0})
+        assert_close(Mat44.transform_point(matrix, @on_plane), @on_plane)
+        assert_close(Mat44.transform_point(matrix, {3, 4, 5}), @expected)
+        assert_close(Mat44.transform_vector(matrix, {3, 4, 5}), @expected)
+        {x, y, z} = @expected
+
+        for w <- [0.0, 1.0] do
+          assert_close(Mat44.apply_left({3, 4, 5, w}, matrix), {x, y, z, w})
+        end
       end
-    end
-  end
-
-  @tag :make_reflect
-  test "zero offsets mirror across the coordinate planes" do
-    for {normal, expected} <- [
-          {{1.0, 0.0, 0.0}, {-3, 4, 5}},
-          {{0.0, 1.0, 0.0}, {3, -4, 5}},
-          {{0.0, 0.0, 1.0}, {3, 4, -5}}
-        ],
-        offset <- [0.0, 0] do
-      matrix = Mat44.make_reflect(normal, offset)
-      assert_close(Mat44.transform_point(matrix, {3, 4, 5}), expected)
-      assert_close(Mat44.transform_vector(matrix, {3, 4, 5}), expected)
     end
   end
 
