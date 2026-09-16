@@ -1,12 +1,17 @@
 defmodule Graphmath.Mat44 do
   @moduledoc """
-  4x4 matrices and 3D affine transformations, using tuples of floats.
+  4x4 matrices and 3D transformations, using tuples of floats.
 
   Reflection and shear constructors act on three spatial coordinates and
   preserve the fourth, homogeneous coordinate. Use `transform_point/2` for
   points (`w = 1`) and `transform_vector/2` for directions (`w = 0`), so that
   translation affects only points. A shear can change X, Y or Z; `w` is not
   another spatial axis.
+
+  `perspective/4` and `ortho/6` project right-handed camera coordinates with -Z
+  forward into the OpenGL normalized device depth range [-1, +1]. Perspective
+  projection requires keeping the output of `apply_left/2` and dividing its
+  first three coordinates by `w`; `transform_point/2` does not perform that step.
 
   Tuples store matrix rows in order. `apply(a, v)` computes the column-vector
   product **A****v**. Graphics constructors use row vectors: `transform_point/2`
@@ -15,11 +20,6 @@ defmodule Graphmath.Mat44 do
   `apply_transpose(a, v)` for the corresponding full four-component product.
 
   For full vectors, `apply_left(v, multiply(a, b))` applies `a` first, then `b`.
-
-  `perspective/4` and `ortho/6` project right-handed camera coordinates with -Z
-  forward into the OpenGL normalized device depth range [-1, +1]. Perspective
-  projection requires keeping the output of `apply_left/2` and dividing its
-  first three coordinates by `w`; `transform_point/2` does not perform that step.
   """
 
   @type mat44 ::
