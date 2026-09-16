@@ -1,8 +1,12 @@
 defmodule Graphmath.Mat44 do
   @moduledoc """
-  This is the 3D mathematics.
+  4x4 matrices and 3D affine transformations, using tuples of floats.
 
-  This submodule handles 4x4 matrices using tuples of floats.
+  Reflection and shear constructors act on three spatial coordinates and
+  preserve the fourth, homogeneous coordinate. Use `transform_point/2` for
+  points (`w = 1`) and `transform_vector/2` for directions (`w = 0`), so that
+  translation affects only points. A shear can change X, Y or Z; `w` is not
+  another spatial axis.
 
   Tuples store matrix rows in order. `apply(a, v)` computes the column-vector
   product **A****v**. Graphics constructors use row vectors: `transform_point/2`
@@ -249,6 +253,95 @@ defmodule Graphmath.Mat44 do
     ct = :math.cos(theta)
 
     {ct, st, 0.0, 0.0, -st, ct, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  @doc """
+  Creates a 3D affine reflection across `nx*x + ny*y + nz*z = offset`.
+
+  The normal may have any nonzero length. `offset` is the plane equation
+  constant; it is a signed distance only when the normal has unit length.
+  Scaling the normal and offset by the same nonzero factor leaves the mirror
+  unchanged. A zero normal raises `ArithmeticError`.
+
+  Use `transform_point/2` for points and `transform_vector/2` for directions.
+  The homogeneous coordinate is preserved; translation affects only points.
+  """
+  @spec make_reflect(vec3, float) :: mat44
+  def make_reflect({nx, ny, nz}, offset)
+      when is_float(nx) and is_float(ny) and is_float(nz) and is_float(offset) do
+    scale = max(abs(nx), max(abs(ny), abs(nz)))
+    ux = nx / scale
+    uy = ny / scale
+    uz = nz / scale
+    factor = 2.0 / (ux * ux + uy * uy + uz * uz)
+    scaled_offset = offset / scale
+
+    {1.0 - factor * ux * ux, -factor * ux * uy, -factor * ux * uz, 0.0, -factor * uy * ux,
+     1.0 - factor * uy * uy, -factor * uy * uz, 0.0, -factor * uz * ux, -factor * uz * uy,
+     1.0 - factor * uz * uz, 0.0, factor * scaled_offset * ux, factor * scaled_offset * uy,
+     factor * scaled_offset * uz, 1.0}
+  end
+
+  def make_reflect({nx, ny, nz}, offset) do
+    scale = max(abs(nx), max(abs(ny), abs(nz)))
+    ux = nx / scale
+    uy = ny / scale
+    uz = nz / scale
+    factor = 2.0 / (ux * ux + uy * uy + uz * uz)
+    scaled_offset = offset / scale
+
+    {1.0 - factor * ux * ux, -factor * ux * uy, -factor * ux * uz, 0.0, -factor * uy * ux,
+     1.0 - factor * uy * uy, -factor * uy * uz, 0.0, -factor * uz * ux, -factor * uz * uy,
+     1.0 - factor * uz * uz, 0.0, factor * scaled_offset * ux, factor * scaled_offset * uy,
+     factor * scaled_offset * uz, 1.0}
+  end
+
+  @doc """
+  Creates a 3D affine X shear: `x' = x + ky*y + kz*z`.
+
+  The other spatial coordinates and homogeneous coordinate are unchanged.
+  Use `transform_point/2` or `transform_vector/2` with 3 spatial components.
+  """
+  @spec make_shear_x(float, float) :: mat44
+  def make_shear_x(ky, kz)
+      when is_float(ky) and is_float(kz) do
+    {1.0, 0.0, 0.0, 0.0, ky, 1.0, 0.0, 0.0, kz, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  def make_shear_x(ky, kz) do
+    {1.0, 0.0, 0.0, 0.0, 1.0 * ky, 1.0, 0.0, 0.0, 1.0 * kz, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  @doc """
+  Creates a 3D affine Y shear: `y' = y + kx*x + kz*z`.
+
+  The other spatial coordinates and homogeneous coordinate are unchanged.
+  Use `transform_point/2` or `transform_vector/2` with 3 spatial components.
+  """
+  @spec make_shear_y(float, float) :: mat44
+  def make_shear_y(kx, kz)
+      when is_float(kx) and is_float(kz) do
+    {1.0, kx, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, kz, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  def make_shear_y(kx, kz) do
+    {1.0, 1.0 * kx, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 * kz, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  @doc """
+  Creates a 3D affine Z shear: `z' = z + kx*x + ky*y`.
+
+  The other spatial coordinates and homogeneous coordinate are unchanged.
+  Use `transform_point/2` or `transform_vector/2` with 3 spatial components.
+  """
+  @spec make_shear_z(float, float) :: mat44
+  def make_shear_z(kx, ky)
+      when is_float(kx) and is_float(ky) do
+    {1.0, 0.0, kx, 0.0, 0.0, 1.0, ky, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0}
+  end
+
+  def make_shear_z(kx, ky) do
+    {1.0, 0.0, 1.0 * kx, 0.0, 0.0, 1.0, 1.0 * ky, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0}
   end
 
   @doc """
@@ -738,17 +831,11 @@ defmodule Graphmath.Mat44 do
       }
 
   @doc """
-  `transform_point( a, v )` transforms a `vec3` point by a `mat44`.
+  Transforms a 3D point `{x, y, z}` using the row-vector product `{x, y, z, 1.0} a`.
 
-  `a` is a `mat44` used to transform the point.
-
-  `v` is a `vec3` to be transformed.
-
-  This returns a `vec3` representing the application of `a` to `v`.
-
-  The point `a` is internally treated as having a fourth coordinate equal to 1.0.
-
-  Note that transforming a point will work for all transforms.
+  Returns the first three coordinates, including the effect of translation.
+  Use with 3D affine matrices. No perspective division is performed.
+  Use `apply_left/2` to supply and retain all four coordinates explicitly.
   """
   @spec transform_point(mat44, vec3) :: vec3
   def transform_point(
@@ -777,17 +864,11 @@ defmodule Graphmath.Mat44 do
       }
 
   @doc """
-  `transform_vector( a, v )` transforms a `vec3` vector by a `mat44`.
+  Transforms a 3D direction `{x, y, z}` using the row-vector product `{x, y, z, 0.0} a`.
 
-  `a` is a `mat44` used to transform the point.
-
-  `v` is a `vec3` to be transformed.
-
-  This returns a `vec3` representing the application of `a` to `v`.
-
-  The point `a` is internally treated as having a fourth coordinate equal to 0.0.
-
-  Note that transforming a vector will work for only rotations, scales, and shears.
+  Returns the first three coordinates. The zero homogeneous coordinate excludes
+  translation; rotations, scales, reflections and shears still affect the vector.
+  Use `apply_left/2` to supply and retain all four coordinates explicitly.
   """
   @spec transform_vector(mat44, vec3) :: vec3
   def transform_vector(
