@@ -96,10 +96,33 @@ defmodule GraphmathTest.Mat44.ReflectionShear do
   end
 
   @tag :make_reflect
-  test "a plane through the origin acts equally on points and directions" do
-    matrix = Mat44.make_reflect({1.0, 2.0, 2.0}, 0.0)
-    assert_close(Mat44.transform_point(matrix, {3, 4, 5}), {-5 / 3, -16 / 3, -13 / 3})
-    assert_close(Mat44.transform_vector(matrix, {3, 4, 5}), {-5 / 3, -16 / 3, -13 / 3})
+  test "zero offsets reflect through the origin without translating points" do
+    for normal <- [{1.0, 2.0, 2.0}, {1, 2, 2}, {1.0, 2, 2.0}], offset <- [0.0, 0] do
+      matrix = Mat44.make_reflect(normal, offset)
+      assert_close(Mat44.row3(matrix), {0, 0, 0, 1})
+      assert_close(Mat44.transform_point(matrix, {0, 0, 0}), {0, 0, 0})
+      assert_close(Mat44.transform_point(matrix, {2, -1, 0}), {2, -1, 0})
+      assert_close(Mat44.transform_point(matrix, {3, 4, 5}), {-5 / 3, -16 / 3, -13 / 3})
+      assert_close(Mat44.transform_vector(matrix, {3, 4, 5}), {-5 / 3, -16 / 3, -13 / 3})
+
+      for w <- [0.0, 1.0] do
+        assert_close(Mat44.apply_left({3, 4, 5, w}, matrix), {-5 / 3, -16 / 3, -13 / 3, w})
+      end
+    end
+  end
+
+  @tag :make_reflect
+  test "zero offsets mirror across the coordinate planes" do
+    for {normal, expected} <- [
+          {{1.0, 0.0, 0.0}, {-3, 4, 5}},
+          {{0.0, 1.0, 0.0}, {3, -4, 5}},
+          {{0.0, 0.0, 1.0}, {3, 4, -5}}
+        ],
+        offset <- [0.0, 0] do
+      matrix = Mat44.make_reflect(normal, offset)
+      assert_close(Mat44.transform_point(matrix, {3, 4, 5}), expected)
+      assert_close(Mat44.transform_vector(matrix, {3, 4, 5}), expected)
+    end
   end
 
   @tag :make_reflect
