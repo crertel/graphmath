@@ -9,8 +9,9 @@ defmodule Graphmath.Mat22 do
   a21  a22
   ```
 
-  Entries can be integers, floats, or a mixture. Arithmetic follows Elixir's
-  numeric promotion rules; `round/2` and `inverse/1` return floats.
+  The matrix and vector types use floating-point entries. Integer and mixed
+  numeric inputs are also accepted, following Elixir's numeric promotion rules;
+  `round/2` and `inverse/1` return floats.
 
   As in `Graphmath.Mat33`, `apply(a, v)` computes the column-vector product
   **A****v**. Graphics constructors use row vectors: `transform_vector(a, v)`
@@ -21,8 +22,8 @@ defmodule Graphmath.Mat22 do
   `Graphmath.Mat33` for 2D transformations that also include translation.
   """
 
-  @type mat22 :: {number, number, number, number}
-  @type vec2 :: {number, number}
+  @type mat22 :: {float, float, float, float}
+  @type vec2 :: {float, float}
 
   @doc """
   Returns the identity matrix `{1.0, 0.0, 0.0, 1.0}`.
@@ -53,26 +54,26 @@ defmodule Graphmath.Mat22 do
   @doc """
   Multiplies every entry of `a` by the scalar `k`.
   """
-  @spec scale(mat22, number) :: mat22
+  @spec scale(mat22, float) :: mat22
   def scale({a11, a12, a21, a22}, k), do: {a11 * k, a12 * k, a21 * k, a22 * k}
 
   @doc """
   Returns a matrix that uniformly scales both vector coordinates by `k`.
   """
-  @spec make_scale(number) :: mat22
+  @spec make_scale(float) :: mat22
   def make_scale(k), do: {k, 0.0, 0.0, k}
 
   @doc """
   Returns a matrix that scales X by `sx` and Y by `sy`.
   """
-  @spec make_scale(number, number) :: mat22
+  @spec make_scale(float, float) :: mat22
   def make_scale(sx, sy), do: {sx, 0.0, 0.0, sy}
 
   @doc """
   Returns a matrix that rotates row vectors counterclockwise by `theta` radians
   about +Z. Apply it with `transform_vector/2` or `apply_left/2`.
   """
-  @spec make_rotate(number) :: mat22
+  @spec make_rotate(float) :: mat22
   def make_rotate(theta) do
     ct = :math.cos(theta)
     st = :math.sin(theta)
@@ -152,7 +153,7 @@ defmodule Graphmath.Mat22 do
 
   Both indices must be 0 or 1; invalid indices raise `FunctionClauseError`.
   """
-  @spec at(mat22, 0..1, 0..1) :: number
+  @spec at(mat22, 0..1, 0..1) :: float
   def at({_, _, _, _} = a, i, j) when i in 0..1 and j in 0..1,
     do: elem(a, 2 * i + j)
 
@@ -194,13 +195,13 @@ defmodule Graphmath.Mat22 do
   @doc """
   Returns the trace, the sum of the diagonal entries `a11 + a22`.
   """
-  @spec trace(mat22) :: number
+  @spec trace(mat22) :: float
   def trace({a11, _, _, a22}), do: a11 + a22
 
   @doc """
   Returns the determinant, `a11 * a22 - a12 * a21`.
   """
-  @spec determinant(mat22) :: number
+  @spec determinant(mat22) :: float
   def determinant({a11, a12, a21, a22}), do: a11 * a22 - a12 * a21
 
   @doc """
