@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.0] - Unreleased
+## [3.0.0] - 2026-09-16
 
 ### Added
 
@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `Mat44.orient/3`, `look_at/3`, `make_billboard/3`, and `make_billboard_axis/3` with right-handed, -Z-forward camera conventions.
 - Add `Mat44.perspective/4` and `ortho/6` with normalized device depth in [-1, +1]. Perspective projection requires an explicit divide by the resulting homogeneous coordinate.
 - Add Benchee benchmarks for Vec2, Vec3, Mat33, Mat44, and Quatern operations.
+- Add an Octave cross-check harness under `bench/octave` that verifies every public function against independent reference math.
 - Expand numeric, boundary, random, and transform tests, and enforce 100% library line coverage in CI.
 
 ### Changed
