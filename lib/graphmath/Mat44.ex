@@ -815,6 +815,217 @@ defmodule Graphmath.Mat44 do
       }
 
   @doc """
+  Returns the trace, the sum of the diagonal entries.
+  """
+  @spec trace(mat44) :: float
+  def trace({a11, _, _, _, _, a22, _, _, _, _, a33, _, _, _, _, a44})
+      when is_float(a11) and is_float(a22) and is_float(a33) and is_float(a44),
+      do: a11 + a22 + a33 + a44
+
+  def trace({a11, _, _, _, _, a22, _, _, _, _, a33, _, _, _, _, a44}),
+    do: a11 + a22 + a33 + a44
+
+  @doc """
+  Returns the determinant of `a`.
+  """
+  @spec determinant(mat44) :: float
+  # Float guards expose the arithmetic's types to the VM for optimization.
+  def determinant(
+        {a11, a12, a13, a14, a21, a22, a23, a24, a31, a32, a33, a34, a41, a42, a43, a44}
+      )
+      when is_float(a11) and is_float(a12) and is_float(a13) and is_float(a14) and is_float(a21) and
+             is_float(a22) and is_float(a23) and is_float(a24) and is_float(a31) and is_float(a32) and
+             is_float(a33) and is_float(a34) and is_float(a41) and is_float(a42) and is_float(a43) and
+             is_float(a44) do
+    v0 = a31 * a42 - a32 * a41
+    v1 = a31 * a43 - a33 * a41
+    v2 = a31 * a44 - a34 * a41
+    v3 = a32 * a43 - a33 * a42
+    v4 = a32 * a44 - a34 * a42
+    v5 = a33 * a44 - a34 * a43
+
+    a11 * (v5 * a22 - v4 * a23 + v3 * a24) -
+      a12 * (v5 * a21 - v2 * a23 + v1 * a24) +
+      a13 * (v4 * a21 - v2 * a22 + v0 * a24) -
+      a14 * (v3 * a21 - v1 * a22 + v0 * a23)
+  end
+
+  def determinant(
+        {a11, a12, a13, a14, a21, a22, a23, a24, a31, a32, a33, a34, a41, a42, a43, a44}
+      ) do
+    v0 = a31 * a42 - a32 * a41
+    v1 = a31 * a43 - a33 * a41
+    v2 = a31 * a44 - a34 * a41
+    v3 = a32 * a43 - a33 * a42
+    v4 = a32 * a44 - a34 * a42
+    v5 = a33 * a44 - a34 * a43
+
+    a11 * (v5 * a22 - v4 * a23 + v3 * a24) -
+      a12 * (v5 * a21 - v2 * a23 + v1 * a24) +
+      a13 * (v4 * a21 - v2 * a22 + v0 * a24) -
+      a14 * (v3 * a21 - v1 * a22 + v0 * a23)
+  end
+
+  @doc """
+  Returns the `Graphmath.Mat33` obtained by deleting row `i` and column `j`.
+
+  The remaining entries retain their row-major order. Indices are zero-based
+  integers from 0 through 3; invalid indices raise `FunctionClauseError`.
+
+  This returns a matrix. Its determinant is the corresponding scalar minor.
+  """
+  @spec submatrix(mat44, 0..3, 0..3) :: Graphmath.Mat33.mat33()
+  def submatrix({_, _, _, _, _, a22, a23, a24, _, a32, a33, a34, _, a42, a43, a44}, 0, 0)
+      when is_float(a22) and is_float(a23) and is_float(a24) and is_float(a32) and is_float(a33) and
+             is_float(a34) and is_float(a42) and is_float(a43) and is_float(a44),
+      do: {a22, a23, a24, a32, a33, a34, a42, a43, a44}
+
+  def submatrix({_, _, _, _, _, a22, a23, a24, _, a32, a33, a34, _, a42, a43, a44}, 0, 0),
+    do: {a22, a23, a24, a32, a33, a34, a42, a43, a44}
+
+  def submatrix({_, _, _, _, a21, _, a23, a24, a31, _, a33, a34, a41, _, a43, a44}, 0, 1)
+      when is_float(a21) and is_float(a23) and is_float(a24) and is_float(a31) and is_float(a33) and
+             is_float(a34) and is_float(a41) and is_float(a43) and is_float(a44),
+      do: {a21, a23, a24, a31, a33, a34, a41, a43, a44}
+
+  def submatrix({_, _, _, _, a21, _, a23, a24, a31, _, a33, a34, a41, _, a43, a44}, 0, 1),
+    do: {a21, a23, a24, a31, a33, a34, a41, a43, a44}
+
+  def submatrix({_, _, _, _, a21, a22, _, a24, a31, a32, _, a34, a41, a42, _, a44}, 0, 2)
+      when is_float(a21) and is_float(a22) and is_float(a24) and is_float(a31) and is_float(a32) and
+             is_float(a34) and is_float(a41) and is_float(a42) and is_float(a44),
+      do: {a21, a22, a24, a31, a32, a34, a41, a42, a44}
+
+  def submatrix({_, _, _, _, a21, a22, _, a24, a31, a32, _, a34, a41, a42, _, a44}, 0, 2),
+    do: {a21, a22, a24, a31, a32, a34, a41, a42, a44}
+
+  def submatrix({_, _, _, _, a21, a22, a23, _, a31, a32, a33, _, a41, a42, a43, _}, 0, 3)
+      when is_float(a21) and is_float(a22) and is_float(a23) and is_float(a31) and is_float(a32) and
+             is_float(a33) and is_float(a41) and is_float(a42) and is_float(a43),
+      do: {a21, a22, a23, a31, a32, a33, a41, a42, a43}
+
+  def submatrix({_, _, _, _, a21, a22, a23, _, a31, a32, a33, _, a41, a42, a43, _}, 0, 3),
+    do: {a21, a22, a23, a31, a32, a33, a41, a42, a43}
+
+  def submatrix({_, a12, a13, a14, _, _, _, _, _, a32, a33, a34, _, a42, a43, a44}, 1, 0)
+      when is_float(a12) and is_float(a13) and is_float(a14) and is_float(a32) and is_float(a33) and
+             is_float(a34) and is_float(a42) and is_float(a43) and is_float(a44),
+      do: {a12, a13, a14, a32, a33, a34, a42, a43, a44}
+
+  def submatrix({_, a12, a13, a14, _, _, _, _, _, a32, a33, a34, _, a42, a43, a44}, 1, 0),
+    do: {a12, a13, a14, a32, a33, a34, a42, a43, a44}
+
+  def submatrix({a11, _, a13, a14, _, _, _, _, a31, _, a33, a34, a41, _, a43, a44}, 1, 1)
+      when is_float(a11) and is_float(a13) and is_float(a14) and is_float(a31) and is_float(a33) and
+             is_float(a34) and is_float(a41) and is_float(a43) and is_float(a44),
+      do: {a11, a13, a14, a31, a33, a34, a41, a43, a44}
+
+  def submatrix({a11, _, a13, a14, _, _, _, _, a31, _, a33, a34, a41, _, a43, a44}, 1, 1),
+    do: {a11, a13, a14, a31, a33, a34, a41, a43, a44}
+
+  def submatrix({a11, a12, _, a14, _, _, _, _, a31, a32, _, a34, a41, a42, _, a44}, 1, 2)
+      when is_float(a11) and is_float(a12) and is_float(a14) and is_float(a31) and is_float(a32) and
+             is_float(a34) and is_float(a41) and is_float(a42) and is_float(a44),
+      do: {a11, a12, a14, a31, a32, a34, a41, a42, a44}
+
+  def submatrix({a11, a12, _, a14, _, _, _, _, a31, a32, _, a34, a41, a42, _, a44}, 1, 2),
+    do: {a11, a12, a14, a31, a32, a34, a41, a42, a44}
+
+  def submatrix({a11, a12, a13, _, _, _, _, _, a31, a32, a33, _, a41, a42, a43, _}, 1, 3)
+      when is_float(a11) and is_float(a12) and is_float(a13) and is_float(a31) and is_float(a32) and
+             is_float(a33) and is_float(a41) and is_float(a42) and is_float(a43),
+      do: {a11, a12, a13, a31, a32, a33, a41, a42, a43}
+
+  def submatrix({a11, a12, a13, _, _, _, _, _, a31, a32, a33, _, a41, a42, a43, _}, 1, 3),
+    do: {a11, a12, a13, a31, a32, a33, a41, a42, a43}
+
+  def submatrix({_, a12, a13, a14, _, a22, a23, a24, _, _, _, _, _, a42, a43, a44}, 2, 0)
+      when is_float(a12) and is_float(a13) and is_float(a14) and is_float(a22) and is_float(a23) and
+             is_float(a24) and is_float(a42) and is_float(a43) and is_float(a44),
+      do: {a12, a13, a14, a22, a23, a24, a42, a43, a44}
+
+  def submatrix({_, a12, a13, a14, _, a22, a23, a24, _, _, _, _, _, a42, a43, a44}, 2, 0),
+    do: {a12, a13, a14, a22, a23, a24, a42, a43, a44}
+
+  def submatrix({a11, _, a13, a14, a21, _, a23, a24, _, _, _, _, a41, _, a43, a44}, 2, 1)
+      when is_float(a11) and is_float(a13) and is_float(a14) and is_float(a21) and is_float(a23) and
+             is_float(a24) and is_float(a41) and is_float(a43) and is_float(a44),
+      do: {a11, a13, a14, a21, a23, a24, a41, a43, a44}
+
+  def submatrix({a11, _, a13, a14, a21, _, a23, a24, _, _, _, _, a41, _, a43, a44}, 2, 1),
+    do: {a11, a13, a14, a21, a23, a24, a41, a43, a44}
+
+  def submatrix({a11, a12, _, a14, a21, a22, _, a24, _, _, _, _, a41, a42, _, a44}, 2, 2)
+      when is_float(a11) and is_float(a12) and is_float(a14) and is_float(a21) and is_float(a22) and
+             is_float(a24) and is_float(a41) and is_float(a42) and is_float(a44),
+      do: {a11, a12, a14, a21, a22, a24, a41, a42, a44}
+
+  def submatrix({a11, a12, _, a14, a21, a22, _, a24, _, _, _, _, a41, a42, _, a44}, 2, 2),
+    do: {a11, a12, a14, a21, a22, a24, a41, a42, a44}
+
+  def submatrix({a11, a12, a13, _, a21, a22, a23, _, _, _, _, _, a41, a42, a43, _}, 2, 3)
+      when is_float(a11) and is_float(a12) and is_float(a13) and is_float(a21) and is_float(a22) and
+             is_float(a23) and is_float(a41) and is_float(a42) and is_float(a43),
+      do: {a11, a12, a13, a21, a22, a23, a41, a42, a43}
+
+  def submatrix({a11, a12, a13, _, a21, a22, a23, _, _, _, _, _, a41, a42, a43, _}, 2, 3),
+    do: {a11, a12, a13, a21, a22, a23, a41, a42, a43}
+
+  def submatrix({_, a12, a13, a14, _, a22, a23, a24, _, a32, a33, a34, _, _, _, _}, 3, 0)
+      when is_float(a12) and is_float(a13) and is_float(a14) and is_float(a22) and is_float(a23) and
+             is_float(a24) and is_float(a32) and is_float(a33) and is_float(a34),
+      do: {a12, a13, a14, a22, a23, a24, a32, a33, a34}
+
+  def submatrix({_, a12, a13, a14, _, a22, a23, a24, _, a32, a33, a34, _, _, _, _}, 3, 0),
+    do: {a12, a13, a14, a22, a23, a24, a32, a33, a34}
+
+  def submatrix({a11, _, a13, a14, a21, _, a23, a24, a31, _, a33, a34, _, _, _, _}, 3, 1)
+      when is_float(a11) and is_float(a13) and is_float(a14) and is_float(a21) and is_float(a23) and
+             is_float(a24) and is_float(a31) and is_float(a33) and is_float(a34),
+      do: {a11, a13, a14, a21, a23, a24, a31, a33, a34}
+
+  def submatrix({a11, _, a13, a14, a21, _, a23, a24, a31, _, a33, a34, _, _, _, _}, 3, 1),
+    do: {a11, a13, a14, a21, a23, a24, a31, a33, a34}
+
+  def submatrix({a11, a12, _, a14, a21, a22, _, a24, a31, a32, _, a34, _, _, _, _}, 3, 2)
+      when is_float(a11) and is_float(a12) and is_float(a14) and is_float(a21) and is_float(a22) and
+             is_float(a24) and is_float(a31) and is_float(a32) and is_float(a34),
+      do: {a11, a12, a14, a21, a22, a24, a31, a32, a34}
+
+  def submatrix({a11, a12, _, a14, a21, a22, _, a24, a31, a32, _, a34, _, _, _, _}, 3, 2),
+    do: {a11, a12, a14, a21, a22, a24, a31, a32, a34}
+
+  def submatrix({a11, a12, a13, _, a21, a22, a23, _, a31, a32, a33, _, _, _, _, _}, 3, 3)
+      when is_float(a11) and is_float(a12) and is_float(a13) and is_float(a21) and is_float(a22) and
+             is_float(a23) and is_float(a31) and is_float(a32) and is_float(a33),
+      do: {a11, a12, a13, a21, a22, a23, a31, a32, a33}
+
+  def submatrix({a11, a12, a13, _, a21, a22, a23, _, a31, a32, a33, _, _, _, _, _}, 3, 3),
+    do: {a11, a12, a13, a21, a22, a23, a31, a32, a33}
+
+  @doc """
+  Returns the signed minor at zero-based row `i` and column `j`.
+
+  This is the determinant of `submatrix(a, i, j)`, negated when `i + j`
+  is odd. Indices must be integers from 0 through 3; invalid indices raise
+  `FunctionClauseError`.
+  """
+  @spec cofactor(mat44, 0..3, 0..3) :: float
+  def cofactor(
+        {a11, a12, a13, a14, a21, a22, a23, a24, a31, a32, a33, a34, a41, a42, a43, a44} = a,
+        i,
+        j
+      )
+      when is_float(a11) and is_float(a12) and is_float(a13) and is_float(a14) and is_float(a21) and
+             is_float(a22) and is_float(a23) and is_float(a24) and is_float(a31) and is_float(a32) and
+             is_float(a33) and is_float(a34) and is_float(a41) and is_float(a42) and is_float(a43) and
+             is_float(a44) and i in 0..3 and j in 0..3,
+      do: (1.0 - 2.0 * rem(i + j, 2)) * Graphmath.Mat33.determinant(submatrix(a, i, j))
+
+  def cofactor(a, i, j) when i in 0..3 and j in 0..3,
+    do: (1 - 2 * rem(i + j, 2)) * Graphmath.Mat33.determinant(submatrix(a, i, j))
+
+  @doc """
   `inverse(a)` calculates the inverse matrix
 
   `a` is a `mat44` to be inverted
