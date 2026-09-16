@@ -43,8 +43,7 @@ defmodule Graphmath.Mixfile do
       {:credo, "~> 1.7.7", only: :dev},
       {:dialyxir, "~> 1.4.3", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.34.2", only: [:dev, :docs]},
-      {:excoveralls, "~> 0.18.2", only: [:test, :dev]},
-      {:inch_ex, "~> 2.0.0", only: :docs}
+      {:excoveralls, "~> 0.18.2", only: [:test, :dev]}
     ]
   end
 
