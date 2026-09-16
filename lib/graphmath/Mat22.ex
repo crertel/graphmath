@@ -103,6 +103,63 @@ defmodule Graphmath.Mat22 do
   end
 
   @doc """
+  Creates a 2D linear reflection across the line through the origin
+  with normal `{nx, ny}`.
+
+  The normal may have any nonzero length; a zero normal raises `ArithmeticError`.
+  Apply using `transform_vector/2` with a full 2-component vector.
+  """
+  @spec make_reflect(vec2) :: mat22
+  def make_reflect({nx, ny})
+      when is_float(nx) and is_float(ny) do
+    scale = max(abs(nx), abs(ny))
+    ux = nx / scale
+    uy = ny / scale
+    factor = 2.0 / (ux * ux + uy * uy)
+    {1.0 - factor * ux * ux, -factor * ux * uy, -factor * uy * ux, 1.0 - factor * uy * uy}
+  end
+
+  def make_reflect({nx, ny}) do
+    scale = max(abs(nx), abs(ny))
+    ux = nx / scale
+    uy = ny / scale
+    factor = 2.0 / (ux * ux + uy * uy)
+    {1.0 - factor * ux * ux, -factor * ux * uy, -factor * uy * ux, 1.0 - factor * uy * uy}
+  end
+
+  @doc """
+  Creates a 2D linear X shear: `x' = x + k*y`.
+
+  The other spatial coordinates are unchanged.
+  Apply using `transform_vector/2` with a full 2-component vector.
+  """
+  @spec make_shear_x(float) :: mat22
+  def make_shear_x(k)
+      when is_float(k) do
+    {1.0, 0.0, k, 1.0}
+  end
+
+  def make_shear_x(k) do
+    {1.0, 0.0, 1.0 * k, 1.0}
+  end
+
+  @doc """
+  Creates a 2D linear Y shear: `y' = y + k*x`.
+
+  The other spatial coordinates are unchanged.
+  Apply using `transform_vector/2` with a full 2-component vector.
+  """
+  @spec make_shear_y(float) :: mat22
+  def make_shear_y(k)
+      when is_float(k) do
+    {1.0, k, 0.0, 1.0}
+  end
+
+  def make_shear_y(k) do
+    {1.0, 1.0 * k, 0.0, 1.0}
+  end
+
+  @doc """
   Rounds every entry to `sigfigs` decimal places, returning floats.
 
   `sigfigs` must be an integer from 0 through 15, as required by `Float.round/2`.
